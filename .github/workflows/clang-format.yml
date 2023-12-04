@@ -14,6 +14,7 @@ jobs:
         exclude: 'none'
         extensions: 'cpp,hpp'
         clangFormatVersion: 16
+        inplace: True
     - uses: EndBug/add-and-commit@v9
       with:
         add: './Hurrican/src'
