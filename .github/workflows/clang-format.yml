@@ -11,7 +11,8 @@ jobs:
     - uses: DoozyX/clang-format-lint-action@v0.16.2
       with:
         source: './Hurrican/src'
-        exclude: 'none'
+        # creditStrings includes non standard characters
+        exclude: './Hurrican/src/creditStrings.hpp'
         extensions: 'cpp,hpp'
         clangFormatVersion: 16
         inplace: True
