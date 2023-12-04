@@ -140,7 +140,6 @@ void SoundManagerClass::UpdateChannels() {
 
 // DKS - Added:
 void SoundManagerClass::Update3DChannel(int ch) {
-
     float xdiff = ((Player[0].xpos + 45) - channels[ch].xpos);
     float ydiff = ((Player[0].ypos + 45) - channels[ch].ypos);
 
@@ -303,8 +302,7 @@ void SoundManagerClass::LoadSong(const std::string &filename, int nr, bool loop 
 
     // Zuerst checken, ob sich der Song in einem MOD-Ordner befindet
     if (CommandLineParams.RunOwnLevelList) {
-        fullpath =
-            g_storage_ext + "/levels/" + std::string(CommandLineParams.OwnLevelList) + "/" + filename;
+        fullpath = g_storage_ext + "/levels/" + std::string(CommandLineParams.OwnLevelList) + "/" + filename;
         if (fs::exists(fullpath) && fs::is_regular_file(fullpath))
             goto loadfile;
     }
@@ -530,7 +528,6 @@ void SoundManagerClass::FadeSong(int nr, float speed, int end, bool pause_when_f
 //---------------------------------------------------------------------------------------
 // DKS - altered extensively, it now fades waves of specified "nr" on all channels:
 void SoundManagerClass::FadeWave(int nr, FadeModeEnum mode) {
-
     if (mode == FadeModeEnum::IN) {
         int channel = -1;
         // First, find if the sound is already playing
@@ -569,8 +566,7 @@ void SoundManagerClass::LoadWave(const std::string &filename, int nr, bool loope
     // Zuerst checken, ob sich der Sound in einem MOD-Ordner befindet
     if (CommandLineParams.RunOwnLevelList) {
         // sprintf_s(Temp, "%s/levels/%s/%s", g_storage_ext, CommandLineParams.OwnLevelList, Filename);
-        fullpath =
-            g_storage_ext + "/levels/" + std::string(CommandLineParams.OwnLevelList) + "/" + filename;
+        fullpath = g_storage_ext + "/levels/" + std::string(CommandLineParams.OwnLevelList) + "/" + filename;
 
         if (fs::exists(fullpath) && fs::is_regular_file(fullpath))
             goto loadfile;
@@ -586,8 +582,7 @@ void SoundManagerClass::LoadWave(const std::string &filename, int nr, bool loope
 
 loadfile:
 
-    sounds[nr].data =
-        SOUND_Sample_Load(nr, fullpath.c_str(), (looped ? FSOUND_LOOP_NORMAL : FSOUND_LOOP_OFF), 0, 0);
+    sounds[nr].data = SOUND_Sample_Load(nr, fullpath.c_str(), (looped ? FSOUND_LOOP_NORMAL : FSOUND_LOOP_OFF), 0, 0);
 
     // Fehler beim Laden ?
     if (!sounds[nr].data)

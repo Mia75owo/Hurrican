@@ -68,9 +68,8 @@ void GegnerPiranha::DoDraw() {
     else
         off = 20;
 
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, off + AnimPhase, 0xFFFFFFFF,
-                                           mirror);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, off + AnimPhase,
+                                           0xFFFFFFFF, mirror);
 }
 
 // --------------------------------------------------------------------------------------
@@ -137,7 +136,8 @@ void GegnerPiranha::DoKI() {
                 // Piranha links oder rechts am Spieler vorbei ?
                 // Dann umdrehen und weiter verfolgen
                 if (Handlung == GEGNER::LAUFEN) {
-                    if ((BlickRichtung == DirectionEnum::LINKS && pAim->xpos > xPos + GegnerRect[GegnerArt].right - 20) ||
+                    if ((BlickRichtung == DirectionEnum::LINKS &&
+                         pAim->xpos > xPos + GegnerRect[GegnerArt].right - 20) ||
 
                         (BlickRichtung == DirectionEnum::RECHTS && pAim->xpos + pAim->CollideRect.right < xPos)) {
                         xSpeed = 0;
@@ -197,8 +197,7 @@ void GegnerPiranha::GegnerExplode() {
                                     yPos + 10.0f + static_cast<float>(GetRandom(30)), BUBBLE);
 
     // Blutwolke dazu
-    PartikelSystem.PushPartikel(xPos + 2.0f,
-                                yPos - 5.0f, PIRANHABLUT);
+    PartikelSystem.PushPartikel(xPos + 2.0f, yPos - 5.0f, PIRANHABLUT);
 
     SoundManager.PlayWave(100, 128, -GetRandom(2000) + 11025, SOUND::EXPLOSION1);  // Sound ausgeben
 

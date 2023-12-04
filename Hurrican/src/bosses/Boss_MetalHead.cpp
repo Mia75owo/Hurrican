@@ -16,20 +16,19 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerMetalHead::GegnerMetalHead(int Wert1, int Wert2, bool Light) :
-    ShotCount(0),
-    Akt(SK_AUSGANG),
-    KieferSpeed(10.0f),
-    KieferPos(0.0f),
-    TurbineOff(0.0f),
-    Eye_Alpha(0.0f),
-    Eye_Winkel(0.0f),
-    SmokeCount(0.0f),
-    GunWinkel(0.0f),
-    MoveSpeed(5.0f),
-    Moving(false),
-    Turbine_dran(true)
-{
+GegnerMetalHead::GegnerMetalHead(int Wert1, int Wert2, bool Light)
+    : ShotCount(0),
+      Akt(SK_AUSGANG),
+      KieferSpeed(10.0f),
+      KieferPos(0.0f),
+      TurbineOff(0.0f),
+      Eye_Alpha(0.0f),
+      Eye_Winkel(0.0f),
+      SmokeCount(0.0f),
+      GunWinkel(0.0f),
+      MoveSpeed(5.0f),
+      Moving(false),
+      Turbine_dran(true) {
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 4000;
@@ -67,9 +66,8 @@ void GegnerMetalHead::DoDraw() {
         // Kopf wirbelt herum
         //
         if (AnimEnde > MAXWIRBEL - 5)
-            pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                          yPos - TileEngine.YOffset, Eye_Alpha / PI * 180.0f,
-                                                          0xFFFFFFFF);
+            pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset,
+                                                          Eye_Alpha / PI * 180.0f, 0xFFFFFFFF);
         else {
             xSpeed = 0.0f;
             ySpeed = 0.0f;
@@ -79,8 +77,7 @@ void GegnerMetalHead::DoDraw() {
 
         // Halsteile rendern
         for (int i = 0; i < AnimEnde; i++)
-            HalsGfx.RenderSpriteRotated(Hals[i].x, Hals[i].y - TileEngine.YOffset, Hals[i].w,
-                                        0xFFFFFFFF);
+            HalsGfx.RenderSpriteRotated(Hals[i].x, Hals[i].y - TileEngine.YOffset, Hals[i].w, 0xFFFFFFFF);
 
         return;
     }
@@ -94,8 +91,7 @@ void GegnerMetalHead::DoDraw() {
     } else
         Color = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-    Kiefer.RenderSprite(xPos - TileEngine.XOffset + 87.0f, yPos - TileEngine.YOffset + 107.0f + KieferPos,
-                        Color);
+    Kiefer.RenderSprite(xPos - TileEngine.XOffset + 87.0f, yPos - TileEngine.YOffset + 107.0f + KieferPos, Color);
 
     // Hals rendern ... uiuiu =)
     // Zuerst die Wirbel richtig positionieren
@@ -133,8 +129,7 @@ void GegnerMetalHead::DoDraw() {
 
     // Halsteile rendern
     for (int i = 0; i < MAXWIRBEL - 1; i++)
-        HalsGfx.RenderSpriteRotated(Hals[i].x, Hals[i].y - TileEngine.YOffset, Hals[i].w,
-                                    0xFFFFFFFF);
+        HalsGfx.RenderSpriteRotated(Hals[i].x, Hals[i].y - TileEngine.YOffset, Hals[i].w, 0xFFFFFFFF);
 
     // Turbine läuft? Dann Orange leuchten lassen
     //
@@ -171,15 +166,14 @@ void GegnerMetalHead::DoDraw() {
     if (Turbine_dran == true)
         Color = D3DCOLOR_RGBA(255, 255, 255, 255);
 
-    Kiefer2.RenderSprite(xPos - TileEngine.XOffset + 78.0f, yPos - TileEngine.YOffset + 180.0f + KieferPos,
-                         Color);
+    Kiefer2.RenderSprite(xPos - TileEngine.XOffset + 78.0f, yPos - TileEngine.YOffset + 180.0f + KieferPos, Color);
 
     // Corona des Auges rendern
     if (AlreadyDrawn == false) {
         int a = static_cast<int>(Eye_Alpha);
         DirectGraphics.SetAdditiveMode();
-        Flare.RenderSpriteRotated(xPos + 100.0f - TileEngine.XOffset, yPos + 50.0f - TileEngine.YOffset,
-                                  Eye_Winkel, D3DCOLOR_RGBA(255, 255, 255, a));
+        Flare.RenderSpriteRotated(xPos + 100.0f - TileEngine.XOffset, yPos + 50.0f - TileEngine.YOffset, Eye_Winkel,
+                                  D3DCOLOR_RGBA(255, 255, 255, a));
         AlreadyDrawn = true;
     }
 
@@ -215,7 +209,6 @@ void GegnerMetalHead::MoveToNewPoint(float x, float y, float s, int Aktion) {
 // --------------------------------------------------------------------------------------
 
 void GegnerMetalHead::WinkelToPlayer() {
-
     float ydiv = (pAim->ypos + 40) - (yPos + 200);
     if (ydiv == 0.0f)
         ydiv = 0.00001f;
@@ -344,8 +337,7 @@ void GegnerMetalHead::DoKI() {
                     PartikelSystem.PushPartikel(xPos + 20.0f + static_cast<float>(GetRandom(80)),
                                                 yPos + 130.0f + static_cast<float>(GetRandom(20)), EXPLOSION_MEDIUM2);
 
-                PartikelSystem.PushPartikel(xPos + 85.0f + TurbineOff,
-                                            yPos + 202.0f, KAPUTTETURBINE);
+                PartikelSystem.PushPartikel(xPos + 85.0f + TurbineOff, yPos + 202.0f, KAPUTTETURBINE);
 
                 SoundManager.PlayWave(100, 128, 11025, SOUND::EXPLOSION2);
                 ShakeScreen(3.0f);
@@ -379,8 +371,8 @@ void GegnerMetalHead::DoKI() {
                                                 yPos + 160.0f + static_cast<float>(GetRandom(15)), LASERFUNKE2);
                 }
 
-                PartikelSystem.PushPartikel(xPos + 30.0f + static_cast<float>(GetRandom(20)),
-                                            yPos + 140.0f, LASERFLAME);
+                PartikelSystem.PushPartikel(xPos + 30.0f + static_cast<float>(GetRandom(20)), yPos + 140.0f,
+                                            LASERFLAME);
                 PartikelSystem.PushPartikel(xPos + 5.0f, yPos + 110.0f, EXPLOSIONFLARE);
                 PartikelSystem.PushPartikel(xPos + 5.0f, yPos + 110.0f, EXPLOSIONFLARE);
                 SoundManager.PlayWave(100, 128, 11025, SOUND::FUNKE);
@@ -475,10 +467,18 @@ void GegnerMetalHead::DoKI() {
                         int size = 32;
 
                         switch (Skill) {
-                            case SKILL_EASY:     size = 32; break;
-                            case SKILL_MEDIUM:   size = 40; break;
-                            case SKILL_HARD:     size = 48; break;
-                            case SKILL_HURRICAN: size = 56; break;
+                            case SKILL_EASY:
+                                size = 32;
+                                break;
+                            case SKILL_MEDIUM:
+                                size = 40;
+                                break;
+                            case SKILL_HARD:
+                                size = 48;
+                                break;
+                            case SKILL_HURRICAN:
+                                size = 56;
+                                break;
                         }
 
                         Gegner.PushGegner(static_cast<float>(Value1 + 50.0f + static_cast<float>(GetRandom(550))),
@@ -488,8 +488,7 @@ void GegnerMetalHead::DoKI() {
                     Handlung = GEGNER::CRUSHENERHOLEN;
 
                     for (int i = 0; i < 20; i++)
-                        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(180)),
-                                                    yPos + 200.0f, SMOKEBIG);
+                        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(180)), yPos + 200.0f, SMOKEBIG);
 
                     // Spieler noch drunter? Dann wars das
                     for (int p = 0; p < NUMPLAYERS; p++)
@@ -502,8 +501,8 @@ void GegnerMetalHead::DoKI() {
                 if (ySpeed < 0.0f && yPos < Value2 + 50) {
                     ySpeed = 0.0f;
                     yAcc = 0.0f;
-                    MoveToNewPoint(static_cast<float>(Value1 + 130),
-                                   static_cast<float>(Value2 + 0), 10.0f, GEGNER::SCHIESSEN);
+                    MoveToNewPoint(static_cast<float>(Value1 + 130), static_cast<float>(Value2 + 0), 10.0f,
+                                   GEGNER::SCHIESSEN);
                     ShotArt = 1;
                 }
             } break;
@@ -539,8 +538,8 @@ void GegnerMetalHead::DoKI() {
                 if (Eye_Alpha > 255.0f) {
                     Eye_Alpha = 255.0f;
 
-                    MoveToNewPoint(static_cast<float>(Value1 + 70),
-                                   static_cast<float>(Value2 + 130), 10.0f, GEGNER::SCHIESSEN);
+                    MoveToNewPoint(static_cast<float>(Value1 + 70), static_cast<float>(Value2 + 130), 10.0f,
+                                   GEGNER::SCHIESSEN);
 
                     ShotArt = 0;
                     Akt = GEGNER::OEFFNEN;
@@ -661,14 +660,12 @@ void GegnerMetalHead::DoKI() {
                                     if (ShotArt == 1)
                                         Projectiles.PushProjectile(xPos + 95.0f,
                                                                    yPos + 185.0f + static_cast<float>(GetRandom(5)),
-                                                                   WALKERFIRE,
-                                                                   pAim);
+                                                                   WALKERFIRE, pAim);
                                     else {
                                         if (ShotCount % 12 == 0) {
                                             Projectiles.PushProjectile(xPos + 100.0f,
                                                                        yPos + 213.0f + static_cast<float>(GetRandom(5)),
-                                                                       PFLANZESHOT,
-                                                                       pAim);
+                                                                       PFLANZESHOT, pAim);
 
                                             PartikelSystem.PushPartikel(xPos + 80.0f, yPos + 150.0f, EXPLOSIONFLARE);
 
@@ -706,16 +703,16 @@ void GegnerMetalHead::DoKI() {
 
                             if (ShotArt == 2) {
                                 Akt = GEGNER::OEFFNEN;
-                                MoveToNewPoint(static_cast<float>(Value1 + 10),
-                                               static_cast<float>(Value2 + 0), 10.0f, GEGNER::SCHIESSEN);
+                                MoveToNewPoint(static_cast<float>(Value1 + 10), static_cast<float>(Value2 + 0), 10.0f,
+                                               GEGNER::SCHIESSEN);
                             } else if (ShotArt == 1) {
                                 Akt = GEGNER::OEFFNEN;
-                                MoveToNewPoint(static_cast<float>(Value1 + 130),
-                                               static_cast<float>(Value2 + 0), 10.0f, GEGNER::SCHIESSEN);
+                                MoveToNewPoint(static_cast<float>(Value1 + 130), static_cast<float>(Value2 + 0), 10.0f,
+                                               GEGNER::SCHIESSEN);
                             } else if (ShotArt == 0) {
                                 Akt = GEGNER::OEFFNEN;
-                                MoveToNewPoint(static_cast<float>(Value1 + 70),
-                                               static_cast<float>(Value2 + 80), 10.0f, GEGNER::SCHIESSEN);
+                                MoveToNewPoint(static_cast<float>(Value1 + 70), static_cast<float>(Value2 + 80), 10.0f,
+                                               GEGNER::SCHIESSEN);
                             } else {
                                 ySpeed = 50.0f;
                                 Handlung = GEGNER::CRUSHEN2;
@@ -772,8 +769,7 @@ void GegnerMetalHead::DoKI() {
                 // Ein weiterer Halswirbel explodiert und fliegt weg
                 //
                 if (AnimCount < 0.0f) {
-                    PartikelSystem.PushPartikel(Hals[AnimEnde].x + TileEngine.XOffset,
-                                                Hals[AnimEnde].y, HALSWIRBEL);
+                    PartikelSystem.PushPartikel(Hals[AnimEnde].x + TileEngine.XOffset, Hals[AnimEnde].y, HALSWIRBEL);
 
                     PartikelSystem.PushPartikel(Hals[AnimEnde].x - 20.0f + TileEngine.XOffset,
                                                 Hals[AnimEnde].y - Hals[AnimEnde].w / 3.0f, EXPLOSION_MEDIUM2);
@@ -833,15 +829,13 @@ void GegnerMetalHead::DoKI() {
     r.right = 110;
 
     for (int p = 0; p < NUMPLAYERS; p++)
-        if (Handlung != GEGNER::EXPLODIEREN &&
-            SpriteCollision(xPos + 50.0f, yPos + 130.0f, r,
-                            Player[p].xpos, Player[p].ypos, Player[p].CollideRect) == true) {
+        if (Handlung != GEGNER::EXPLODIEREN && SpriteCollision(xPos + 50.0f, yPos + 130.0f, r, Player[p].xpos,
+                                                               Player[p].ypos, Player[p].CollideRect) == true) {
             // Beim Ansaugen gleich viel abziehen und Ansaugen beenden
             //
-            if (Handlung == GEGNER::SPECIAL2 &&
-                    Player[p].Handlung != PlayerActionEnum::RADELN &&
-                    Player[p].Handlung != PlayerActionEnum::RADELN_FALL) {
-                    Player[p].DamagePlayer(500.0f);
+            if (Handlung == GEGNER::SPECIAL2 && Player[p].Handlung != PlayerActionEnum::RADELN &&
+                Player[p].Handlung != PlayerActionEnum::RADELN_FALL) {
+                Player[p].DamagePlayer(500.0f);
                 AnimPhase = 1600;
             } else
                 Player[p].DamagePlayer(Timer.sync(4.0f));

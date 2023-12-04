@@ -37,13 +37,11 @@ void GegnerStahlmuecke::DoDraw() {
     bool mirrored = BlickRichtung == DirectionEnum::RECHTS;
 
     if (Handlung != GEGNER::FALLEN)
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF,
-                                               mirrored);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase,
+                                               0xFFFFFFFF, mirrored);
     else
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, AnimPhase, 0xFFFF0000,
-                                               mirrored);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase,
+                                               0xFFFF0000, mirrored);
 }
 
 // --------------------------------------------------------------------------------------

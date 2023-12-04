@@ -11,22 +11,21 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerTheWall::GegnerTheWall(int Wert1, int Wert2, bool Light) :
-    HeartAnim(0),
-    CountOpen(3),
-    // DKS - Added initializers after valgrind reported use of uninitialized data:
-    ShotDelay(0.0f),
-    SmokeDelay(0.0f),
-    KringelWinkel(0.0f),
-    HeartBeat(0.0f),
-    DoorOffset(0.0f),
-    SkullEnergy(250),
-    VorneX(0.0f),
-    VorneY(0.0f),
-    Laughing(0.0f),
-    dummy(0.0f),
-    SkullShotDelay(0.0f)
-{
+GegnerTheWall::GegnerTheWall(int Wert1, int Wert2, bool Light)
+    : HeartAnim(0),
+      CountOpen(3),
+      // DKS - Added initializers after valgrind reported use of uninitialized data:
+      ShotDelay(0.0f),
+      SmokeDelay(0.0f),
+      KringelWinkel(0.0f),
+      HeartBeat(0.0f),
+      DoorOffset(0.0f),
+      SkullEnergy(250),
+      VorneX(0.0f),
+      VorneY(0.0f),
+      Laughing(0.0f),
+      dummy(0.0f),
+      SkullShotDelay(0.0f) {
     Active = true;
     Handlung = GEGNER::INIT;
     BlickRichtung = DirectionEnum::LINKS;
@@ -81,12 +80,11 @@ void GegnerTheWall::DoDraw() {
             Color = 0xFFFFFFFF;
 
         // Maschine rechts
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, 0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0xFFFFFFFF);
 
         // Vorderteil
-        Vorne.RenderSprite(xPos - TileEngine.XOffset + VorneX + 3.0f,
-                           yPos - TileEngine.YOffset + VorneY + 148.0f, 0xFFFFFFFF);
+        Vorne.RenderSprite(xPos - TileEngine.XOffset + VorneX + 3.0f, yPos - TileEngine.YOffset + VorneY + 148.0f,
+                           0xFFFFFFFF);
     }
 
     // Skeletorkopf rendern
@@ -94,8 +92,8 @@ void GegnerTheWall::DoDraw() {
         Brain.SetRect(0, 123, 27, 157);
         if (DirectGraphics.GetBlendMode() == BlendModeEnum::ADDITIV)
             DirectGraphics.SetAdditiveMode();
-        Brain.RenderSprite(xPos - TileEngine.XOffset + 3.0f + VorneX,
-                           yPos - TileEngine.YOffset + 228.0f + VorneY, Color);
+        Brain.RenderSprite(xPos - TileEngine.XOffset + 3.0f + VorneX, yPos - TileEngine.YOffset + 228.0f + VorneY,
+                           Color);
     }
 
     if (AlreadyDrawn == true)
@@ -113,7 +111,7 @@ void GegnerTheWall::DoDraw() {
 
         // Suppe rendern
         DirectGraphics.SetAdditiveMode();
-        int const alpha = toff + toff/2;
+        int const alpha = toff + toff / 2;
         D3DCOLOR supcol1 = D3DCOLOR_RGBA(150, 0, 0, alpha);
         D3DCOLOR supcol2 = D3DCOLOR_RGBA(150, 0, 0, alpha);
         int start = static_cast<int>((4000.0f - Energy * 0.75f) / 4000.0f * 42.0f);
@@ -241,8 +239,7 @@ void GegnerTheWall::NeueAktion() {
 // --------------------------------------------------------------------------------------
 
 void GegnerTheWall::ReturnSkull() {
-
-    for (auto& enemy: Gegner.enemies) {
+    for (auto &enemy : Gegner.enemies) {
         if (enemy->GegnerArt == SKULL)
             enemy->Handlung = GEGNER::SPECIAL2;
     }
@@ -395,8 +392,9 @@ void GegnerTheWall::DoKI() {
         //
         if (Active == true && TileEngine.Zustand == TileStateEnum::SCROLLBAR) {
             if (PlayerAbstand() < 800 && PlayerAbstandHoriz() < 400.0f) {
-                TileEngine.ScrollLevel(xPos - 355.0f, yPos, TileStateEnum::SCROLLTOLOCK);  // Level auf den Boss zentrieren
-                SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);         // Ausfaden und pausieren
+                TileEngine.ScrollLevel(xPos - 355.0f, yPos,
+                                       TileStateEnum::SCROLLTOLOCK);       // Level auf den Boss zentrieren
+                SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);  // Ausfaden und pausieren
             }
         }
 
@@ -411,7 +409,7 @@ void GegnerTheWall::DoKI() {
             // Rad checken
             for (int p = 0; p < NUMPLAYERS; p++) {
                 if (Player[p].Handlung == PlayerActionEnum::RADELN ||
-                        Player[p].Handlung == PlayerActionEnum::RADELN_FALL)
+                    Player[p].Handlung == PlayerActionEnum::RADELN_FALL)
                     Player[p].Handlung = PlayerActionEnum::LAUFEN;
             }
 
@@ -437,19 +435,17 @@ void GegnerTheWall::DoKI() {
 
             for (int i = 0; i < 20; i++)
                 PartikelSystem.PushPartikel(xPos + static_cast<float>(TunnelOffx + 114 + GetRandom(30)),
-                                            yPos + static_cast<float>(TunnelOffY + 59 + GetRandom(45)),
-                                            SCHLEIM);
+                                            yPos + static_cast<float>(TunnelOffY + 59 + GetRandom(45)), SCHLEIM);
 
             for (int i = 0; i < 80; i++)
                 PartikelSystem.PushPartikel(xPos + static_cast<float>(TunnelOffx + 114 + GetRandom(30)),
-                                            yPos + static_cast<float>(TunnelOffY + 59 + GetRandom(45)),
-                                            GLASSPLITTER);
+                                            yPos + static_cast<float>(TunnelOffY + 59 + GetRandom(45)), GLASSPLITTER);
 
             // Wie lange warten?
             AnimCount = 100.0f;
 
             // Den Schädel verschwinden lassen
-            for (auto& enemy: Gegner.enemies) {
+            for (auto &enemy : Gegner.enemies) {
                 if (enemy->GegnerArt == SKULL) {
                     enemy->Value1 = 0;
                     enemy->AnimCount = 0.5f;
@@ -544,8 +540,7 @@ void GegnerTheWall::DoKI() {
 
             if (ShotDelay < 0.0f) {
                 if (ShotCount > 1) {
-                    Projectiles.PushProjectile(TileEngine.XOffset - 40.0f, yPos + 240.0f,
-                                               SPIDERLASER);
+                    Projectiles.PushProjectile(TileEngine.XOffset - 40.0f, yPos + 240.0f, SPIDERLASER);
                     SoundManager.PlayWave(100, 128, 11025, SOUND::BEAMLOAD2);
                 }
 

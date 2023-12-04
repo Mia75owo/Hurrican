@@ -41,8 +41,7 @@ GegnerClimber::GegnerClimber(int Wert1, int Wert2, bool Light) {
 void GegnerClimber::DoDraw() {
     // Spinne rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                  yPos - TileEngine.YOffset, rot, AnimPhase,
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, rot, AnimPhase,
                                                   0xFFFFFFFF);
 }
 
@@ -82,7 +81,6 @@ void GegnerClimber::DoKI() {
         //
         case GEGNER::INIT: {
             if (Value1 != 99) {
-
                 // Abstände berechnen
                 float dx = (xPos + 25.0f) - (pAim->xpos + 35.0f);
                 float dy = (yPos + 18.0f) - (pAim->ypos + 20.0f);
@@ -282,10 +280,10 @@ void GegnerClimber::GegnerExplode() {
     PartikelSystem.PushPartikel(xPos + 5.0f, yPos, EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 10; i++) {
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)),
-                                    yPos + static_cast<float>(GetRandom(30)), SPIDERSPLITTER);
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)),
-                                    yPos + static_cast<float>(GetRandom(30)), FUNKE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)), yPos + static_cast<float>(GetRandom(30)),
+                                    SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)), yPos + static_cast<float>(GetRandom(30)),
+                                    FUNKE);
     }
 
     Player[0].Score += 250;

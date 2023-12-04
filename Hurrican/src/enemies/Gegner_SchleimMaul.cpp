@@ -66,7 +66,6 @@ void GegnerSchleimMaul::DoKI() {
     // Ein Child weg? Dann neu spawnen
     for (int i = 0; i < 8; i++) {
         if (pChildren[i]->Energy <= 0.0f) {
-
             // Zufallspunkt um die Mama rum
             //
             float r = static_cast<float>(GetRandom(360));
@@ -78,7 +77,8 @@ void GegnerSchleimMaul::DoKI() {
             //      radian inputs, while also adding support of deg/rad cos/sin w/ lookup table support:
             // Gegner.PushGegner (xPos + static_cast<float>(sin(r)) * r1, yPos + static_cast<float>(cos(r)) * r2,
             // SCHLEIMALIEN, 20, 0, ChangeLight);
-            pChildren[i] = Gegner.PushGegner(xPos + sin_deg(r) * r1, yPos + cos_deg(r) * r2, SCHLEIMALIEN, 20, 0, ChangeLight);
+            pChildren[i] =
+                Gegner.PushGegner(xPos + sin_deg(r) * r1, yPos + cos_deg(r) * r2, SCHLEIMALIEN, 20, 0, ChangeLight);
         }
     }
 

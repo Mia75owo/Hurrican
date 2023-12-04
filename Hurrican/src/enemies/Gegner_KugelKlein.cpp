@@ -17,7 +17,7 @@ GegnerKugelKlein::GegnerKugelKlein(int Wert1, int Wert2, bool Light) {
     Handlung = GEGNER::LAUFEN;
     Energy = 20;
     BlickRichtung = DirectionEnum::LINKS;
-    yAcc = 5.0f;                                         // Fallen lassen
+    yAcc = 5.0f;  // Fallen lassen
     Value1 = Wert1;
     Value2 = Wert2;
     if (Value1 != 0)  // ggf vorgegebene Speed benutzen
@@ -37,8 +37,8 @@ GegnerKugelKlein::GegnerKugelKlein(int Wert1, int Wert2, bool Light) {
 
 void GegnerKugelKlein::DoKI() {
     BlickRichtung = DirectionEnum::LINKS;
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;  // Dann wieder auf Null setzen
 

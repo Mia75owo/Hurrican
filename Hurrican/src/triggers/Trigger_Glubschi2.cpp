@@ -49,8 +49,7 @@ void GegnerGlubschi2::DoDraw() {
 
     // Glubschi rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
 
     // Corona rendern
     //

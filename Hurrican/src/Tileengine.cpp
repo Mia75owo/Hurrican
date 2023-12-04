@@ -111,7 +111,7 @@ TileEngineClass::TileEngineClass() {
             //		 for (int k = 0; k < 3; k++)
             //			 TileAt(i, j).Color[k] = 0xFFFFFFFF;
 
-            LevelTileStruct& tile = Tiles[i][j];
+            LevelTileStruct &tile = Tiles[i][j];
             tile.Red = 255;
             tile.Green = 255;
             tile.Blue = 255;
@@ -265,8 +265,8 @@ void TileEngineClass::ClearLevel() {
     for (int i = 4; i < MAX_GEGNERGFX; i++)
         if (i != PUNISHER && pGegnerGrafix[i] != nullptr)  // Ist eine Textur geladen ?
         {
-            delete (pGegnerGrafix[i]);  // dann diese löschen
-            pGegnerGrafix[i] = nullptr;    // und auf NULL setzen
+            delete (pGegnerGrafix[i]);   // dann diese löschen
+            pGegnerGrafix[i] = nullptr;  // und auf NULL setzen
         }
 
     for (auto &gfx : TileGfx) {
@@ -411,7 +411,7 @@ loadfile:
             if (LoadTile.TileSetFront > LoadedTilesets)
                 LoadTile.TileSetFront = LoadedTilesets;
 
-            LevelTileStruct& tile = TileAt(i, j);
+            LevelTileStruct &tile = TileAt(i, j);
 
             // Geladenes Leveltile übernehmen
             //
@@ -464,7 +464,7 @@ loadfile:
             uint32_t bo = TileAt(i + 0, j - 1).Block;
             uint32_t bu = TileAt(i + 0, j + 1).Block;
 
-            LevelTileStruct& tile = TileAt(i, j);
+            LevelTileStruct &tile = TileAt(i, j);
 
             if (!(TileAt(i - 1, j - 1).Block & BLOCKWERT_WAND) && !(TileAt(i, j - 1).Block & BLOCKWERT_WASSERFALL) &&
                 !(TileAt(i - 1, j - 1).Block & BLOCKWERT_WASSERFALL) &&
@@ -694,9 +694,9 @@ loadfile:
 
                 // Gegner bei aktuellem Skill level überhaupt erzeugen ?
                 if (LoadObject.Skill <= Skill) {
-                    Gegner.PushGegner(static_cast<float>(LoadObject.XPos),
-                                      static_cast<float>(LoadObject.YPos), LoadObject.ObjectID,
-                                      LoadObject.Value1, LoadObject.Value2, LoadObject.ChangeLight);
+                    Gegner.PushGegner(static_cast<float>(LoadObject.XPos), static_cast<float>(LoadObject.YPos),
+                                      LoadObject.ObjectID, LoadObject.Value1, LoadObject.Value2,
+                                      LoadObject.ChangeLight);
 
                     if (LoadObject.ObjectID == REITFLUGSACK && NUMPLAYERS == 2)
                         Gegner.PushGegner(static_cast<float>(LoadObject.XPos + 60),
@@ -739,7 +739,7 @@ loadfile:
     ColR2 = std::stoi(std::string(&DateiAppendix.Col2[0], 2), nullptr, 16);
     ColG2 = std::stoi(std::string(&DateiAppendix.Col2[2], 2), nullptr, 16);
     ColB2 = std::stoi(std::string(&DateiAppendix.Col2[4], 2), nullptr, 16);
-    
+
     int const ColA1 = std::stoi(std::string(&DateiAppendix.Col1[6], 2), nullptr, 16);
     int const ColA2 = std::stoi(std::string(&DateiAppendix.Col2[6], 2), nullptr, 16);
 
@@ -786,7 +786,6 @@ void TileEngineClass::SetScrollSpeed(float xSpeed, float ySpeed) {
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::CalcRenderRange() {
-
     // Ausschnittgröße berechnen
     //
     int xo = static_cast<int>(XOffset * (1.0f / TILESIZE_X));
@@ -842,7 +841,6 @@ void TileEngineClass::CalcRenderRange() {
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::DrawBackground() {
-
     // Hintergrund nicht rotieren
     //
     glm::mat4x4 matView = glm::mat4x4(1.0f);
@@ -923,7 +921,7 @@ void TileEngineClass::DrawBackground() {
 
     xoff = static_cast<int>(XOffset / 4.0f + CloudMovement) % RENDERWIDTH;
     yoff = static_cast<float>((LEVELSIZE_Y - SCREENSIZE_Y) * 40);  // Grösse des Levels in Pixeln (-1 Screen)
-    yoff = 240.0f / yoff * YOffset;               // y-Offset des Layers berechnen
+    yoff = 240.0f / yoff * YOffset;                                // y-Offset des Layers berechnen
 
     // Linke Hälfte
     CloudLayer.SetRect(0, static_cast<int>(yoff), xoff, 240);
@@ -957,7 +955,6 @@ void TileEngineClass::DrawBackground() {
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::DrawBackLevel() {
-
     // Am Anfang noch keine Textur gewählt
     int ActualTexture = -1;
 
@@ -978,12 +975,10 @@ void TileEngineClass::DrawBackLevel() {
         xScreen = static_cast<float>(-xTileOffs) + RenderPosX * TILESIZE_X;
 
         for (int i = RenderPosX; i < RenderPosXTo; i++) {
-            const LevelTileStruct& tile = TileAt(xLevel + i, yLevel + j);
+            const LevelTileStruct &tile = TileAt(xLevel + i, yLevel + j);
 
             if (tile.BackArt > 0 &&  // Überhaupt ein Tile drin ?
-                (!(tile.Block & BLOCKWERT_WAND) ||
-                 (tile.FrontArt > 0 &&
-                  tile.Block & BLOCKWERT_VERDECKEN))) {
+                (!(tile.Block & BLOCKWERT_WAND) || (tile.FrontArt > 0 && tile.Block & BLOCKWERT_VERDECKEN))) {
                 // Neue Textur ?
                 if (tile.TileSetBack != ActualTexture) {
                     // Aktuelle Textur sichern
@@ -1071,8 +1066,7 @@ void TileEngineClass::DrawBackLevel() {
                 if (TileAt(xLevel+i, yLevel+j).move_v4 == true) v4.x += SinList2[off + 2];
 #endif  // 0
 
-                if (tile.move_v1 || tile.move_v2 ||
-                    tile.move_v3 || tile.move_v4) {
+                if (tile.move_v1 || tile.move_v2 || tile.move_v3 || tile.move_v4) {
                     float x_offs[2];
                     WaterSinTable.GetNonWaterSin(j, x_offs);
 
@@ -1120,7 +1114,6 @@ void TileEngineClass::DrawBackLevel() {
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::DrawFrontLevel() {
-
     // Am Anfang noch keine Textur gewählt
     int ActualTexture = -1;
 
@@ -1141,11 +1134,9 @@ void TileEngineClass::DrawFrontLevel() {
         xScreen = static_cast<float>(-xTileOffs + RenderPosX * TILESIZE_X);
 
         for (int i = RenderPosX; i < RenderPosXTo; i++) {
-            const LevelTileStruct& tile = TileAt(xLevel + i, yLevel + j);
+            const LevelTileStruct &tile = TileAt(xLevel + i, yLevel + j);
 
-            if (tile.FrontArt > 0 &&
-                !(tile.Block & BLOCKWERT_VERDECKEN) &&
-                !(tile.Block & BLOCKWERT_WAND)) {
+            if (tile.FrontArt > 0 && !(tile.Block & BLOCKWERT_VERDECKEN) && !(tile.Block & BLOCKWERT_WAND)) {
                 // Neue Textur ?
                 if (tile.TileSetFront != ActualTexture) {
                     // Aktuelle Textur sichern
@@ -1190,8 +1181,7 @@ void TileEngineClass::DrawFrontLevel() {
                     v3.color = tile.Color[2];
                     v4.color = tile.Color[3];
                 } else {
-                    v1.color = v2.color = v3.color = v4.color =
-                        D3DCOLOR_RGBA(255, 255, 255, tile.Alpha);
+                    v1.color = v2.color = v3.color = v4.color = D3DCOLOR_RGBA(255, 255, 255, tile.Alpha);
                 }
 
                 v1.x = l;  // Links oben
@@ -1238,8 +1228,7 @@ void TileEngineClass::DrawFrontLevel() {
                 if (TileAt(xLevel+i, yLevel+j).move_v4 == true) v4.x += SinList2[off + 2];
 #endif  // 0
 
-                if (tile.move_v1 || tile.move_v2 ||
-                    tile.move_v3 || tile.move_v4) {
+                if (tile.move_v1 || tile.move_v2 || tile.move_v3 || tile.move_v4) {
                     float x_offs[2];
                     WaterSinTable.GetNonWaterSin(j, x_offs);
 
@@ -1302,7 +1291,6 @@ void TileEngineClass::ScrollLevel(float x, float y, TileStateEnum neu, float sx,
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::DrawBackLevelOverlay() {
-
     // Am Anfang noch keine Textur gewählt
     int ActualTexture = -1;
 
@@ -1322,13 +1310,12 @@ void TileEngineClass::DrawBackLevelOverlay() {
         xScreen = static_cast<float>(-xTileOffs + RenderPosX * TILESIZE_X);
 
         for (int i = RenderPosX; i < RenderPosXTo; i++) {
-            const LevelTileStruct& tile = TileAt(xLevel + i, yLevel + j);
+            const LevelTileStruct &tile = TileAt(xLevel + i, yLevel + j);
 
             // Hintergrundtile nochmal neu setzen?
             //
             if (tile.BackArt > 0 && tile.Block & BLOCKWERT_WAND &&
-                (!(tile.FrontArt > 0 &&
-                   tile.Block & BLOCKWERT_VERDECKEN))) {
+                (!(tile.FrontArt > 0 && tile.Block & BLOCKWERT_VERDECKEN))) {
                 // Neue Textur ?
                 if (tile.TileSetBack != ActualTexture) {
                     // Aktuelle Textur sichern
@@ -1420,7 +1407,6 @@ void TileEngineClass::DrawBackLevelOverlay() {
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::DrawOverlayLevel() {
-
     // Am Anfang noch keine Textur gewählt
     int ActualTexture = -1;
 
@@ -1440,16 +1426,12 @@ void TileEngineClass::DrawOverlayLevel() {
         xScreen = static_cast<float>(-xTileOffs + RenderPosX * TILESIZE_X);
 
         for (int i = RenderPosX; i < RenderPosXTo; i++) {
-            const LevelTileStruct& tile = TileAt(xLevel + i, yLevel + j);
+            const LevelTileStruct &tile = TileAt(xLevel + i, yLevel + j);
 
             // Vordergrund Tiles setzen, um Spieler zu verdecken
-            if ((tile.FrontArt > 0 &&
-                 (tile.Block & BLOCKWERT_VERDECKEN ||
-                  tile.Block & BLOCKWERT_WAND)) ||
-                tile.Block & BLOCKWERT_WASSERFALL ||
-                tile.Block & BLOCKWERT_MOVELINKS ||
-                tile.Block & BLOCKWERT_MOVERECHTS ||
-                tile.Block & BLOCKWERT_MOVEVERTICAL) {
+            if ((tile.FrontArt > 0 && (tile.Block & BLOCKWERT_VERDECKEN || tile.Block & BLOCKWERT_WAND)) ||
+                tile.Block & BLOCKWERT_WASSERFALL || tile.Block & BLOCKWERT_MOVELINKS ||
+                tile.Block & BLOCKWERT_MOVERECHTS || tile.Block & BLOCKWERT_MOVEVERTICAL) {
                 // Screen-Koordinaten der Vertices
                 float const l = xScreen;               // Links
                 float const o = yScreen;               // Oben
@@ -1504,12 +1486,9 @@ void TileEngineClass::DrawOverlayLevel() {
                                 // normales Overlay Tile
                                 else
                 */
-                if ((tile.FrontArt > 0 &&
-                     (tile.Block & BLOCKWERT_VERDECKEN ||
-                      tile.Block & BLOCKWERT_MOVEVERTICAL ||
-                      tile.Block & BLOCKWERT_MOVELINKS ||
-                      tile.Block & BLOCKWERT_MOVERECHTS ||
-                      tile.Block & BLOCKWERT_WAND))) {
+                if ((tile.FrontArt > 0 && (tile.Block & BLOCKWERT_VERDECKEN || tile.Block & BLOCKWERT_MOVEVERTICAL ||
+                                           tile.Block & BLOCKWERT_MOVELINKS || tile.Block & BLOCKWERT_MOVERECHTS ||
+                                           tile.Block & BLOCKWERT_WAND))) {
                     // Neue Textur ?
                     if (tile.TileSetFront != ActualTexture) {
                         // Aktuelle Textur sichern
@@ -1568,8 +1547,7 @@ void TileEngineClass::DrawOverlayLevel() {
                         v3.color = tile.Color[2];
                         v4.color = tile.Color[3];
                     } else {
-                        v1.color = v2.color = v3.color = v4.color =
-                            D3DCOLOR_RGBA(255, 255, 255, tile.Alpha);
+                        v1.color = v2.color = v3.color = v4.color = D3DCOLOR_RGBA(255, 255, 255, tile.Alpha);
                     }
 
                     // DKS - Variable was unused in original source, disabled:
@@ -1622,7 +1600,6 @@ void TileEngineClass::DrawOverlayLevel() {
 // --------------------------------------------------------------------------------------
 
 void TileEngineClass::DrawWater() {
-
     // x und ypos am screen errechnen
     xScreen = static_cast<float>(-xTileOffs + RenderPosX * TILESIZE_X);
     yScreen = static_cast<float>(-yTileOffs + RenderPosY * TILESIZE_Y);
@@ -1721,7 +1698,7 @@ void TileEngineClass::DrawWater() {
                 xScreen = static_cast<float>(-xTileOffs + RenderPosX * TILESIZE_X);
 
                 for (int i = RenderPosX; i < RenderPosXTo; i++) {
-                    const LevelTileStruct& tile = TileAt(xLevel + i, yLevel + j);
+                    const LevelTileStruct &tile = TileAt(xLevel + i, yLevel + j);
 
                     // Vordergrund Tiles setzen um Spieler zu verdecken
                     if (tile.Block & BLOCKWERT_LIQUID) {
@@ -1811,8 +1788,7 @@ void TileEngineClass::DrawWater() {
                         //    v3.y += WaterList[off + j*10 + i * 2 + 10];
                         // if (TileAt(xLevel+i, yLevel+j).move_v4 == true)
                         //    v4.y += WaterList[off + j*10 + i * 2 + 10];
-                        if (tile.move_v1 || tile.move_v2 ||
-                            tile.move_v3 || tile.move_v4) {
+                        if (tile.move_v1 || tile.move_v2 || tile.move_v3 || tile.move_v4) {
                             float y_offs[2];
                             WaterSinTable.GetWaterSin(i, j, y_offs);
                             if (tile.move_v1 == true)
@@ -1987,9 +1963,9 @@ void TileEngineClass::UpdateLevel() {
     YOffset += ScrollSpeedY * Timer.getSpeedFactor();
 
     // Tiles animieren
-    TileAnimCount += Timer.getSpeedFactor();        // Counter erhöhen
-    if (TileAnimCount > TILEANIM_SPEED)  // auf Maximum prüfen
-                                         // if (TileAnimCount > 0.5f)			// auf Maximum prüfen
+    TileAnimCount += Timer.getSpeedFactor();  // Counter erhöhen
+    if (TileAnimCount > TILEANIM_SPEED)       // auf Maximum prüfen
+                                              // if (TileAnimCount > 0.5f)			// auf Maximum prüfen
     {
         TileAnimCount = 0.0f;    // Counter wieder auf 0 setzen
         TileAnimPhase++;         // und nächste Animphase setzen
@@ -2188,7 +2164,7 @@ void TileEngineClass::UpdateLevel() {
 // ausfransen, indem die Alphawerte der angrenzenden Tiles auf 0 gesetzt werden
 // damit die Tiles nicht so abgeschnitten aussehen
 // --------------------------------------------------------------------------------------
-#if 0 // unused
+#if 0  // unused
 void TileEngineClass::MakeBordersLookCool(int x, int y) {
     /*	if (TileAt(x+1, y+0).Block & BLOCKWERT_DESTRUCTIBLE)
         {
@@ -3134,7 +3110,6 @@ int	TileEngineClass::BlockSlopes(float &x, float &y, float &xo, float &yo, RECT_
 #endif  // 0
 // DKS - Rewritten version of above function:
 uint32_t TileEngineClass::BlockSlopes(const float x, float &y, const RECT_struct rect, const float ySpeed) {
-
     for (int j = rect.bottom; j < rect.bottom + TILESIZE_Y; j++) {
         int ylev = static_cast<int>((y + (j - 1)) * (1.0f / TILESIZE_Y));
 
@@ -3159,7 +3134,7 @@ uint32_t TileEngineClass::BlockSlopes(const float x, float &y, const RECT_struct
 
             if (block & BLOCKWERT_SCHRAEGE_L) {
                 float newy = static_cast<float>((ylev + 1) * TILESIZE_Y - rect.bottom -
-                    (TILESIZE_Y - (static_cast<int>(x + i) % TILESIZE_X)) - 1);
+                                                (TILESIZE_Y - (static_cast<int>(x + i) % TILESIZE_X)) - 1);
                 if (ySpeed == 0.0f || y > newy) {
                     y = newy;
                     return block;
@@ -3183,7 +3158,7 @@ uint32_t TileEngineClass::BlockSlopes(const float x, float &y, const RECT_struct
 
             if (block & BLOCKWERT_SCHRAEGE_R) {
                 float newy = static_cast<float>((ylev + 1) * TILESIZE_Y - rect.bottom -
-                    (static_cast<int>(x + i) % TILESIZE_X) - 1);
+                                                (static_cast<int>(x + i) % TILESIZE_X) - 1);
                 if (ySpeed == 0.0f || y > newy) {
                     y = newy;
                     return block;
@@ -3199,12 +3174,10 @@ uint32_t TileEngineClass::BlockSlopes(const float x, float &y, const RECT_struct
 // Checken ob ein Schuss eine zerstörbare Wand getroffen hat und wenn ja, diese
 // zerstören und true zurückliefern, damit der Schuss ebenfalls gelöscht wird
 // --------------------------------------------------------------------------------------
-bool TileEngineClass::CheckDestroyableWalls(float x, float y, float xs, float ys, RECT_struct rect)
-{
+bool TileEngineClass::CheckDestroyableWalls(float x, float y, float xs, float ys, RECT_struct rect) {
     // Ausserhalb vom Level?
     //
-    if (x < 0 || x > LEVELPIXELSIZE_X ||
-            y < 0 || y > LEVELPIXELSIZE_Y)
+    if (x < 0 || x > LEVELPIXELSIZE_X || y < 0 || y > LEVELPIXELSIZE_Y)
         return false;
 
     int xstart = static_cast<int>((x + Timer.sync(xs)) * (1.0f / TILESIZE_X));
@@ -3218,10 +3191,9 @@ bool TileEngineClass::CheckDestroyableWalls(float x, float y, float xs, float ys
     ystart = std::clamp(ystart, 0, LEVELSIZE_Y - yl);
 
     // Check whole rect of the shot
-    for (int i=xstart-1; i<xstart + xl; i++) {
-        for (int j=ystart; j<ystart + yl; j++) {
-            if (TileAt(i, j).Block & BLOCKWERT_DESTRUCTIBLE)
-            {
+    for (int i = xstart - 1; i < xstart + xl; i++) {
+        for (int j = ystart; j < ystart + yl; j++) {
+            if (TileAt(i, j).Block & BLOCKWERT_DESTRUCTIBLE) {
                 ExplodeWall(i, j);
                 return true;
             }
@@ -3237,7 +3209,6 @@ bool TileEngineClass::CheckDestroyableWalls(float x, float y, float xs, float ys
 // --------------------------------------------------------------------------------------
 
 D3DCOLOR TileEngineClass::LightValue(float x, float y, RECT_struct rect, bool forced) {
-
     int const x_level = static_cast<int>((x + (rect.right - rect.left) / 2) / TILESIZE_X);  // xPosition im Level
     int const y_level = static_cast<int>((y + (rect.bottom - rect.top) / 2) / TILESIZE_Y);  // yPosition im Level
 
@@ -3248,9 +3219,9 @@ D3DCOLOR TileEngineClass::LightValue(float x, float y, RECT_struct rect, bool fo
     //    return 0xFFFFFFFF;										// das Licht des Objektes ändern
     if ((x_level >= LEVELSIZE_X || y_level >= LEVELSIZE_Y) ||
         (!forced && !(TileAt(x_level, y_level).Block & BLOCKWERT_LIGHT)))  // Soll das Leveltile garnicht
-        return 0xFFFFFFFF;                                               // das Licht des Objektes ändern
+        return 0xFFFFFFFF;                                                 // das Licht des Objektes ändern
 
-    const LevelTileStruct& tile = TileAt(x_level, y_level);
+    const LevelTileStruct &tile = TileAt(x_level, y_level);
     unsigned int r = tile.Red;
     unsigned int g = tile.Green;
     unsigned int b = tile.Blue;
@@ -3275,7 +3246,11 @@ D3DCOLOR TileEngineClass::LightValue(float x, float y, RECT_struct rect, bool fo
 // entsprechend der umliegenden Tiles -> smoothe Übergänge -> Geilomat!
 // --------------------------------------------------------------------------------------
 
-inline void interpolateColor(const LevelTileStruct& centralTile, const LevelTileStruct& otherTile, int& r, int& g, int& b) {
+inline void interpolateColor(const LevelTileStruct &centralTile,
+                             const LevelTileStruct &otherTile,
+                             int &r,
+                             int &g,
+                             int &b) {
     if (!((otherTile.Block ^ centralTile.Block) & BLOCKWERT_WAND)) {
         r = otherTile.Red;
         g = otherTile.Green;
@@ -3296,7 +3271,7 @@ void TileEngineClass::ComputeCoolLight() {
     //
     for (int i = 1; i < LEVELSIZE_X - 1; i += 1)
         for (int j = 1; j < LEVELSIZE_Y - 1; j += 1) {
-            LevelTileStruct& tile = TileAt(i, j);
+            LevelTileStruct &tile = TileAt(i, j);
 
             int const al = tile.Alpha;
 
@@ -3401,7 +3376,7 @@ void TileEngineClass::ExplodeWall(int x, int y) {
     if (x < 1 || y < 1 || x > (LEVELSIZE_X - 1) || y > (LEVELSIZE_Y - 1))
         return;
 
-    LevelTileStruct& tile = TileAt(x, y);
+    LevelTileStruct &tile = TileAt(x, y);
 
     // keine zerstörbare Wand?
     //
@@ -3416,7 +3391,8 @@ void TileEngineClass::ExplodeWall(int x, int y) {
                                     static_cast<float>(y * TILESIZE_Y + GetRandom(10)), ROCKSPLITTERSMALL);
 
     for (int k = 0; k < 4; k++)
-        PartikelSystem.PushPartikel(static_cast<float>(x * TILESIZE_X + 8), static_cast<float>(y * TILESIZE_Y + 8), FUNKE);
+        PartikelSystem.PushPartikel(static_cast<float>(x * TILESIZE_X + 8), static_cast<float>(y * TILESIZE_Y + 8),
+                                    FUNKE);
 
     PartikelSystem.PushPartikel(static_cast<float>(x * TILESIZE_X - TILESIZE_X),
                                 static_cast<float>(y * TILESIZE_Y - TILESIZE_Y), SMOKEBIG);
@@ -3470,4 +3446,3 @@ void TileEngineClass::ToggleLamp() {
     } else
         bDrawShadow = false;
 }
-

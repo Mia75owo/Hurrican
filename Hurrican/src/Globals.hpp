@@ -27,14 +27,7 @@
 
 //----- Spielzustände
 
-enum class GameStateEnum {
-  CRACKTRO,
-  VORSPANN,
-  INTRO,
-  MAINMENU,
-  GAMELOOP,
-  OUTTRO
-};
+enum class GameStateEnum { CRACKTRO, VORSPANN, INTRO, MAINMENU, GAMELOOP, OUTTRO };
 
 // --------------------------------------------------------------------------------------
 // Definitionen für den Spielablauf
@@ -45,25 +38,25 @@ constexpr float MAX_ARMOUR = 200.0f;        // Maximalwert für das Rad
 constexpr int DIAMONDS_FOR_EXTRALIFE = 50;  // Diamanten die man für 200 Zeiteinheiten
 
 #if defined(__AROS__)
-#  define TEMP_FILE_PREFIX "T:"
+#define TEMP_FILE_PREFIX "T:"
 #else
-#  define TEMP_FILE_PREFIX
+#define TEMP_FILE_PREFIX
 #endif
 
 // --------------------------------------------------------------------------------------
 // Functions
 // --------------------------------------------------------------------------------------
-template<typename T>
-inline void clampAngle(T& angle) {
+template <typename T>
+inline void clampAngle(T &angle) {
     static_assert(std::is_arithmetic<T>::value, "Arithmetic value required in clampAngle.");
 
     constexpr T MIN_ANGLE = static_cast<T>(0);
     constexpr T MAX_ANGLE = static_cast<T>(360);
 
     while (angle < MIN_ANGLE)
-      angle += MAX_ANGLE;
+        angle += MAX_ANGLE;
     while (angle >= MAX_ANGLE)
-      angle -= MAX_ANGLE;
+        angle -= MAX_ANGLE;
 }
 
 // --------------------------------------------------------------------------------------

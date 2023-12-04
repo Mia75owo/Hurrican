@@ -69,29 +69,26 @@ void GegnerFlugBoss::DoDraw() {
     SchieneR.RenderSprite(320 + SchienePos, yPos - TileEngine.YOffset + 161.0f, 0xFFFFFFFF);
 
     // Fette Kanone
-    Kanone_big.RenderSprite(-TileEngine.XOffset + xPos + 121.0f,
-                            -TileEngine.YOffset + yPos + 249.0f - yKanone[0], 0xFFFFFFFF);
+    Kanone_big.RenderSprite(-TileEngine.XOffset + xPos + 121.0f, -TileEngine.YOffset + yPos + 249.0f - yKanone[0],
+                            0xFFFFFFFF);
 
     // Medium Kanone
-    Kanone_medium.RenderSprite(-TileEngine.XOffset + xPos + 148.0f,
-                               -TileEngine.YOffset + yPos + 254.0f - yKanone[1], 0xFFFFFFFF);
+    Kanone_medium.RenderSprite(-TileEngine.XOffset + xPos + 148.0f, -TileEngine.YOffset + yPos + 254.0f - yKanone[1],
+                               0xFFFFFFFF);
 
     // Mini Kanone 1
-    Kanone_small.RenderSprite(-TileEngine.XOffset + xPos + 68.0f,
-                              -TileEngine.YOffset + yPos + 261.0f - yKanone[2], 0xFFFFFFFF);
+    Kanone_small.RenderSprite(-TileEngine.XOffset + xPos + 68.0f, -TileEngine.YOffset + yPos + 261.0f - yKanone[2],
+                              0xFFFFFFFF);
 
     // Mini Kanone 2
-    Kanone_small.RenderSprite(-TileEngine.XOffset + xPos + 78.0f,
-                              -TileEngine.YOffset + yPos + 251.0f - yKanone[3], 0xFFFFFFFF);
+    Kanone_small.RenderSprite(-TileEngine.XOffset + xPos + 78.0f, -TileEngine.YOffset + yPos + 251.0f - yKanone[3],
+                              0xFFFFFFFF);
 
     // Schatten
-    RenderRect(xPos - TileEngine.XOffset + 255.0f,
-               yPos - TileEngine.YOffset + 161.0f,
-               18, 80, 0x88000000);
+    RenderRect(xPos - TileEngine.XOffset + 255.0f, yPos - TileEngine.YOffset + 161.0f, 18, 80, 0x88000000);
 
     // Main
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
 
     // int a = int (alphaAuge); // PICKLE not used
 
@@ -105,12 +102,10 @@ void GegnerFlugBoss::DoDraw() {
     GegnerRect[GegnerArt].bottom = GegnerRect[GegnerArt].top + 100;
 
     // Geschuetz
-    Geschuetz.RenderSpriteRotated(xKanone - 62, -TileEngine.YOffset + yPos + 160.0f, Winkel[0], 0,
-                                  0xFFFFFFFF);
+    Geschuetz.RenderSpriteRotated(xKanone - 62, -TileEngine.YOffset + yPos + 160.0f, Winkel[0], 0, 0xFFFFFFFF);
 
     // Geschuetz
-    Geschuetz.RenderSpriteRotated(RENDERWIDTH - xKanone, -TileEngine.YOffset + yPos + 160.0f, Winkel[1], 0,
-                                  0xFFFFFFFF);
+    Geschuetz.RenderSpriteRotated(RENDERWIDTH - xKanone, -TileEngine.YOffset + yPos + 160.0f, Winkel[1], 0, 0xFFFFFFFF);
 
     // Auge
     alphaAuge += Timer.sync(alphaSpeed * alphaDir);
@@ -126,8 +121,7 @@ void GegnerFlugBoss::DoDraw() {
         alphaDir = 1.0f;
     }
 
-    Auge.RenderSprite(-TileEngine.XOffset + xPos + 175.0f,
-                      -TileEngine.YOffset + yPos + 182.0f, 0, 0xFFFFFFFF);
+    Auge.RenderSprite(-TileEngine.XOffset + xPos + 175.0f, -TileEngine.YOffset + yPos + 182.0f, 0, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

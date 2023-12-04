@@ -315,9 +315,8 @@ void GegnerSchabe::DoKI() {
 // --------------------------------------------------------------------------------------
 
 void GegnerSchabe::DoDraw() {
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                  yPos - TileEngine.YOffset, winkel, AnimPhase,
-                                                  0xFFFFFFFF, mirror);
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, winkel,
+                                                  AnimPhase, 0xFFFFFFFF, mirror);
 }
 
 // --------------------------------------------------------------------------------------

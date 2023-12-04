@@ -34,8 +34,7 @@ GegnerShootButton::GegnerShootButton(GegnerClass *Plattform) {
 void GegnerShootButton::DoDraw() {
     // Button rendern
     pGegnerGrafix[GegnerArt]->RenderSprite(pPlattForm->xPos - TileEngine.XOffset + 41.0f,
-                                           pPlattForm->yPos - TileEngine.YOffset - 8.0f, AnimPhase,
-                                           0xFFFFFFFF);
+                                           pPlattForm->yPos - TileEngine.YOffset - 8.0f, AnimPhase, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

@@ -45,16 +45,11 @@ void GegnerBruecke::DoKI() {
         // Irgendein Gegner steht auf der Brücke
         //
 
-        for (auto& enemy: Gegner.enemies)
-        {
-            if (enemy->Active == true &&
-                enemy->GegnerArt != BRUECKE &&
-                enemy->GegnerArt != BRUECKE &&
-                enemy->GegnerArt != STAHLMUECKE &&
-                enemy->ySpeed == 0.0f &&
+        for (auto &enemy : Gegner.enemies) {
+            if (enemy->Active == true && enemy->GegnerArt != BRUECKE && enemy->GegnerArt != BRUECKE &&
+                enemy->GegnerArt != STAHLMUECKE && enemy->ySpeed == 0.0f &&
                 SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], enemy->xPos, enemy->yPos,
                                 GegnerRect[enemy->GegnerArt]) == true) {
-
                 // DKS - Optimized
                 // w = (GegnerRect[enemy->GegnerArt].right  - GegnerRect[enemy->GegnerArt].left) / 2.0f;
                 // h = (GegnerRect[enemy->GegnerArt].bottom - GegnerRect[enemy->GegnerArt].top)  / 2.0f;
@@ -79,7 +74,8 @@ void GegnerBruecke::DoKI() {
 
                 // DKS - Optimized
                 // yPos = float (enemy->yPos + GegnerRect[enemy->GegnerArt].bottom - a / 2.5f + 13.0f);
-                yPos = enemy->yPos + static_cast<float>(GegnerRect[enemy->GegnerArt].bottom) - a * (1.0f / 2.5f) + 13.0f;
+                yPos =
+                    enemy->yPos + static_cast<float>(GegnerRect[enemy->GegnerArt].bottom) - a * (1.0f / 2.5f) + 13.0f;
             }
         }
 
@@ -90,7 +86,6 @@ void GegnerBruecke::DoKI() {
             if (SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], Player[p].xpos, Player[p].ypos,
                                 Player[p].CollideRect) == true &&
                 Player[p].yspeed >= 0.0f) {
-
                 float dx = (Player[p].xpos + 35.0f) - (xPos + 5.0f);
                 float dy = (Player[p].ypos + 40.0f) - (yPos + 5.0f);
 

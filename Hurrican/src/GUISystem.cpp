@@ -48,7 +48,6 @@ void CGUISystem::InitGUISystem() {
 //
 
 void CGUISystem::RenderBox() {
-
     int alpha = static_cast<int>(m_FadingAlpha);
 
     if (alpha < 0)

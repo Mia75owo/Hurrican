@@ -29,8 +29,8 @@ GegnerSpitterbombe::GegnerSpitterbombe(int Wert1, int Wert2, bool Light) {
 void GegnerSpitterbombe::DoKI() {
     // Animieren
     //
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;  // Dann wieder auf Null setzen
         AnimPhase++;    // Und nächste Animationsphase
@@ -64,8 +64,8 @@ void GegnerSpitterbombe::GegnerExplode() {
                                     yPos - 30.0f + static_cast<float>(GetRandom(50)), EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 5; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(20)),
-                                    yPos + static_cast<float>(GetRandom(40)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(20)), yPos + static_cast<float>(GetRandom(40)),
+                                    SPIDERSPLITTER);
 
     // Nicht am Boden explodiert ? Dann wurde er abgeschossen
     if (!(blocku & BLOCKWERT_WAND) && !(blocku & BLOCKWERT_PLATTFORM)) {

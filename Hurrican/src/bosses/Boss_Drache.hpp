@@ -13,8 +13,8 @@ class GegnerDrache : public GegnerClass {
     DirectGraphicsSprite Leg;
     DirectGraphicsSprite Arm;
 
-    int Attack;          // Welche "Unterhandlung"
-    int mirrorOffset;    // Zum Zeichnen wenn gespiegelt
+    int Attack;        // Welche "Unterhandlung"
+    int mirrorOffset;  // Zum Zeichnen wenn gespiegelt
     int ShotCount;
     DirectionEnum Position;
     float SmokeCount;    // Für Antriebspartikel
@@ -28,8 +28,8 @@ class GegnerDrache : public GegnerClass {
     float DrawYOffset;
     float ArrowCount;
     float FlareRot;
-    bool HeadLocked;     // Kopf ist fest und dreht nicht zu Spieler
-    bool Growl;          // Heute schon gegröhlt? =)
+    bool HeadLocked;  // Kopf ist fest und dreht nicht zu Spieler
+    bool Growl;       // Heute schon gegröhlt? =)
 
     void ComputeHeadWinkel();
 
@@ -39,9 +39,9 @@ class GegnerDrache : public GegnerClass {
                  bool Light);
     void GegnerExplode() override;  // Gegner explodiert
     void DoKI() override;           // Gegner individuell mit seiner eigenen kleinen KI bewegen
-    void DoDraw() override;  // Gegner individuell rendern
-                             // eigenen kleinen KI
-                             // bewegen
+    void DoDraw() override;         // Gegner individuell rendern
+                                    // eigenen kleinen KI
+                                    // bewegen
 };
 
 #endif

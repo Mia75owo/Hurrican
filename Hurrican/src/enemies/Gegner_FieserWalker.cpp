@@ -45,7 +45,7 @@ void GegnerFieserWalker::DoKI() {
             //
             if (ShotDelay <= 0.0f && AnimPhase == 3 && PlayerAbstand() < 400 && PlayerAbstandVert() < 150 &&
                 ((BlickRichtung == DirectionEnum::RECHTS && xPos < pAim->xpos) ||
-                (BlickRichtung == DirectionEnum::LINKS && xPos > pAim->xpos))) {
+                 (BlickRichtung == DirectionEnum::LINKS && xPos > pAim->xpos))) {
                 ShotDelay = 15.0f;
                 Handlung = GEGNER::STEHEN;
                 xSpeed = 0.0f;
@@ -110,8 +110,8 @@ void GegnerFieserWalker::GegnerExplode() {
         PartikelSystem.PushPartikel(xPos - 30.0f + static_cast<float>(GetRandom(60)),
                                     yPos - 30.0f + static_cast<float>(GetRandom(60)), EXPLOSION_MEDIUM2);
     for (int i = 0; i < 12; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(50)),
-                                    yPos + static_cast<float>(GetRandom(50)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(50)), yPos + static_cast<float>(GetRandom(50)),
+                                    SPIDERSPLITTER);
 
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION4);  // Sound ausgeben
 

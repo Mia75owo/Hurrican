@@ -80,7 +80,7 @@ CCracktro::CCracktro() {
     ScrollPos2 = 0;
     SinPos = 0.0f;
 
-    for (auto& star: Stars) {
+    for (auto &star : Stars) {
         star.Count = static_cast<float>(GetRandom(RENDERWIDTH));
         star.Abstand = static_cast<float>(GetRandom(140) + 340);
         star.Ebene = GetRandom(200) + 55;
@@ -125,7 +125,7 @@ void CCracktro::Main() {
     // Sterne
     // --------------------------------------------------------------------------------------
 
-    for (auto& star: Stars) {
+    for (auto &star : Stars) {
         star.Count -= Timer.sync(star.Ebene * 0.1f);
 
         if (star.Count < 0.0f)
@@ -200,7 +200,8 @@ void CCracktro::Main() {
             float off = sin(numsin + i / 3.0f) * 10.0f;
             float off2 = sin(numsin + i / 3.0f + HALF_PI) * 20.0f;
 
-            Zahlen.RenderSprite(75 + i * 40 - off + (RENDERWIDTH - 341) / 2 + sin(LogoPos) * 100.0f, 110 - off2, i, 0xFFFFFFFF);
+            Zahlen.RenderSprite(75 + i * 40 - off + (RENDERWIDTH - 341) / 2 + sin(LogoPos) * 100.0f, 110 - off2, i,
+                                0xFFFFFFFF);
         }
     }
 
@@ -260,7 +261,8 @@ void CCracktro::Main() {
             float off = sin(numsin + i / 3.0f) * 10.0f;
             float off2 = sin(numsin + i / 3.0f + HALF_PI) * 20.0f;
 
-            Zahlen.RenderSprite(75 + i * 40 - off + (RENDERWIDTH - 341) / 2 + sin(LogoPos) * 100.0f, 110 - off2, i, 0xFFFFFFFF);
+            Zahlen.RenderSprite(75 + i * 40 - off + (RENDERWIDTH - 341) / 2 + sin(LogoPos) * 100.0f, 110 - off2, i,
+                                0xFFFFFFFF);
         }
     }
 

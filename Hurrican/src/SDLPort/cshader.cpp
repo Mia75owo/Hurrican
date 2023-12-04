@@ -36,7 +36,7 @@ CShader::CShader()
       Attributes() {}
 
 void CShader::Close() {
-    for (const auto& shader: Shaders) {
+    for (const auto &shader : Shaders) {
         if (shader.name != GL_INVALID_VALUE) {
             glDeleteShader(shader.name);
         }
@@ -89,7 +89,7 @@ void CShader::Use() {
 GLuint CShader::CompileShader(GLenum type, const std::string &path) {
     std::vector<char> source = LoadFileToMemory(path);
 
-    for (auto c: Constants) {
+    for (auto c : Constants) {
         const std::string cnst = "const int " + c.first + " = " + std::to_string(c.second) + ";\n";
         source.insert(source.begin(), cnst.begin(), cnst.end());
     }
@@ -101,7 +101,8 @@ GLuint CShader::CompileShader(GLenum type, const std::string &path) {
     source.insert(source.begin(), version.begin(), version.end());
 #elif defined(USE_GLES3)
     const std::string version = "#version 320 es\n";
-    const std::string precision = "#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
+    const std::string precision =
+        "#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
     source.insert(source.begin(), precision.begin(), precision.end());
     source.insert(source.begin(), version.begin(), version.end());
 #elif defined(USE_GL2)
@@ -154,7 +155,7 @@ GLuint CShader::CompileShader(GLenum type, const std::string &path) {
 bool CShader::CreateProgram() {
     Program = glCreateProgram();
 
-    for (const auto& shader: Shaders) {
+    for (const auto &shader : Shaders) {
         glAttachShader(Program, shader.name);
     }
 
@@ -224,7 +225,7 @@ void CShader::FindUniforms() {
 }
 
 GLint CShader::GetAttribute(const std::string &attribute) {
-    for (const auto& a: Attributes) {
+    for (const auto &a : Attributes) {
         if (attribute == a.first)
             return a.second;
     }
@@ -235,7 +236,7 @@ GLint CShader::GetAttribute(const std::string &attribute) {
 }
 
 GLint CShader::GetUniform(const std::string &uniform) {
-    for (const auto& u: Uniforms) {
+    for (const auto &u : Uniforms) {
         if (uniform == u.first)
             return u.second;
     }
@@ -268,6 +269,5 @@ void CShader::PrintLog(uint8_t type, GLuint shader) {
 }
 
 void CShader::AddConstant(std::string name, GLint value) {
-
     Constants.push_back(std::make_pair(name, value));
 }

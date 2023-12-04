@@ -327,8 +327,8 @@ void GetStackTrace(HANDLE hThread, ULONG ranOffsets[][2], ULONG nMaxStack) {
     callStack.AddrFrame.Mode = AddrModeFlat;
 
     for (ULONG index = 0;; index++) {
-        bResult = StackWalk(IMAGE_FILE_MACHINE_I386, hProcess, hThread, &callStack, nullptr, nullptr, SymFunctionTableAccess,
-                            SymGetModuleBase, nullptr);
+        bResult = StackWalk(IMAGE_FILE_MACHINE_I386, hProcess, hThread, &callStack, nullptr, nullptr,
+                            SymFunctionTableAccess, SymGetModuleBase, nullptr);
 
         // Ignore the first two levels (it's only TraceAlloc and operator new anyhow)
         if (index < 3)

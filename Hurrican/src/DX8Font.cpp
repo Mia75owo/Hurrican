@@ -31,9 +31,9 @@
 // DKS - Added these includes temporarily so LoadFont() could output character widths to
 //      text files. The text was imported here to initialize the charwidths arrays below.
 //      I've left them here in case fonts ever need to be altered and new width lists be made.
-//#include <iostream>
-//#include <fstream>
-//#include <sstream>
+// #include <iostream>
+// #include <fstream>
+// #include <sstream>
 
 // --------------------------------------------------------------------------------------
 // Konstruktor (leer)
@@ -385,7 +385,7 @@ bool DirectGraphicsFont::DrawDemoText(float x, float y, const char Text[], D3DCO
             mTexture->RenderSprite(x, y, Color);
 
         if (ch == 32)
-            x += mXCharSize;       // Bei Space frei lassen
+            x += mXCharSize;  // Bei Space frei lassen
         else if (ch == '\n')  // Zeilenumbruch
         {
             x = oldx;
@@ -446,10 +446,11 @@ bool DirectGraphicsFont::DrawText(float x, float y, const char Text[], D3DCOLOR 
         } else
             // DKS - Added support for font scaling
             if (mScaleFactor == 1) {
-            x += static_cast<float>(mCharLength[z] - 1 + Spacing);  // Ansonsten Breite des Zeichens weiter
-        } else {
-            x += static_cast<float>(((mCharLength[z] - 1) + Spacing) * mScaleFactor);  // Ansonsten Breite des Zeichens weiter
-        }
+                x += static_cast<float>(mCharLength[z] - 1 + Spacing);  // Ansonsten Breite des Zeichens weiter
+            } else {
+                x += static_cast<float>(((mCharLength[z] - 1) + Spacing) *
+                                        mScaleFactor);  // Ansonsten Breite des Zeichens weiter
+            }
     }
 
     return true;

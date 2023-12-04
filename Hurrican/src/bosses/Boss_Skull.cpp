@@ -12,13 +12,8 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerSkull::GegnerSkull(int Wert1, int Wert2, bool Light) :
-    pMachine(nullptr),
-    ShotCount(0),
-    SmokeDelay(0.0f),
-    ShotDelay(10.0f),
-    Disappear(20.0f)
-{
+GegnerSkull::GegnerSkull(int Wert1, int Wert2, bool Light)
+    : pMachine(nullptr), ShotCount(0), SmokeDelay(0.0f), ShotDelay(10.0f), Disappear(20.0f) {
     Handlung = GEGNER::INIT;
     Value1 = Wert1;
     Value2 = Wert2;
@@ -34,7 +29,7 @@ GegnerSkull::GegnerSkull(int Wert1, int Wert2, bool Light) :
     Handlung = GEGNER::SPECIAL;
 
     // Position der Endboss Wand rausfinden
-    for (auto& enemy: Gegner.enemies) {
+    for (auto &enemy : Gegner.enemies) {
         if (enemy->GegnerArt == THEWALL) {
             mxPos = enemy->xPos + 5;
             myPos = enemy->yPos + 229;
@@ -154,12 +149,11 @@ void GegnerSkull::DoKI() {
                 Timer.SetMoveSpeed(10.0f);
 
                 // Flugsäcke spawnen
-                Gegner.PushGegner(TileEngine.XOffset + 200.0f,
-                                  TileEngine.YOffset - 40.0f, REITFLUGSACK, 1, 0, false);
+                Gegner.PushGegner(TileEngine.XOffset + 200.0f, TileEngine.YOffset - 40.0f, REITFLUGSACK, 1, 0, false);
 
                 if (NUMPLAYERS == 2)
-                    Gegner.PushGegner(TileEngine.XOffset + 300.0f,
-                                      TileEngine.YOffset - 50.0f, REITFLUGSACK, 1, 0, false);
+                    Gegner.PushGegner(TileEngine.XOffset + 300.0f, TileEngine.YOffset - 50.0f, REITFLUGSACK, 1, 0,
+                                      false);
             }
         } break;
 

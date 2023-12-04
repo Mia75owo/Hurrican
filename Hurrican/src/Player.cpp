@@ -213,7 +213,7 @@ void PlayerClass::InitPlayer(int player_num) {
             CollectedPowerUps[i] = 0;
     */
 
-   std::fill(std::begin(CurrentWeaponLevel), std::end(CurrentWeaponLevel), 0);
+    std::fill(std::begin(CurrentWeaponLevel), std::end(CurrentWeaponLevel), 0);
 
     CurrentWeaponLevel[0] = 1;
 
@@ -348,9 +348,8 @@ void PlayerClass::runExplode() {
         // if (SmartBombs < 1)
         //	SmartBombs = 1;
 
-        if (TileEngine.Zustand == TileStateEnum::SCROLLBAR &&
-                Handlung != PlayerActionEnum::SACKREITEN &&
-                Handlung != PlayerActionEnum::DREHEN) {
+        if (TileEngine.Zustand == TileStateEnum::SCROLLBAR && Handlung != PlayerActionEnum::SACKREITEN &&
+            Handlung != PlayerActionEnum::DREHEN) {
             xpos = JumpxSave;  // Alte Position wieder herstellen, wenn der
             ypos = JumpySave;  // der Spieler zB einen Abgrund runterfiel
             xposold = JumpxSave;
@@ -401,9 +400,8 @@ void PlayerClass::runExplode() {
         if (Lives < -1)
             Lives = -1;
 
-        if (Handlung != PlayerActionEnum::SACKREITEN &&
-                Handlung != PlayerActionEnum::DREHEN &&
-                Handlung != PlayerActionEnum::TOT)
+        if (Handlung != PlayerActionEnum::SACKREITEN && Handlung != PlayerActionEnum::DREHEN &&
+            Handlung != PlayerActionEnum::TOT)
             Handlung = PlayerActionEnum::SPRINGEN;
 
         yspeed = 0.0f;
@@ -426,18 +424,14 @@ void PlayerClass::checkShoot() {
 
     // Normaler Schuss mit Primärwaffe?
     //
-    if (Aktion[AKTION_SHOOT] && Handlung != PlayerActionEnum::BLITZEN &&
-            Handlung != PlayerActionEnum::BEAMLADEN &&
-            Handlung != PlayerActionEnum::DREHEN &&
-            AutoFireCount > 0.0f && ShotDelay <= 0.0f) {
+    if (Aktion[AKTION_SHOOT] && Handlung != PlayerActionEnum::BLITZEN && Handlung != PlayerActionEnum::BEAMLADEN &&
+        Handlung != PlayerActionEnum::DREHEN && AutoFireCount > 0.0f && ShotDelay <= 0.0f) {
         ShotDelay = PLAYER_SHOTDELAY;
         PlayerShoot();
 
-        if (Handlung != PlayerActionEnum::LAUFEN &&
-                Handlung != PlayerActionEnum::SPRINGEN &&
-                Handlung != PlayerActionEnum::SACKREITEN &&
-                Handlung != PlayerActionEnum::RADELN &&
-                Handlung != PlayerActionEnum::RADELN_FALL && WalkLock)
+        if (Handlung != PlayerActionEnum::LAUFEN && Handlung != PlayerActionEnum::SPRINGEN &&
+            Handlung != PlayerActionEnum::SACKREITEN && Handlung != PlayerActionEnum::RADELN &&
+            Handlung != PlayerActionEnum::RADELN_FALL && WalkLock)
             AnimPhase = 1;
 
         // TODO immer Dauerfeuer?
@@ -462,12 +456,9 @@ void PlayerClass::checkShoot() {
 
     // Granate abfeuern ?
     //
-    if (Aktion[AKTION_GRANATE] && PowerLinePossible && Grenades > 0 &&
-            Handlung != PlayerActionEnum::RADELN &&
-            Handlung != PlayerActionEnum::RADELN_FALL &&
-            Handlung != PlayerActionEnum::BLITZEN &&
-            Handlung != PlayerActionEnum::DREHEN &&
-            Handlung != PlayerActionEnum::BEAMLADEN) {
+    if (Aktion[AKTION_GRANATE] && PowerLinePossible && Grenades > 0 && Handlung != PlayerActionEnum::RADELN &&
+        Handlung != PlayerActionEnum::RADELN_FALL && Handlung != PlayerActionEnum::BLITZEN &&
+        Handlung != PlayerActionEnum::DREHEN && Handlung != PlayerActionEnum::BEAMLADEN) {
         PlayerGrenadeShoot();
     }
 
@@ -695,8 +686,7 @@ bool PlayerClass::GetPlayerInput() {
     }
 
     // Bronson-Counter erhöhen
-    if ((Handlung == PlayerActionEnum::STEHEN || Handlung == PlayerActionEnum::PISSEN) &&
-            !RunningTutorial) {
+    if ((Handlung == PlayerActionEnum::STEHEN || Handlung == PlayerActionEnum::PISSEN) && !RunningTutorial) {
         BronsonCounter += Timer.sync(1.0f);
     } else {
         BronsonCounter = 0.0f;
@@ -800,9 +790,7 @@ void PlayerClass::DoStuffWhenDamaged() {
 // --------------------------------------------------------------------------------------
 
 void PlayerClass::CheckForExplode() {
-    if (Energy <= 0.0f &&
-            Handlung != PlayerActionEnum::EXPLODIEREN &&
-            GameOverTimer == 0.0f) {
+    if (Energy <= 0.0f && Handlung != PlayerActionEnum::EXPLODIEREN && GameOverTimer == 0.0f) {
         // DKS - No need to check if the sounds are playing, just request they stop:
         // if (SoundManager.its_Sounds[SOUND::ABZUG + SoundOff]->isPlaying == true)
         //    SoundManager.StopWave(SOUND::ABZUG + SoundOff);
@@ -821,7 +809,7 @@ void PlayerClass::CheckForExplode() {
         // Screen bei evtl. Ruckeln begradigen
         WackelMaximum = 0.0f;
         WackelValue = 0.0f;
-        glm::mat4x4 matRot = glm::mat4x4(1.0f); // Rotationsmatrix
+        glm::mat4x4 matRot = glm::mat4x4(1.0f);  // Rotationsmatrix
         g_matModelView = matRot * g_matView;
 #if defined(USE_GL1)
         load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
@@ -880,7 +868,7 @@ void PlayerClass::CheckForExplode() {
         ExplodingTimer = 30.0f;
 
         // Punisher verschwinden lassen
-        for (auto& enemy: Gegner.enemies) {
+        for (auto &enemy : Gegner.enemies) {
             if (enemy->GegnerArt == PUNISHER) {
                 GegnerPunisher *pPunisher = reinterpret_cast<GegnerPunisher *>(enemy.get());
                 pPunisher->Vanish();
@@ -987,7 +975,8 @@ void PlayerClass::AnimatePlayer() {
         float tmp_y = ypos + (CollideRect.top + 10);
         int tile_y = tmp_y * (1.0f / TILESIZE_Y);
         if (tile_y >= 0 && tile_y < levelsize_y) {
-            for (int i = static_cast<int>(xpos) + CollideRect.left + 5; i < static_cast<int>(xpos) + CollideRect.right - 5; i += 2) {
+            for (int i = static_cast<int>(xpos) + CollideRect.left + 5;
+                 i < static_cast<int>(xpos) + CollideRect.right - 5; i += 2) {
                 float tmp_x = i;
                 int tile_x = static_cast<int>(static_cast<float>(i) * (1.0f / TILESIZE_X));
                 if (tile_x < 0)
@@ -1003,7 +992,8 @@ void PlayerClass::AnimatePlayer() {
                         PartikelSystem.PushPartikel(tmp_x + GetRandom(4), tmp_y + GetRandom(4), WATERFUNKE);
 
                     if (GetRandom(200) == 0)
-                        PartikelSystem.PushPartikel(tmp_x + (GetRandom(4) - 16), tmp_y + (GetRandom(4) - 16), WATERFLUSH);
+                        PartikelSystem.PushPartikel(tmp_x + (GetRandom(4) - 16), tmp_y + (GetRandom(4) - 16),
+                                                    WATERFLUSH);
                 }
             }
         }
@@ -1024,13 +1014,10 @@ void PlayerClass::AnimatePlayer() {
     // Spieler im normalen Modus, also kein Rad und nicht auf dem FlugSack reiten
     //---------------------------------------------------------------------------
 
-    if (Handlung != PlayerActionEnum::RADELN &&
-            Handlung != PlayerActionEnum::RADELN_FALL &&
-            Handlung != PlayerActionEnum::SACKREITEN &&
-            Handlung != PlayerActionEnum::SURFEN &&
-            Handlung != PlayerActionEnum::SURFENCROUCH &&
-            Handlung != PlayerActionEnum::SURFENJUMP &&
-            Handlung != PlayerActionEnum::DREHEN) {
+    if (Handlung != PlayerActionEnum::RADELN && Handlung != PlayerActionEnum::RADELN_FALL &&
+        Handlung != PlayerActionEnum::SACKREITEN && Handlung != PlayerActionEnum::SURFEN &&
+        Handlung != PlayerActionEnum::SURFENCROUCH && Handlung != PlayerActionEnum::SURFENJUMP &&
+        Handlung != PlayerActionEnum::DREHEN) {
         // Stehen animieren?
         if (Handlung == PlayerActionEnum::STEHEN) {
             AnimCount += Timer.sync(1.0f);
@@ -1051,9 +1038,8 @@ void PlayerClass::AnimatePlayer() {
         Armour += Timer.sync(0.2f);
 
         // Oder schneller?
-        if (Handlung == PlayerActionEnum::STEHEN ||
-                Handlung == PlayerActionEnum::DUCKEN ||
-                Handlung == PlayerActionEnum::SCHIESSEN_O)
+        if (Handlung == PlayerActionEnum::STEHEN || Handlung == PlayerActionEnum::DUCKEN ||
+            Handlung == PlayerActionEnum::SCHIESSEN_O)
             Armour += Timer.sync(1.0f);
 
         if (Armour > MAX_ARMOUR)
@@ -1079,7 +1065,7 @@ void PlayerClass::AnimatePlayer() {
                 BlitzWinkel -= Timer.sync(20.0f);
             } else if (!(bl & BLOCKWERT_WAND))  // Keine Wand im Weg ?
             {
-                Blickrichtung = DirectionEnum::LINKS;   // nach links kucken
+                Blickrichtung = DirectionEnum::LINKS;      // nach links kucken
                 if (Handlung == PlayerActionEnum::STEHEN)  // Aus dem Stehen heraus
                     // Aktion[AKTION_OBEN]  == false &&	// und nicht nach oben zielen ?
                     // Aktion[AKTION_UNTEN] == false)		// und nicht nach unten zielen ?
@@ -1128,7 +1114,7 @@ void PlayerClass::AnimatePlayer() {
                 BlitzWinkel += Timer.sync(20.0f);
             } else if (br | BLOCKWERT_WAND)  // Keine Wand im Weg ?
             {
-                Blickrichtung = DirectionEnum::RECHTS;  // nach rechts kucken
+                Blickrichtung = DirectionEnum::RECHTS;     // nach rechts kucken
                 if (Handlung == PlayerActionEnum::STEHEN)  // Aus dem Stehen heraus
                     // Aktion[AKTION_OBEN]  == false &&	// nicht nach oben zielen ?
                     // Aktion[AKTION_UNTEN] == false)		// und nicht nach unten zielen ?
@@ -1178,20 +1164,17 @@ void PlayerClass::AnimatePlayer() {
 
         // Rechts/Links gedrückt ? stehenbleiben, da man ja nich rückwärts UND vorwärts gehen kann =)
         if (Aktion[AKTION_LINKS] && Aktion[AKTION_RECHTS]) {
-            if ((Handlung != PlayerActionEnum::SPRINGEN || JumpPossible) &&
-                    Handlung != PlayerActionEnum::BLITZEN &&
-                    Handlung != PlayerActionEnum::BEAMLADEN) {
+            if ((Handlung != PlayerActionEnum::SPRINGEN || JumpPossible) && Handlung != PlayerActionEnum::BLITZEN &&
+                Handlung != PlayerActionEnum::BEAMLADEN) {
                 AnimPhase = 0;
                 Handlung = PlayerActionEnum::STEHEN;
             }
         }
 
         // Bei keiner Tastatureingabe steht der Spieler ruhig da
-        if (!Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS] &&
-                Handlung != PlayerActionEnum::SPRINGEN &&
-                Handlung != PlayerActionEnum::BLITZEN &&
-                Handlung != PlayerActionEnum::PISSEN &&
-                Handlung != PlayerActionEnum::BEAMLADEN && ShotDelay <= 0.5f) {
+        if (!Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS] && Handlung != PlayerActionEnum::SPRINGEN &&
+            Handlung != PlayerActionEnum::BLITZEN && Handlung != PlayerActionEnum::PISSEN &&
+            Handlung != PlayerActionEnum::BEAMLADEN && ShotDelay <= 0.5f) {
             if (Handlung != PlayerActionEnum::SPRINGEN)
                 Handlung = PlayerActionEnum::STEHEN;
             // AnimPhase = 0;
@@ -1292,13 +1275,10 @@ void PlayerClass::AnimatePlayer() {
         }
 
         // Kein Block unter dem Spieler und kein Lift? Dann fällt er runter
-        if (AufPlattform == nullptr &&
-                Handlung != PlayerActionEnum::SPRINGEN &&
-                yspeed >= 0.0f && (!(bu & BLOCKWERT_WAND)) &&
-                (!(bu & BLOCKWERT_PLATTFORM)) && (!(bu & BLOCKWERT_SUMPF)) &&
-                (!(bl & BLOCKWERT_SCHRAEGE_L)) && (!(bl & BLOCKWERT_SCHRAEGE_R)) &&
-                (!(br & BLOCKWERT_SCHRAEGE_L)) && (!(br & BLOCKWERT_SCHRAEGE_R)) &&
-                (!(bu & BLOCKWERT_SCHRAEGE_L)) && (!(bu & BLOCKWERT_SCHRAEGE_R))) {
+        if (AufPlattform == nullptr && Handlung != PlayerActionEnum::SPRINGEN && yspeed >= 0.0f &&
+            (!(bu & BLOCKWERT_WAND)) && (!(bu & BLOCKWERT_PLATTFORM)) && (!(bu & BLOCKWERT_SUMPF)) &&
+            (!(bl & BLOCKWERT_SCHRAEGE_L)) && (!(bl & BLOCKWERT_SCHRAEGE_R)) && (!(br & BLOCKWERT_SCHRAEGE_L)) &&
+            (!(br & BLOCKWERT_SCHRAEGE_R)) && (!(bu & BLOCKWERT_SCHRAEGE_L)) && (!(bu & BLOCKWERT_SCHRAEGE_R))) {
             JumpPossible = false;
 
             if (Handlung != PlayerActionEnum::BLITZEN) {
@@ -1314,10 +1294,10 @@ void PlayerClass::AnimatePlayer() {
         }
 
         // Am Boden und nicht im Sumpf oder Damage-Tile? Dann die Position sichern
-        if (Handlung != PlayerActionEnum::SPRINGEN &&
-                AufPlattform == nullptr && !(bo & BLOCKWERT_SUMPF) && !(bu & BLOCKWERT_SUMPF) &&
-                !(bl & BLOCKWERT_SUMPF) && !(br & BLOCKWERT_SUMPF) && !(bo & BLOCKWERT_SCHADEN) &&
-                !(bu & BLOCKWERT_SCHADEN) && !(bl & BLOCKWERT_SCHADEN) && !(br & BLOCKWERT_SCHADEN)) {
+        if (Handlung != PlayerActionEnum::SPRINGEN && AufPlattform == nullptr && !(bo & BLOCKWERT_SUMPF) &&
+            !(bu & BLOCKWERT_SUMPF) && !(bl & BLOCKWERT_SUMPF) && !(br & BLOCKWERT_SUMPF) &&
+            !(bo & BLOCKWERT_SCHADEN) && !(bu & BLOCKWERT_SCHADEN) && !(bl & BLOCKWERT_SCHADEN) &&
+            !(br & BLOCKWERT_SCHADEN)) {
             JumpxSave = xpos;
             JumpySave = ypos;
         }
@@ -1336,11 +1316,9 @@ void PlayerClass::AnimatePlayer() {
 
         // oder gleich wieder geduckt bleiben ?
         if (Aktion[AKTION_DUCKEN] &&
-                // Aktion[AKTION_LINKS]  == false &&
-                // Aktion[AKTION_RECHTS] == false &&
-                JumpPossible &&
-                Handlung != PlayerActionEnum::BEAMLADEN &&
-                Handlung != PlayerActionEnum::BLITZEN) {
+            // Aktion[AKTION_LINKS]  == false &&
+            // Aktion[AKTION_RECHTS] == false &&
+            JumpPossible && Handlung != PlayerActionEnum::BEAMLADEN && Handlung != PlayerActionEnum::BLITZEN) {
             Handlung = PlayerActionEnum::DUCKEN;
             CollideRect.top = 32;  // Im Ducken liegt die obere Blockgrenze tiefer
         }
@@ -1357,7 +1335,7 @@ void PlayerClass::AnimatePlayer() {
                 BlitzStart = 5.0f;
                 AnimPhase = 0;
                 if (Blickrichtung == DirectionEnum::LINKS)  // Blitz je nach Blickrichtung neu
-                    BlitzWinkel = 270.0f;       // geradeaus richten
+                    BlitzWinkel = 270.0f;                   // geradeaus richten
                 else
                     BlitzWinkel = 90.0f;
 
@@ -1371,21 +1349,21 @@ void PlayerClass::AnimatePlayer() {
 
                 if (Handlung != PlayerActionEnum::BLITZEN &&
                     Handlung != PlayerActionEnum::BEAMLADEN)  // Blitz wird erst gestartet ?
-                {
-                    BlitzStart = 0.0f;
-                    BeamCount = 0.1f;
-                    AnimPhase = 0;
-                    Handlung = PlayerActionEnum::BLITZEN;
-                    changecount = 0.0f;
+            {
+                BlitzStart = 0.0f;
+                BeamCount = 0.1f;
+                AnimPhase = 0;
+                Handlung = PlayerActionEnum::BLITZEN;
+                changecount = 0.0f;
 
-                    // Blitz Startsound ausgeben
-                    SoundManager.PlayWave(100, 128, GetRandom(500) + 18025, SOUND::BLITZSTART + SoundOff);
+                // Blitz Startsound ausgeben
+                SoundManager.PlayWave(100, 128, GetRandom(500) + 18025, SOUND::BLITZSTART + SoundOff);
 
-                    if (Blickrichtung == DirectionEnum::LINKS)  // Blitz je nach Blickrichtung neu
-                        BlitzWinkel = 270.0f;       // geradeaus richten
-                    else
-                        BlitzWinkel = 90.0f;
-                }
+                if (Blickrichtung == DirectionEnum::LINKS)  // Blitz je nach Blickrichtung neu
+                    BlitzWinkel = 270.0f;                   // geradeaus richten
+                else
+                    BlitzWinkel = 90.0f;
+            }
         }
 
         if (!Aktion[AKTION_BLITZ] && Handlung == PlayerActionEnum::BLITZEN) {
@@ -1447,7 +1425,6 @@ void PlayerClass::AnimatePlayer() {
             if (BlitzStart < PLAYER_BLITZ_START)
                 BlitzStart += Timer.sync(1.0f);
             else {
-
                 float Winkel = BlitzWinkel - 270.0f;  // 270° beim nach links kucken = Animphase 0
                 if (Winkel < 0.0f)
                     Winkel += 360.0f;
@@ -1530,333 +1507,332 @@ void PlayerClass::AnimatePlayer() {
 
         if (Handlung == PlayerActionEnum::RADELN || Handlung == PlayerActionEnum::RADELN_FALL)
 
-    {
-        // Rad-Energie abziehen
-        if (!WheelMode)
-            Armour -= Timer.sync(2.5f);
+        {
+            // Rad-Energie abziehen
+            if (!WheelMode)
+                Armour -= Timer.sync(2.5f);
 
-        if (Armour < 0.0f)
-            Armour = 0.0f;
-
-        // Powerline schiessen ?
-        if (Aktion[AKTION_POWERLINE] && PowerLinePossible && PowerLines > 0) {
-            SoundManager.PlayWave(100, 128, 11025, SOUND::POWERLINE);
-            PowerLinePossible = false;  // Taste einrasten
-            PowerLines--;               // Powerlines verringern
-
-            for (int i = -1; i < 25; i++)  // Powerlines schiessen
-            {
-                Projectiles.PushProjectile(xpos + 20.0f, 
-                                           static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20), POWERLINE,
-                                           this);
-                Projectiles.PushProjectile(xpos + 20.0f,
-                                           static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20), POWERLINE2,
-                                           this);
-            }
-        }
-
-        // SmartBomb abfeuern ?
-        if (Aktion[AKTION_SMARTBOMB] && PowerLinePossible && SmartBombs > 0) {
-            SoundManager.PlayWave(100, 128, 8000, SOUND::POWERLINE);
-            PowerLinePossible = false;  // Taste einrasten
-            SmartBombs--;               // SmartBombs verringern
-
-            Projectiles.PushProjectile(xpos + 40.0f - 32.0f, ypos + 55.0f - 32.0f, SMARTBOMB, this);
-        }
-
-        // Taste losgelassen ? Dann können wir wieder eine Powerline schiessen
-        if (!Aktion[AKTION_POWERLINE] && !Aktion[AKTION_SMARTBOMB])
-            PowerLinePossible = true;
-
-        // Ja nach Blickrichtung in die richtige Richtung scrollen
-        if (Blickrichtung == DirectionEnum::LINKS && (!(bl & BLOCKWERT_WAND))) {
-            if (!InLiquid)
-                xspeed = -40.0f;
-            else
-                xspeed = -30.0f;
-        } else if (Blickrichtung == DirectionEnum::RECHTS && (!(br & BLOCKWERT_WAND))) {
-            if (!InLiquid)
-                xspeed = 40.0f;
-            else
-                xspeed = 30.0f;
-        }
-
-        if (Aktion[AKTION_LINKS] &&  // Nach Links rollen ?
-            (Handlung == PlayerActionEnum::RADELN ||   // Nur wenn man Boden unter den Füßen hat
-             AufPlattform != nullptr || bu & BLOCKWERT_WAND || bu & BLOCKWERT_PLATTFORM))
-            Blickrichtung = DirectionEnum::LINKS;
-
-        if (Aktion[AKTION_RECHTS] &&  // Nach Rechts rollen ?
-            (Handlung == PlayerActionEnum::RADELN ||    // Nur wenn man Boden unter den Füßen hat
-             AufPlattform != nullptr || bu & BLOCKWERT_WAND || bu & BLOCKWERT_PLATTFORM))
-            Blickrichtung = DirectionEnum::RECHTS;
-
-        if (Handlung != PlayerActionEnum::RADELN_FALL &&
-                (!(bu & BLOCKWERT_SCHRAEGE_R)) && (!(bu & BLOCKWERT_SCHRAEGE_L)) &&
-                (!(bu & BLOCKWERT_WAND)) && (!(bu & BLOCKWERT_PLATTFORM))) {
-            Handlung = PlayerActionEnum::RADELN_FALL;
-            yspeed = 0.5f;
-            JumpAdd = PLAYER_JUMPADDSPEED;
-        }
-
-        // Wieder am Boden aufgekommen ?
-        if (Handlung == PlayerActionEnum::RADELN_FALL &&
-            ((AufPlattform != nullptr) || (bu & BLOCKWERT_WAND) || (bu & BLOCKWERT_PLATTFORM))) {
-            if (yspeed > 2.0f)
-                PartikelSystem.PushPartikel(xpos + 20, ypos + 60, SMOKE);
-
-            if (yspeed > 0.0f) {
-                yspeed = -yspeed * 2 / 3;  // Abhopfen
-
-                if (yspeed > -5.0f)  // oder ggf wieder
-                {
-                    // Normal weiterkullern
-                    yspeed = 0.0f;
-                    JumpAdd = 0.0f;
-                    Handlung = PlayerActionEnum::RADELN;
-                    TileEngine.BlockUnten(xpos, ypos, xposold, yposold, CollideRect, true);
-                } else {
-                    AufPlattform = nullptr;
-                    SoundManager.PlayWave(100, 128, 11025, SOUND::LANDEN);
-                }
-            }
-        }
-
-        // An die Wand gestossen ? Dann Richtung umkehren
-        if (!(bu & BLOCKWERT_SCHRAEGE_R) && !(bu & BLOCKWERT_SCHRAEGE_L)) {
-            if (Blickrichtung == DirectionEnum::RECHTS && (br & BLOCKWERT_WAND))
-                Blickrichtung = DirectionEnum::LINKS;
-
-            if (Blickrichtung == DirectionEnum::LINKS && (bl & BLOCKWERT_WAND))
-                Blickrichtung = DirectionEnum::RECHTS;
-        }
-
-        // Aufhören zu kullern und zurückverwandeln, wenn man springt oder keine Energie mehr hat
-        // funktiomiert nur, wenn über einem keine Wand ist. Dabei wird noch ein Teil mehr gecheckt, als
-        // das Rad hoch ist, damit man den Zustand prüft, als wenn der Spieler wieder stehen würde
-
-        float ypos2 = ypos - 20.0f;
-        uint32_t bo2 = TileEngine.BlockOben(xpos, ypos2, xposold, yposold, CollideRect, true);
-
-        if ((Armour <= 0.0f || Aktion[AKTION_JUMP]) && !(bo & BLOCKWERT_WAND) && !(bo2 & BLOCKWERT_WAND)) {
-            AnimPhase = 0;
-
-            // Am Boden zurückverwandelt ?
-            if (Armour <= 0.0f && ((bu & BLOCKWERT_WAND) || (bu & BLOCKWERT_PLATTFORM)))
-                Handlung = PlayerActionEnum::STEHEN;
-
-            // oder in der Luft bzw durch Sprung
-            else
-                Handlung = PlayerActionEnum::SPRINGEN;  // Nein, dann in der Luft
-
-            CollideRect.left = 20;
-            CollideRect.top = 12;
-            CollideRect.right = 50;
-            CollideRect.bottom = 79;
             if (Armour < 0.0f)
                 Armour = 0.0f;
-        }
-    }
 
-    else
+            // Powerline schiessen ?
+            if (Aktion[AKTION_POWERLINE] && PowerLinePossible && PowerLines > 0) {
+                SoundManager.PlayWave(100, 128, 11025, SOUND::POWERLINE);
+                PowerLinePossible = false;  // Taste einrasten
+                PowerLines--;               // Powerlines verringern
 
-        //------------------------
-        // Auf dem FlugSack reiten
-        //------------------------
-
-        if (Handlung == PlayerActionEnum::SACKREITEN || Handlung == PlayerActionEnum::DREHEN) {
-        // Spieler und Level bewegen (wenn nicht beim Endboss bzw wenn Level scrollbar)
-        // Nur, wenn alle Spieler auf einem Flugsack sitzen
-        //
-        bool BeideFrei = true;
-
-        for (int p = 0; p < NUMPLAYERS; p++)
-            if (Player[p].FesteAktion > -1)
-                BeideFrei = false;
-
-        if (FlugsackFliesFree == false && Riding() && BeideFrei == true)
-            ypos -= Timer.sync(PLAYER_FLUGSACKSPEED);
-
-        JumpySave = ypos;
-        JumpxSave = xpos;
-
-        // unten rausgeflogen ? Dann wieder zurücksetzen
-        if (ypos > TileEngine.YOffset + 475.0f) {
-            SoundManager.PlayWave(100, 128, 11025, SOUND::EXPLOSION2);
-            xpos = JumpxSave;  // Alte Position wieder herstellen, wenn der
-            ypos = JumpySave;  // der Spieler zB einen Abgrund runterfiel
-            xposold = JumpxSave;
-            yposold = JumpySave;
-            Energy = 0.0f;
-        }
-
-        // An der Decke anstoßen
-        if (ypos < TileEngine.YOffset && BeideFrei) {
-            if (yadd < 0.0f)
-                yadd *= -1.0f;
-        }
-
-        // Wände checken
-        if (bl & BLOCKWERT_WAND)
-            if (xadd < 0.0f)
-                xadd = -xadd / 2.0f;
-        if (br & BLOCKWERT_WAND)
-            if (xadd > 0.0f)
-                xadd = -xadd / 2.0f;
-        if (bo & BLOCKWERT_WAND)
-            if (yadd < 0.0f)
-                yadd = -yadd / 2.0f;
-        if (bu & BLOCKWERT_WAND)
-            if (yadd > 0.0f)
-                yadd = -yadd / 2.0f;
-
-        // Rauch am Flugsack erzeugen
-        SmokeCount -= Timer.sync(1.0f);
-        if (SmokeCount < 0.0f) {
-            SmokeCount += 0.1f;
-
-            // Beim Reiten
-            if (Handlung == PlayerActionEnum::SACKREITEN) {
-                if (Blickrichtung == DirectionEnum::LINKS)
-                    PartikelSystem.PushPartikel(xpos + 72, ypos + 100, FLUGSACKSMOKE2);
-                else
-                    PartikelSystem.PushPartikel(xpos - 2, ypos + 100, FLUGSACKSMOKE);
-            }
-
-            // oder beim Drehen
-            if (Handlung == PlayerActionEnum::DREHEN) {
-                if (Blickrichtung == DirectionEnum::LINKS) {
-                    PartikelSystem.PushPartikel(xpos + 70 - AnimPhase * 10, ypos + 100, FLUGSACKSMOKE2);
-                    PartikelSystem.PushPartikel(xpos + 87 - AnimPhase * 10, ypos + 100, FLUGSACKSMOKE);
-                } else {
-                    PartikelSystem.PushPartikel(xpos + 4 + (AnimPhase - 10) * 10, ypos + 100, FLUGSACKSMOKE);
-                    PartikelSystem.PushPartikel(xpos - 20 + (AnimPhase - 10) * 10, ypos + 100, FLUGSACKSMOKE2);
+                for (int i = -1; i < 25; i++)  // Powerlines schiessen
+                {
+                    Projectiles.PushProjectile(
+                        xpos + 20.0f, static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20),
+                        POWERLINE, this);
+                    Projectiles.PushProjectile(
+                        xpos + 20.0f, static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20),
+                        POWERLINE2, this);
                 }
             }
-        }
 
-        // Umdrehen
-        if (Handlung == PlayerActionEnum::DREHEN) {
-            AnimCount += Timer.sync(1.2f);
+            // SmartBomb abfeuern ?
+            if (Aktion[AKTION_SMARTBOMB] && PowerLinePossible && SmartBombs > 0) {
+                SoundManager.PlayWave(100, 128, 8000, SOUND::POWERLINE);
+                PowerLinePossible = false;  // Taste einrasten
+                SmartBombs--;               // SmartBombs verringern
 
-            if (AnimCount > 0.6f) {
-                AnimCount -= 0.6f;
-                AnimPhase++;
+                Projectiles.PushProjectile(xpos + 40.0f - 32.0f, ypos + 55.0f - 32.0f, SMARTBOMB, this);
+            }
 
-                // Zuende gedreht ?
-                if (AnimPhase == AnimEnde) {
-                    AnimEnde = 0;
-                    Handlung = PlayerActionEnum::SACKREITEN;
+            // Taste losgelassen ? Dann können wir wieder eine Powerline schiessen
+            if (!Aktion[AKTION_POWERLINE] && !Aktion[AKTION_SMARTBOMB])
+                PowerLinePossible = true;
 
-                    if (Blickrichtung == DirectionEnum::RECHTS) {
-                        AnimPhase = 0;
-                        Blickrichtung = DirectionEnum::LINKS;
+            // Ja nach Blickrichtung in die richtige Richtung scrollen
+            if (Blickrichtung == DirectionEnum::LINKS && (!(bl & BLOCKWERT_WAND))) {
+                if (!InLiquid)
+                    xspeed = -40.0f;
+                else
+                    xspeed = -30.0f;
+            } else if (Blickrichtung == DirectionEnum::RECHTS && (!(br & BLOCKWERT_WAND))) {
+                if (!InLiquid)
+                    xspeed = 40.0f;
+                else
+                    xspeed = 30.0f;
+            }
+
+            if (Aktion[AKTION_LINKS] &&                   // Nach Links rollen ?
+                (Handlung == PlayerActionEnum::RADELN ||  // Nur wenn man Boden unter den Füßen hat
+                 AufPlattform != nullptr || bu & BLOCKWERT_WAND || bu & BLOCKWERT_PLATTFORM))
+                Blickrichtung = DirectionEnum::LINKS;
+
+            if (Aktion[AKTION_RECHTS] &&                  // Nach Rechts rollen ?
+                (Handlung == PlayerActionEnum::RADELN ||  // Nur wenn man Boden unter den Füßen hat
+                 AufPlattform != nullptr || bu & BLOCKWERT_WAND || bu & BLOCKWERT_PLATTFORM))
+                Blickrichtung = DirectionEnum::RECHTS;
+
+            if (Handlung != PlayerActionEnum::RADELN_FALL && (!(bu & BLOCKWERT_SCHRAEGE_R)) &&
+                (!(bu & BLOCKWERT_SCHRAEGE_L)) && (!(bu & BLOCKWERT_WAND)) && (!(bu & BLOCKWERT_PLATTFORM))) {
+                Handlung = PlayerActionEnum::RADELN_FALL;
+                yspeed = 0.5f;
+                JumpAdd = PLAYER_JUMPADDSPEED;
+            }
+
+            // Wieder am Boden aufgekommen ?
+            if (Handlung == PlayerActionEnum::RADELN_FALL &&
+                ((AufPlattform != nullptr) || (bu & BLOCKWERT_WAND) || (bu & BLOCKWERT_PLATTFORM))) {
+                if (yspeed > 2.0f)
+                    PartikelSystem.PushPartikel(xpos + 20, ypos + 60, SMOKE);
+
+                if (yspeed > 0.0f) {
+                    yspeed = -yspeed * 2 / 3;  // Abhopfen
+
+                    if (yspeed > -5.0f)  // oder ggf wieder
+                    {
+                        // Normal weiterkullern
+                        yspeed = 0.0f;
+                        JumpAdd = 0.0f;
+                        Handlung = PlayerActionEnum::RADELN;
+                        TileEngine.BlockUnten(xpos, ypos, xposold, yposold, CollideRect, true);
                     } else {
-                        AnimPhase = 10;
-                        Blickrichtung = DirectionEnum::RECHTS;
+                        AufPlattform = nullptr;
+                        SoundManager.PlayWave(100, 128, 11025, SOUND::LANDEN);
                     }
                 }
             }
-        }
 
-        // Links fliegen
-        if (Aktion[AKTION_LINKS] == true && Aktion[AKTION_RECHTS] == false) {
-            xadd -= Timer.sync(10.0f);
+            // An die Wand gestossen ? Dann Richtung umkehren
+            if (!(bu & BLOCKWERT_SCHRAEGE_R) && !(bu & BLOCKWERT_SCHRAEGE_L)) {
+                if (Blickrichtung == DirectionEnum::RECHTS && (br & BLOCKWERT_WAND))
+                    Blickrichtung = DirectionEnum::LINKS;
 
-            // Drehen ?
-            if (Aktion[AKTION_SHOOT] == false && Handlung == PlayerActionEnum::SACKREITEN &&
-                    Blickrichtung == DirectionEnum::RECHTS) {
-                Handlung = PlayerActionEnum::DREHEN;
-                AnimEnde = 19;
-                AnimCount = 0.0f;
-                AnimPhase = 10;
+                if (Blickrichtung == DirectionEnum::LINKS && (bl & BLOCKWERT_WAND))
+                    Blickrichtung = DirectionEnum::RECHTS;
             }
-        }
 
-        // Rechts fliegen
-        if (Aktion[AKTION_RECHTS] == true && Aktion[AKTION_LINKS] == false) {
-            xadd += Timer.sync(10.0f);
+            // Aufhören zu kullern und zurückverwandeln, wenn man springt oder keine Energie mehr hat
+            // funktiomiert nur, wenn über einem keine Wand ist. Dabei wird noch ein Teil mehr gecheckt, als
+            // das Rad hoch ist, damit man den Zustand prüft, als wenn der Spieler wieder stehen würde
 
-            // Drehen ?
-            if (Aktion[AKTION_SHOOT] == false && Handlung == PlayerActionEnum::SACKREITEN &&
-                    Blickrichtung == DirectionEnum::LINKS) {
-                Handlung = PlayerActionEnum::DREHEN;
-                AnimEnde = 9;
-                AnimCount = 0.0f;
+            float ypos2 = ypos - 20.0f;
+            uint32_t bo2 = TileEngine.BlockOben(xpos, ypos2, xposold, yposold, CollideRect, true);
+
+            if ((Armour <= 0.0f || Aktion[AKTION_JUMP]) && !(bo & BLOCKWERT_WAND) && !(bo2 & BLOCKWERT_WAND)) {
                 AnimPhase = 0;
+
+                // Am Boden zurückverwandelt ?
+                if (Armour <= 0.0f && ((bu & BLOCKWERT_WAND) || (bu & BLOCKWERT_PLATTFORM)))
+                    Handlung = PlayerActionEnum::STEHEN;
+
+                // oder in der Luft bzw durch Sprung
+                else
+                    Handlung = PlayerActionEnum::SPRINGEN;  // Nein, dann in der Luft
+
+                CollideRect.left = 20;
+                CollideRect.top = 12;
+                CollideRect.right = 50;
+                CollideRect.bottom = 79;
+                if (Armour < 0.0f)
+                    Armour = 0.0f;
             }
         }
 
-        // Hoch fliegen
-        if ((Aktion[AKTION_OBEN] == true || Aktion[AKTION_JUMP] == true) && Aktion[AKTION_DUCKEN] == false)
-            yadd -= Timer.sync(10.0f);
+        else
 
-        // Runter fliegen
-        if (Aktion[AKTION_DUCKEN] == true && Aktion[AKTION_OBEN] == false)
-            yadd += Timer.sync(10.0f);
+            //------------------------
+            // Auf dem FlugSack reiten
+            //------------------------
 
-        // Bewegung abbremsen
-        if (!Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS]) {
-            if (xadd < 0.0f) {
-                xadd += Timer.sync(4.0f);
-                if (xadd > 0.0f)
-                    xadd = 0.0f;
+            if (Handlung == PlayerActionEnum::SACKREITEN || Handlung == PlayerActionEnum::DREHEN) {
+                // Spieler und Level bewegen (wenn nicht beim Endboss bzw wenn Level scrollbar)
+                // Nur, wenn alle Spieler auf einem Flugsack sitzen
+                //
+                bool BeideFrei = true;
+
+                for (int p = 0; p < NUMPLAYERS; p++)
+                    if (Player[p].FesteAktion > -1)
+                        BeideFrei = false;
+
+                if (FlugsackFliesFree == false && Riding() && BeideFrei == true)
+                    ypos -= Timer.sync(PLAYER_FLUGSACKSPEED);
+
+                JumpySave = ypos;
+                JumpxSave = xpos;
+
+                // unten rausgeflogen ? Dann wieder zurücksetzen
+                if (ypos > TileEngine.YOffset + 475.0f) {
+                    SoundManager.PlayWave(100, 128, 11025, SOUND::EXPLOSION2);
+                    xpos = JumpxSave;  // Alte Position wieder herstellen, wenn der
+                    ypos = JumpySave;  // der Spieler zB einen Abgrund runterfiel
+                    xposold = JumpxSave;
+                    yposold = JumpySave;
+                    Energy = 0.0f;
+                }
+
+                // An der Decke anstoßen
+                if (ypos < TileEngine.YOffset && BeideFrei) {
+                    if (yadd < 0.0f)
+                        yadd *= -1.0f;
+                }
+
+                // Wände checken
+                if (bl & BLOCKWERT_WAND)
+                    if (xadd < 0.0f)
+                        xadd = -xadd / 2.0f;
+                if (br & BLOCKWERT_WAND)
+                    if (xadd > 0.0f)
+                        xadd = -xadd / 2.0f;
+                if (bo & BLOCKWERT_WAND)
+                    if (yadd < 0.0f)
+                        yadd = -yadd / 2.0f;
+                if (bu & BLOCKWERT_WAND)
+                    if (yadd > 0.0f)
+                        yadd = -yadd / 2.0f;
+
+                // Rauch am Flugsack erzeugen
+                SmokeCount -= Timer.sync(1.0f);
+                if (SmokeCount < 0.0f) {
+                    SmokeCount += 0.1f;
+
+                    // Beim Reiten
+                    if (Handlung == PlayerActionEnum::SACKREITEN) {
+                        if (Blickrichtung == DirectionEnum::LINKS)
+                            PartikelSystem.PushPartikel(xpos + 72, ypos + 100, FLUGSACKSMOKE2);
+                        else
+                            PartikelSystem.PushPartikel(xpos - 2, ypos + 100, FLUGSACKSMOKE);
+                    }
+
+                    // oder beim Drehen
+                    if (Handlung == PlayerActionEnum::DREHEN) {
+                        if (Blickrichtung == DirectionEnum::LINKS) {
+                            PartikelSystem.PushPartikel(xpos + 70 - AnimPhase * 10, ypos + 100, FLUGSACKSMOKE2);
+                            PartikelSystem.PushPartikel(xpos + 87 - AnimPhase * 10, ypos + 100, FLUGSACKSMOKE);
+                        } else {
+                            PartikelSystem.PushPartikel(xpos + 4 + (AnimPhase - 10) * 10, ypos + 100, FLUGSACKSMOKE);
+                            PartikelSystem.PushPartikel(xpos - 20 + (AnimPhase - 10) * 10, ypos + 100, FLUGSACKSMOKE2);
+                        }
+                    }
+                }
+
+                // Umdrehen
+                if (Handlung == PlayerActionEnum::DREHEN) {
+                    AnimCount += Timer.sync(1.2f);
+
+                    if (AnimCount > 0.6f) {
+                        AnimCount -= 0.6f;
+                        AnimPhase++;
+
+                        // Zuende gedreht ?
+                        if (AnimPhase == AnimEnde) {
+                            AnimEnde = 0;
+                            Handlung = PlayerActionEnum::SACKREITEN;
+
+                            if (Blickrichtung == DirectionEnum::RECHTS) {
+                                AnimPhase = 0;
+                                Blickrichtung = DirectionEnum::LINKS;
+                            } else {
+                                AnimPhase = 10;
+                                Blickrichtung = DirectionEnum::RECHTS;
+                            }
+                        }
+                    }
+                }
+
+                // Links fliegen
+                if (Aktion[AKTION_LINKS] == true && Aktion[AKTION_RECHTS] == false) {
+                    xadd -= Timer.sync(10.0f);
+
+                    // Drehen ?
+                    if (Aktion[AKTION_SHOOT] == false && Handlung == PlayerActionEnum::SACKREITEN &&
+                        Blickrichtung == DirectionEnum::RECHTS) {
+                        Handlung = PlayerActionEnum::DREHEN;
+                        AnimEnde = 19;
+                        AnimCount = 0.0f;
+                        AnimPhase = 10;
+                    }
+                }
+
+                // Rechts fliegen
+                if (Aktion[AKTION_RECHTS] == true && Aktion[AKTION_LINKS] == false) {
+                    xadd += Timer.sync(10.0f);
+
+                    // Drehen ?
+                    if (Aktion[AKTION_SHOOT] == false && Handlung == PlayerActionEnum::SACKREITEN &&
+                        Blickrichtung == DirectionEnum::LINKS) {
+                        Handlung = PlayerActionEnum::DREHEN;
+                        AnimEnde = 9;
+                        AnimCount = 0.0f;
+                        AnimPhase = 0;
+                    }
+                }
+
+                // Hoch fliegen
+                if ((Aktion[AKTION_OBEN] == true || Aktion[AKTION_JUMP] == true) && Aktion[AKTION_DUCKEN] == false)
+                    yadd -= Timer.sync(10.0f);
+
+                // Runter fliegen
+                if (Aktion[AKTION_DUCKEN] == true && Aktion[AKTION_OBEN] == false)
+                    yadd += Timer.sync(10.0f);
+
+                // Bewegung abbremsen
+                if (!Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS]) {
+                    if (xadd < 0.0f) {
+                        xadd += Timer.sync(4.0f);
+                        if (xadd > 0.0f)
+                            xadd = 0.0f;
+                    }
+
+                    if (xadd > 0.0f) {
+                        xadd -= Timer.sync(4.0f);
+                        if (xadd < 0.0f)
+                            xadd = 0.0f;
+                    }
+                }
+
+                if (!Aktion[AKTION_OBEN] && !Aktion[AKTION_DUCKEN]) {
+                    if (yadd < 0.0f) {
+                        yadd += Timer.sync(4.0f);
+                        if (yadd > 0.0f)
+                            yadd = 0.0f;
+                    }
+
+                    if (yadd > 0.0f) {
+                        yadd -= Timer.sync(4.0f);
+                        if (yadd < 0.0f)
+                            yadd = 0.0f;
+                    }
+                }
+
+                // Geschwindigkeitsgrenzen checken
+                xadd = std::clamp(xadd, -25.0f, 25.0f);
+                yadd = std::clamp(yadd, -25.0f, 25.0f);
+
+                xspeed = xadd;
+                ypos += Timer.sync(yadd);
+
+                // Wendepunkt erreicht? Dann automatisch abspringen
+                float ytemp = ypos - 1;
+                bu = TileEngine.BlockUntenNormal(xpos, ypos, xposold, ytemp, CollideRect);
+                if (bu & BLOCKWERT_WENDEPUNKT) {
+                    Handlung = PlayerActionEnum::SPRINGEN;
+                    AnimPhase = 0;
+                    yspeed = -PLAYER_MAXJUMPSPEED;
+                    JumpAdd = PLAYER_JUMPADDSPEED;
+                    AufPlattform = nullptr;
+
+                    // abstürzenden Flugsack adden
+                    Gegner.PushGegner(xpos, ypos + 20, FLUGSACK, 99, 0, false);
+
+                    FlugsackFliesFree = true;
+                    TileEngine.Zustand = TileStateEnum::SCROLLBAR;
+
+                    SoundManager.FadeSong(MUSIC::FLUGSACK, -2.0f, 0, true);
+                    SoundManager.FadeSong(MUSIC::STAGEMUSIC, 2.0f, 100, true);
+                }
             }
 
-            if (xadd > 0.0f) {
-                xadd -= Timer.sync(4.0f);
-                if (xadd < 0.0f)
-                    xadd = 0.0f;
-            }
-        }
+            //-------------------------
+            // Auf dem SurfBrett stehen
+            //-------------------------
 
-        if (!Aktion[AKTION_OBEN] && !Aktion[AKTION_DUCKEN]) {
-            if (yadd < 0.0f) {
-                yadd += Timer.sync(4.0f);
-                if (yadd > 0.0f)
-                    yadd = 0.0f;
-            }
-
-            if (yadd > 0.0f) {
-                yadd -= Timer.sync(4.0f);
-                if (yadd < 0.0f)
-                    yadd = 0.0f;
-            }
-        }
-
-        // Geschwindigkeitsgrenzen checken
-        xadd = std::clamp(xadd, -25.0f, 25.0f);
-        yadd = std::clamp(yadd, -25.0f, 25.0f);
-
-        xspeed = xadd;
-        ypos += Timer.sync(yadd);
-
-        // Wendepunkt erreicht? Dann automatisch abspringen
-        float ytemp = ypos - 1;
-        bu = TileEngine.BlockUntenNormal(xpos, ypos, xposold, ytemp, CollideRect);
-        if (bu & BLOCKWERT_WENDEPUNKT) {
-            Handlung = PlayerActionEnum::SPRINGEN;
-            AnimPhase = 0;
-            yspeed = -PLAYER_MAXJUMPSPEED;
-            JumpAdd = PLAYER_JUMPADDSPEED;
-            AufPlattform = nullptr;
-
-            // abstürzenden Flugsack adden
-            Gegner.PushGegner(xpos, ypos + 20, FLUGSACK, 99, 0, false);
-
-            FlugsackFliesFree = true;
-            TileEngine.Zustand = TileStateEnum::SCROLLBAR;
-
-            SoundManager.FadeSong(MUSIC::FLUGSACK, -2.0f, 0, true);
-            SoundManager.FadeSong(MUSIC::STAGEMUSIC, 2.0f, 100, true);
-        }
-    }
-
-    //-------------------------
-    // Auf dem SurfBrett stehen
-    //-------------------------
-
-    // DKS - This appears never to have been implemented (no image for it) so disabled it:
+            // DKS - This appears never to have been implemented (no image for it) so disabled it:
 #if 0
     if (Handlung == PlayerActionEnum::SURFEN     ||
             Handlung == PlayerActionEnum::SURFENJUMP ||
@@ -1939,9 +1915,11 @@ void PlayerClass::AnimatePlayer() {
         for (int i = -1; i < 25; i++)  // Powerlines schiessen
         {
             Projectiles.PushProjectile(xpos + 20,
-                                       static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20), POWERLINE, this);
+                                       static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20),
+                                       POWERLINE, this);
             Projectiles.PushProjectile(xpos + 20,
-                                       static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20), POWERLINE2, this);
+                                       static_cast<float>(static_cast<int>(TileEngine.YOffset / 20.0f) * 20 + i * 20),
+                                       POWERLINE2, this);
         }
     }
 
@@ -1970,11 +1948,9 @@ void PlayerClass::AnimatePlayer() {
 
     // nach oben zielen
     if (Aktion[AKTION_OBEN]) {
-        if (Handlung == PlayerActionEnum::STEHEN ||
-                Handlung == PlayerActionEnum::SCHIESSEN_O ||
-                Handlung == PlayerActionEnum::SCHIESSEN_LO ||
-                Handlung == PlayerActionEnum::SCHIESSEN_RO ||
-                Handlung == PlayerActionEnum::LAUFEN) {
+        if (Handlung == PlayerActionEnum::STEHEN || Handlung == PlayerActionEnum::SCHIESSEN_O ||
+            Handlung == PlayerActionEnum::SCHIESSEN_LO || Handlung == PlayerActionEnum::SCHIESSEN_RO ||
+            Handlung == PlayerActionEnum::LAUFEN) {
             if (Aktion[AKTION_LINKS]) {
                 Handlung = PlayerActionEnum::SCHIESSEN_LO;
                 Blickrichtung = DirectionEnum::LINKS;
@@ -1986,16 +1962,13 @@ void PlayerClass::AnimatePlayer() {
         }
     }
 
-    if ((!Aktion[AKTION_OBEN] && !Aktion[AKTION_UNTEN]) ||
-            NUMPLAYERS == 2 || TileEngine.Zustand != TileStateEnum::SCROLLBAR)
+    if ((!Aktion[AKTION_OBEN] && !Aktion[AKTION_UNTEN]) || NUMPLAYERS == 2 ||
+        TileEngine.Zustand != TileStateEnum::SCROLLBAR)
         look = 0.0f;
 
-    if (TileEngine.Zustand == TileStateEnum::SCROLLBAR && NUMPLAYERS < 2 &&
-            Handlung != PlayerActionEnum::SACKREITEN &&
-            Handlung != PlayerActionEnum::DREHEN &&
-            Handlung != PlayerActionEnum::SURFEN &&
-            Handlung != PlayerActionEnum::SURFENJUMP &&
-            Handlung != PlayerActionEnum::SURFENCROUCH) {
+    if (TileEngine.Zustand == TileStateEnum::SCROLLBAR && NUMPLAYERS < 2 && Handlung != PlayerActionEnum::SACKREITEN &&
+        Handlung != PlayerActionEnum::DREHEN && Handlung != PlayerActionEnum::SURFEN &&
+        Handlung != PlayerActionEnum::SURFENJUMP && Handlung != PlayerActionEnum::SURFENCROUCH) {
         // Spieler steht am Boden ?
         //
 
@@ -2060,10 +2033,18 @@ void PlayerClass::AnimatePlayer() {
 
     if ((bo & BLOCKWERT_SCHADEN) || (bu & BLOCKWERT_SCHADEN) || (bl & BLOCKWERT_SCHADEN) || (br & BLOCKWERT_SCHADEN)) {
         switch (Skill) {
-            case SKILL_EASY:     DamagePlayer(Timer.sync(10.0f)); break;
-            case SKILL_MEDIUM:   DamagePlayer(Timer.sync(20.0f)); break;
-            case SKILL_HARD:     DamagePlayer(Timer.sync(30.0f)); break;
-            case SKILL_HURRICAN: DamagePlayer(Timer.sync(40.0f)); break;
+            case SKILL_EASY:
+                DamagePlayer(Timer.sync(10.0f));
+                break;
+            case SKILL_MEDIUM:
+                DamagePlayer(Timer.sync(20.0f));
+                break;
+            case SKILL_HARD:
+                DamagePlayer(Timer.sync(30.0f));
+                break;
+            case SKILL_HURRICAN:
+                DamagePlayer(Timer.sync(40.0f));
+                break;
         }
 
         if ((Handlung == PlayerActionEnum::RADELN || Handlung == PlayerActionEnum::RADELN_FALL) && WheelMode == false)
@@ -2086,19 +2067,18 @@ void PlayerClass::AnimatePlayer() {
 
     if ((bu & BLOCKWERT_LIQUID) || (br & BLOCKWERT_LIQUID) || (bl & BLOCKWERT_LIQUID) || (bo & BLOCKWERT_LIQUID) ||
         middle & BLOCKWERT_LIQUID) {
-
         // Gerade erst in Flüssigkeit gesprungen ?
         if (InLiquid == false) {
             if (Handlung == PlayerActionEnum::SPRINGEN || Handlung == PlayerActionEnum::RADELN_FALL) {
                 for (int i = 0; i < 12; i++)
                     PartikelSystem.PushPartikel(xpos + 18.0f + static_cast<float>(GetRandom(20)),
-                                                ypos - 25.0f + static_cast<float>(CollideRect.bottom), WASSER_SPRITZER2);
+                                                ypos - 25.0f + static_cast<float>(CollideRect.bottom),
+                                                WASSER_SPRITZER2);
 
                 WinkelUebergabe = -1.0f;
                 for (int i = 0; i < 15; i++)
                     PartikelSystem.PushPartikel(xpos + 10.0f + static_cast<float>(GetRandom(40)),
-                                                ypos + static_cast<float>(CollideRect.bottom + GetRandom(20)),
-                                                BUBBLE);
+                                                ypos + static_cast<float>(CollideRect.bottom + GetRandom(20)), BUBBLE);
             }
 
             InLiquid = true;
@@ -2114,7 +2094,8 @@ void PlayerClass::AnimatePlayer() {
             if (Handlung == PlayerActionEnum::SPRINGEN || Handlung == PlayerActionEnum::RADELN_FALL) {
                 for (int i = 0; i < 12; i++)
                     PartikelSystem.PushPartikel(xpos + 10.0f + static_cast<float>(GetRandom(20)),
-                                                ypos - 25.0f + static_cast<float>(CollideRect.bottom), WASSER_SPRITZER2);
+                                                ypos - 25.0f + static_cast<float>(CollideRect.bottom),
+                                                WASSER_SPRITZER2);
             }
 
             SoundManager.PlayWave(100, 128, 10000 + GetRandom(2050), SOUND::WATEROUT);
@@ -2143,7 +2124,8 @@ void PlayerClass::AnimatePlayer() {
     }
 
     // schräg laufen?
-    if ((Handlung == PlayerActionEnum::SCHIESSEN_LO || Handlung == PlayerActionEnum::SCHIESSEN_RO) && WalkLock == false) {
+    if ((Handlung == PlayerActionEnum::SCHIESSEN_LO || Handlung == PlayerActionEnum::SCHIESSEN_RO) &&
+        WalkLock == false) {
         // Nächste Animations-Phase ?
         AnimCount += Timer.sync(1.0f);
         while (AnimCount > PLAYER_ANIMSPEED) {
@@ -2158,18 +2140,18 @@ void PlayerClass::AnimatePlayer() {
 
     // Normal laufen oder radeln?
     if (Handlung == PlayerActionEnum::LAUFEN ||       // Spieler läuft oder
-            Handlung == PlayerActionEnum::RADELN ||       // oder kullert
-            Handlung == PlayerActionEnum::RADELN_FALL ||  // oder fällt als Rad
-            (Handlung == PlayerActionEnum::SPRINGEN &&    // springt, sprich, wird animiert ?
-            yspeed > -PLAYER_MAXJUMPSPEED / 1.5f)) {
+        Handlung == PlayerActionEnum::RADELN ||       // oder kullert
+        Handlung == PlayerActionEnum::RADELN_FALL ||  // oder fällt als Rad
+        (Handlung == PlayerActionEnum::SPRINGEN &&    // springt, sprich, wird animiert ?
+         yspeed > -PLAYER_MAXJUMPSPEED / 1.5f)) {
         if (InLiquid == false)
             AnimCount += Timer.sync(1.0f);  // Dann animieren, je nachdem, ob man im
-        else                         // Wasser ist oder nicht
+        else                                // Wasser ist oder nicht
             AnimCount += Timer.sync(0.5f);  // verschieden schnell animieren
 
         if (Handlung == PlayerActionEnum::RADELN ||
-                Handlung == PlayerActionEnum::RADELN_FALL)  // Als Rad schneller animieren, also
-            AnimCount += Timer.sync(4.0f);                         // einfach nochmal den Wert viermal dazu
+            Handlung == PlayerActionEnum::RADELN_FALL)  // Als Rad schneller animieren, also
+            AnimCount += Timer.sync(4.0f);              // einfach nochmal den Wert viermal dazu
 
         while (AnimCount > PLAYER_ANIMSPEED) {
             AnimCount = AnimCount - PLAYER_ANIMSPEED;
@@ -2598,7 +2580,7 @@ bool PlayerClass::DrawPlayer(bool leuchten, bool farbe) {
                                                                     FlameAnim + FlameOff * 2, 0xFFFFFFFF);
             else
                 Projectiles.SchussFlamme[AustrittAnim].RenderMirroredSprite(xpos + AustrittX, ypos + AustrittY,
-                                                                    FlameAnim + FlameOff * 2, 0xFFFFFFFF);
+                                                                            FlameAnim + FlameOff * 2, 0xFFFFFFFF);
         }
 
         CalcAustrittsPunkt();
@@ -2608,21 +2590,21 @@ bool PlayerClass::DrawPlayer(bool leuchten, bool farbe) {
 
             switch (FlameOff) {
                 case 0:
-                    Projectiles.SchussFlammeFlare.RenderSprite(
-                        xpos + AustrittX - 70.0f - TileEngine.XOffset,
-                        ypos + AustrittY - 70.0f - TileEngine.YOffset, 0, 0x88FFCC99);
+                    Projectiles.SchussFlammeFlare.RenderSprite(xpos + AustrittX - 70.0f - TileEngine.XOffset,
+                                                               ypos + AustrittY - 70.0f - TileEngine.YOffset, 0,
+                                                               0x88FFCC99);
                     break;
 
                 case 1:
-                    Projectiles.SchussFlammeFlare.RenderSprite(
-                        xpos + AustrittX - 70.0f - TileEngine.XOffset,
-                        ypos + AustrittY - 70.0f - TileEngine.YOffset, 0, 0x8899CCFF);
+                    Projectiles.SchussFlammeFlare.RenderSprite(xpos + AustrittX - 70.0f - TileEngine.XOffset,
+                                                               ypos + AustrittY - 70.0f - TileEngine.YOffset, 0,
+                                                               0x8899CCFF);
                     break;
 
                 case 2:
-                    Projectiles.SchussFlammeFlare.RenderSprite(
-                        xpos + AustrittX - 70.0f - TileEngine.XOffset,
-                        ypos + AustrittY - 70.0f - TileEngine.YOffset, 0, 0x8899FFCC);
+                    Projectiles.SchussFlammeFlare.RenderSprite(xpos + AustrittX - 70.0f - TileEngine.XOffset,
+                                                               ypos + AustrittY - 70.0f - TileEngine.YOffset, 0,
+                                                               0x8899FFCC);
                     break;
             }
         }
@@ -2679,8 +2661,7 @@ void PlayerClass::MovePlayer() {
     // im 2 Spieler-Mode: Ein Spieler fällt aus dem Screen?
     // Geht nur, wenn beide noch leben
     //
-    if (NUMPLAYERS == 2 && Player[0].Handlung !=PlayerActionEnum:: TOT &&
-            Player[1].Handlung != PlayerActionEnum::TOT) {
+    if (NUMPLAYERS == 2 && Player[0].Handlung != PlayerActionEnum::TOT && Player[1].Handlung != PlayerActionEnum::TOT) {
         PlayerClass *pVictim = nullptr;
         PlayerClass *pSurvivor = nullptr;
 
@@ -2768,9 +2749,8 @@ void PlayerClass::PlayerShoot() {
 
     // Hurri zielt nach oben
     //
-    if (Handlung == PlayerActionEnum::SCHIESSEN_O ||
-        (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] &&
-        !Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS])) {
+    if (Handlung == PlayerActionEnum::SCHIESSEN_O || (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] &&
+                                                      !Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS])) {
         if (Blickrichtung == DirectionEnum::LINKS)
             wadd = 90.0f;
         else
@@ -2781,14 +2761,14 @@ void PlayerClass::PlayerShoot() {
         //
         if (Handlung == PlayerActionEnum::SCHIESSEN_LO ||
             (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] && Aktion[AKTION_LINKS]))
-        wadd = 45.0f;
-    else
+            wadd = 45.0f;
+        else
 
-        // Hurri zielt nach rechts oben
-        //
-        if (Handlung == PlayerActionEnum::SCHIESSEN_RO ||
-            (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] && Aktion[AKTION_RECHTS]))
-        wadd = -45.0f;
+            // Hurri zielt nach rechts oben
+            //
+            if (Handlung == PlayerActionEnum::SCHIESSEN_RO ||
+                (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] && Aktion[AKTION_RECHTS]))
+                wadd = -45.0f;
 
     if (Handlung != PlayerActionEnum::RADELN &&  // Normal schiessen ?
         Handlung != PlayerActionEnum::RADELN_FALL) {
@@ -2797,8 +2777,8 @@ void PlayerClass::PlayerShoot() {
 
         if (FlameThrower) {
             WinkelUebergabe = 90.0f + wadd;
-            Projectiles.PushProjectile(xpos - tempadd + AustrittX - 29.0f, ypos - tempadd + AustrittY - 33.0f, PLAYERFIRE,
-                                       this);
+            Projectiles.PushProjectile(xpos - tempadd + AustrittX - 29.0f, ypos - tempadd + AustrittY - 33.0f,
+                                       PLAYERFIRE, this);
             ShotDelay = PLAYER_SHOTDELAY / 5.0f;
 
             // DKS - Added function WaveIsPlaying() to SoundManagerClass:
@@ -2991,12 +2971,12 @@ void PlayerClass::PlayerShoot() {
 
                     if (CurrentWeaponLevel[SelectedWeapon] >= 3 && CurrentWeaponLevel[SelectedWeapon] <= 4) {
                         if (wadd == 0.0f) {
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung),
-                                                       ypos - tempaddy - tempaddx * mul1 * 2.3f + AustrittY, tempshot,
-                                                       this);
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung),
-                                                       ypos - tempaddy + tempaddx * mul1 * 2.3f + AustrittY, tempshot,
-                                                       this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung),
+                                ypos - tempaddy - tempaddx * mul1 * 2.3f + AustrittY, tempshot, this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung),
+                                ypos - tempaddy + tempaddx * mul1 * 2.3f + AustrittY, tempshot, this);
                         }
 
                         if (wadd == 90.0f || wadd == -90.0f) {
@@ -3023,12 +3003,12 @@ void PlayerClass::PlayerShoot() {
 
                     if (CurrentWeaponLevel[SelectedWeapon] == 5 || CurrentWeaponLevel[SelectedWeapon] == 6) {
                         if (wadd == 0.0f) {
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
-                                                       ypos - tempaddy + AustrittY - tempaddx * mul1 * 2, tempshot + 1,
-                                                       this);
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
-                                                       ypos - tempaddy + AustrittY + tempaddx * mul1 * 2, tempshot + 1,
-                                                       this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
+                                ypos - tempaddy + AustrittY - tempaddx * mul1 * 2, tempshot + 1, this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
+                                ypos - tempaddy + AustrittY + tempaddx * mul1 * 2, tempshot + 1, this);
                         }
 
                         if (wadd == 90.0f || wadd == -90.0f) {
@@ -3055,12 +3035,12 @@ void PlayerClass::PlayerShoot() {
 
                     if (CurrentWeaponLevel[SelectedWeapon] == 7) {
                         if (wadd == 0.0f) {
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
-                                                       ypos - tempaddy + AustrittY - tempaddx * mul1 * 3, tempshot,
-                                                       this);
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
-                                                       ypos - tempaddy + AustrittY + tempaddx * mul1 * 3, tempshot,
-                                                       this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
+                                ypos - tempaddy + AustrittY - tempaddx * mul1 * 3, tempshot, this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
+                                ypos - tempaddy + AustrittY + tempaddx * mul1 * 3, tempshot, this);
                         }
 
                         if (wadd == 45.0f) {
@@ -3087,10 +3067,12 @@ void PlayerClass::PlayerShoot() {
 
                     if (CurrentWeaponLevel[SelectedWeapon] == 8) {
                         if (wadd == 0.0f) {
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
-                                                       ypos - tempaddy + AustrittY - tempaddx * 3, tempshot + 1, this);
-                            Projectiles.PushProjectile(xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
-                                                       ypos - tempaddy + AustrittY + tempaddx * 3, tempshot + 1, this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
+                                ypos - tempaddy + AustrittY - tempaddx * 3, tempshot + 1, this);
+                            Projectiles.PushProjectile(
+                                xpos - tempaddx + AustrittX - tempaddx * Direction::asInt(Blickrichtung) * 2,
+                                ypos - tempaddy + AustrittY + tempaddx * 3, tempshot + 1, this);
                         }
 
                         if (wadd == 45.0f) {
@@ -3138,7 +3120,8 @@ void PlayerClass::PlayerShoot() {
                     WinkelUebergabe = 90.0f + wadd;
 
                     // if (CurrentWeaponLevel[SelectedWeapon] <= 5)
-                    Projectiles.PushProjectile(xpos - tempadd2 + AustrittX, ypos - tempadd2 + AustrittY, tempshot, this);
+                    Projectiles.PushProjectile(xpos - tempadd2 + AustrittX, ypos - tempadd2 + AustrittY, tempshot,
+                                               this);
 
                     /*
                     if (CurrentWeaponLevel[SelectedWeapon] == 5)
@@ -3146,30 +3129,30 @@ void PlayerClass::PlayerShoot() {
                         if (wadd == 0.0f)
                         {
                             Projectiles.PushProjectile(xpos-tempadd2+AustrittX + 4, ypos-tempadd2+AustrittY-11,
-                    tempshot+1, this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX + 4, ypos-tempadd2+AustrittY+19,
-                    tempshot+1, this);
+                    tempshot+1, this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX + 4,
+                    ypos-tempadd2+AustrittY+19, tempshot+1, this);
                         }
                         else
                         if (wadd ==  90.0f ||
                             wadd == -90.0f)
                         {
-                            Projectiles.PushProjectile(xpos-tempadd2+AustrittX-11, ypos-tempadd2+AustrittY+4, tempshot+1,
-                    this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX+19, ypos-tempadd2+AustrittY+4, tempshot+1,
-                    this);
+                            Projectiles.PushProjectile(xpos-tempadd2+AustrittX-11, ypos-tempadd2+AustrittY+4,
+                    tempshot+1, this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX+19, ypos-tempadd2+AustrittY+4,
+                    tempshot+1, this);
                         }
                         else
                         if (wadd == 45.0f)
                         {
-                            Projectiles.PushProjectile(xpos-tempadd2+AustrittX-7, ypos-tempadd2+AustrittY+17, tempshot+1,
-                    this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX+17, ypos-tempadd2+AustrittY-7, tempshot+1,
-                    this);
+                            Projectiles.PushProjectile(xpos-tempadd2+AustrittX-7, ypos-tempadd2+AustrittY+17,
+                    tempshot+1, this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX+17, ypos-tempadd2+AustrittY-7,
+                    tempshot+1, this);
                         }
                         else
                         if (wadd == -45.0f)
                         {
                             Projectiles.PushProjectile(xpos-tempadd2+AustrittX-7, ypos-tempadd2+AustrittY-7, tempshot+1,
-                    this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX+17, ypos-tempadd2+AustrittY+15, tempshot+1,
-                    this);
+                    this); Projectiles.PushProjectile(xpos-tempadd2+AustrittX+17, ypos-tempadd2+AustrittY+15,
+                    tempshot+1, this);
                         }
                     }
 
@@ -3238,14 +3221,14 @@ void PlayerClass::PlayerShoot() {
 
                 // Rauchwolke bei Laser
                 if (SelectedWeapon == 1)
-                PartikelSystem.PushPartikel(xpos + 30.0f, ypos + 24.0f + yoff, SMOKE3);
-            else
+                    PartikelSystem.PushPartikel(xpos + 30.0f, ypos + 24.0f + yoff, SMOKE3);
+                else
 
-                // Grüne Funken beim Bounce
-                if (SelectedWeapon == 2)
-                for (int i = 0; i < 2; i++)
-                    PartikelSystem.PushPartikel(xpos + 30.0f + static_cast<float>(GetRandom(4)),
-                                                ypos + 28.0f + yoff + static_cast<float>(GetRandom(4)), FUNKE2);
+                    // Grüne Funken beim Bounce
+                    if (SelectedWeapon == 2)
+                        for (int i = 0; i < 2; i++)
+                            PartikelSystem.PushPartikel(xpos + 30.0f + static_cast<float>(GetRandom(4)),
+                                                        ypos + 28.0f + yoff + static_cast<float>(GetRandom(4)), FUNKE2);
         }
 
         // Schussflamme
@@ -3278,9 +3261,8 @@ void PlayerClass::PlayerGrenadeShoot() {
 
     // Hurri zielt nach oben
     //
-    if (Handlung == PlayerActionEnum::SCHIESSEN_O ||
-            (Handlung == PlayerActionEnum::SPRINGEN &&
-            Aktion[AKTION_OBEN] && !Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS])) {
+    if (Handlung == PlayerActionEnum::SCHIESSEN_O || (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] &&
+                                                      !Aktion[AKTION_LINKS] && !Aktion[AKTION_RECHTS])) {
         if (Blickrichtung == DirectionEnum::LINKS)
             wadd = 90.0f;
         else
@@ -3291,14 +3273,14 @@ void PlayerClass::PlayerGrenadeShoot() {
         //
         if (Handlung == PlayerActionEnum::SCHIESSEN_LO ||
             (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] && Aktion[AKTION_LINKS]))
-        wadd = 45.0f;
-    else
+            wadd = 45.0f;
+        else
 
-        // Hurri zielt nach rechts oben
-        //
-        if (Handlung == PlayerActionEnum::SCHIESSEN_RO ||
-            (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] && Aktion[AKTION_RECHTS]))
-        wadd = -45.0f;
+            // Hurri zielt nach rechts oben
+            //
+            if (Handlung == PlayerActionEnum::SCHIESSEN_RO ||
+                (Handlung == PlayerActionEnum::SPRINGEN && Aktion[AKTION_OBEN] && Aktion[AKTION_RECHTS]))
+                wadd = -45.0f;
 
     WinkelUebergabe = 90.0f + wadd;
     Projectiles.PushProjectile(xpos + AustrittX - 4.0f, ypos + AustrittY - 4.0f, GRENADE, this);
@@ -3364,12 +3346,13 @@ void PlayerClass::DrawNormalLightning(int DrawLength) {
     DirectGraphics.SetTexture(Projectiles.Blitzstrahl[BlitzAnim].itsTexIdx);
 
     // Rotationsmatrix
-    glm::mat4x4 matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(BlitzWinkel)], glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4x4 matRot =
+        glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(BlitzWinkel)], glm::vec3(0.0f, 0.0f, 1.0f));
 
     // Blitz rotieren lassen
     glm::mat4x4 matTrans, matTrans2;
 
-    D3DXMatrixTranslation(&matTrans, -x - 16, -y - 56, 0.0f);     // Transformation zum Ursprung
+    D3DXMatrixTranslation(&matTrans, -x - 16, -y - 56, 0.0f);  // Transformation zum Ursprung
 
     if (Blickrichtung == DirectionEnum::RECHTS)
         D3DXMatrixTranslation(&matTrans2, x - 23, y, 0.0f);  // Transformation wieder zurück
@@ -3431,7 +3414,6 @@ void PlayerClass::DrawNormalLightning(int DrawLength) {
 // --------------------------------------------------------------------------------------
 
 void PlayerClass::DrawCoolLightning(int DrawLength, float mul) {
-
     constexpr float XSTART = 18.0f;
     constexpr float YSTART = 4.0f;
 
@@ -3520,7 +3502,6 @@ void PlayerClass::DrawCoolLightning(int DrawLength, float mul) {
 // --------------------------------------------------------------------------------------
 
 bool PlayerClass::DoLightning() {
-
     // Länge des Blitze mit berücksichtigten Wänden im Weg
     int DrawLength = BlitzLength - 1;  // Vom Maximum ausgehen (das wird später "gekürzt")
 
@@ -3591,8 +3572,8 @@ bool PlayerClass::DoLightning() {
     //		d.h., ob er eine Wand getroffen hat
 
     // Anfang des Blitzes leuchten lassen
-    Projectiles.Blitzflash[BlitzAnim].RenderSprite(xstart - 18.0f - TileEngine.XOffset, ystart - 18.0f - TileEngine.YOffset,
-                                                   0xFFFFFFFF);
+    Projectiles.Blitzflash[BlitzAnim].RenderSprite(xstart - 18.0f - TileEngine.XOffset,
+                                                   ystart - 18.0f - TileEngine.YOffset, 0xFFFFFFFF);
 
     // noch glow um die blitzenden?
     if (options_Detail >= DETAIL_HIGH) {
@@ -3626,8 +3607,7 @@ bool PlayerClass::DoLightning() {
         float ys = ystart;
 
         // Blitz auf Kollision mit den Gegnern prüfen
-        for (auto& pEnemy: Gegner.enemies)
-        {
+        for (auto &pEnemy : Gegner.enemies) {
             if (pEnemy->Active &&     // Ist der Gegner überhaupt aktiv ?
                 pEnemy->Destroyable)  // und zerstörbar ?
 
@@ -3655,7 +3635,7 @@ bool PlayerClass::DoLightning() {
                     if (pEnemy->GegnerArt == SHOOTBUTTON) {
                         if (BlitzCount == 0.0f && BlitzAnim % 2 == 0)
                             PartikelSystem.PushPartikel(xs + 12.0f, ys + 12.0f, LASERFUNKE);  // Funken sprühen
-                        DrawLength = i - 1;                                             // Blitz "kürzen"
+                        DrawLength = i - 1;                                                   // Blitz "kürzen"
                         i = BlitzLength + 2;
                         break;  // Und Schleife verlassen
                     }
@@ -3712,21 +3692,21 @@ bool PlayerClass::DoLightning() {
     // noch glow um die blitzenden?
     if (options_Detail >= DETAIL_HIGH) {
         Projectiles.Blitzflash[3 - BlitzAnim].RenderSpriteScaled(
-            xstart - 58.0f - TileEngine.XOffset,
-            ystart - 58.0f - TileEngine.YOffset, 144, 144, 0, 0x30FFFFFF);
+            xstart - 58.0f - TileEngine.XOffset, ystart - 58.0f - TileEngine.YOffset, 144, 144, 0, 0x30FFFFFF);
     }
 
     // Blitz rotieren lassen
     glm::mat4x4 matRot, matTrans, matTrans2;
 
-    matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(BlitzWinkel)], glm::vec3(0.0f, 0.0f, 1.0f));  // Rotationsmatrix
-    D3DXMatrixTranslation(&matTrans, -x, -y, 0.0f);               // Transformation zum Ursprung
+    matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(BlitzWinkel)],
+                         glm::vec3(0.0f, 0.0f, 1.0f));  // Rotationsmatrix
+    D3DXMatrixTranslation(&matTrans, -x, -y, 0.0f);     // Transformation zum Ursprung
     if (Blickrichtung == DirectionEnum::RECHTS)
         D3DXMatrixTranslation(&matTrans2, x, y, 0.0f);  // Transformation wieder zurück
     else
-        D3DXMatrixTranslation(&matTrans2, x, y, 0.0f);     // Transformation wieder zurück
-    matWorld = matRot * matTrans;     // Verschieben und rotieren
-    matWorld = matTrans2 * matWorld;  // und wieder zurück
+        D3DXMatrixTranslation(&matTrans2, x, y, 0.0f);  // Transformation wieder zurück
+    matWorld = matRot * matTrans;                       // Verschieben und rotieren
+    matWorld = matTrans2 * matWorld;                    // und wieder zurück
     g_matModelView = matWorld * g_matView;
 #if defined(USE_GL1)
     load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
@@ -3796,8 +3776,8 @@ bool PlayerClass::LoadBeam() {
 
     //----- Blitz animieren
 
-    BlitzCount += Timer.getSpeedFactor();            // Counter erhöhen
-    if (BlitzCount > PLAYER_BLITZ_SPEED)  // Animationsgrenze überschritten ?
+    BlitzCount += Timer.getSpeedFactor();  // Counter erhöhen
+    if (BlitzCount > PLAYER_BLITZ_SPEED)   // Animationsgrenze überschritten ?
     {
         BlitzCount = 0.0f;   // Dann Counter wieder auf Null setzen und
         BlitzAnim++;         // Nächste Animationsphase
@@ -3878,22 +3858,28 @@ void PlayerClass::DamagePlayer(float amount, bool Override) {
 
     // Skill Level berücksichtigen
     switch (Skill) {
-        case SKILL_EASY:     amount *= 0.3f; break;
-        case SKILL_MEDIUM:   amount *= 0.6f; break;
-        case SKILL_HARD:     amount *= 1.0f; break;
-        case SKILL_HURRICAN: amount *= 2.2f; break;
+        case SKILL_EASY:
+            amount *= 0.3f;
+            break;
+        case SKILL_MEDIUM:
+            amount *= 0.6f;
+            break;
+        case SKILL_HARD:
+            amount *= 1.0f;
+            break;
+        case SKILL_HURRICAN:
+            amount *= 2.2f;
+            break;
     }
 
     // Sound starten
     // DKS - Added function WaveIsPlaying() to SoundManagerClass:
-    if (DamageCounter == 0.0f &&
-            Handlung != PlayerActionEnum::RADELN && Handlung != PlayerActionEnum::RADELN_FALL &&
-            !SoundManager.WaveIsPlaying(SOUND::ABZUG + SoundOff))
+    if (DamageCounter == 0.0f && Handlung != PlayerActionEnum::RADELN && Handlung != PlayerActionEnum::RADELN_FALL &&
+        !SoundManager.WaveIsPlaying(SOUND::ABZUG + SoundOff))
         SoundManager.PlayWave(100, 128, 11025, SOUND::ABZUG + SoundOff);
 
     // Nur verwunden, wenn kein Rad, denn als Rad ist man unverwundbar
-    if ((Handlung != PlayerActionEnum::RADELN &&
-            Handlung != PlayerActionEnum::RADELN_FALL) || Override) {
+    if ((Handlung != PlayerActionEnum::RADELN && Handlung != PlayerActionEnum::RADELN_FALL) || Override) {
         Energy -= amount;
         if (Energy < 0.0f)
             Energy = 0.0f;
@@ -3962,9 +3948,8 @@ void PlayerClass::CalcFlamePos() {
 
     // Und dann je nach Blickrichtung die Flamme und den Flare dazu setzen
     if (Blickrichtung == DirectionEnum::RECHTS) {
-        if (Handlung == PlayerActionEnum::STEHEN ||
-                Handlung == PlayerActionEnum::SACKREITEN ||
-                Handlung == PlayerActionEnum::DUCKEN) {
+        if (Handlung == PlayerActionEnum::STEHEN || Handlung == PlayerActionEnum::SACKREITEN ||
+            Handlung == PlayerActionEnum::DUCKEN) {
             AustrittAnim = 0;
             AustrittX = xoff - 10.0f;
             AustrittY = yoff + 20.0f;
@@ -3972,16 +3957,46 @@ void PlayerClass::CalcFlamePos() {
 
             // im Sprung?
             if (Handlung == PlayerActionEnum::SPRINGEN) {
-            // dabei hochzielen?
-            if (Aktion[AKTION_OBEN]) {
-                // nur noch?
-                if (!(Aktion[AKTION_LINKS] || Aktion[AKTION_RECHTS])) {
-                    AustrittAnim = 2;
-                    AustrittX = xoff - 47.0f;
-                    AustrittY = yoff - 34.0f;
+                // dabei hochzielen?
+                if (Aktion[AKTION_OBEN]) {
+                    // nur noch?
+                    if (!(Aktion[AKTION_LINKS] || Aktion[AKTION_RECHTS])) {
+                        AustrittAnim = 2;
+                        AustrittX = xoff - 47.0f;
+                        AustrittY = yoff - 34.0f;
+                    }
+
+                    // oder schräg?
+                    else {
+                        AustrittAnim = 1;
+                        AustrittX = xoff - 21.0f;
+                        AustrittY = yoff - 12.0f;
+                    }
                 }
 
-                // oder schräg?
+                // normal springen
+                else {
+                    AustrittAnim = 0;
+                    AustrittX = xoff - 10.0f;
+                    AustrittY = yoff + 15.0f;
+                }
+            }
+
+            else if (Handlung == PlayerActionEnum::LAUFEN) {
+                AustrittAnim = 0;
+                AustrittX = xoff - 2.0f;
+                AustrittY = yoff + 19.0f;
+            }
+
+            else if (Handlung == PlayerActionEnum::SCHIESSEN_RO) {
+                // im Stehen?
+                if (WalkLock) {
+                    AustrittAnim = 1;
+                    AustrittX = xoff - 25.0f;
+                    AustrittY = yoff - 8.0f;
+                }
+
+                // oder Laufen?
                 else {
                     AustrittAnim = 1;
                     AustrittX = xoff - 21.0f;
@@ -3989,45 +4004,14 @@ void PlayerClass::CalcFlamePos() {
                 }
             }
 
-            // normal springen
-            else {
-                AustrittAnim = 0;
-                AustrittX = xoff - 10.0f;
-                AustrittY = yoff + 15.0f;
+            else if (Handlung == PlayerActionEnum::SCHIESSEN_O) {
+                AustrittAnim = 2;
+                AustrittX = xoff - 49.0f;
+                AustrittY = yoff - 33.0f;
             }
-        }
-
-        else if (Handlung == PlayerActionEnum::LAUFEN) {
-            AustrittAnim = 0;
-            AustrittX = xoff - 2.0f;
-            AustrittY = yoff + 19.0f;
-        }
-
-        else if (Handlung == PlayerActionEnum::SCHIESSEN_RO) {
-            // im Stehen?
-            if (WalkLock) {
-                AustrittAnim = 1;
-                AustrittX = xoff - 25.0f;
-                AustrittY = yoff - 8.0f;
-            }
-
-            // oder Laufen?
-            else {
-                AustrittAnim = 1;
-                AustrittX = xoff - 21.0f;
-                AustrittY = yoff - 12.0f;
-            }
-        }
-
-        else if (Handlung == PlayerActionEnum::SCHIESSEN_O) {
-            AustrittAnim = 2;
-            AustrittX = xoff - 49.0f;
-            AustrittY = yoff - 33.0f;
-        }
     } else {
-        if (Handlung == PlayerActionEnum::STEHEN ||
-                Handlung == PlayerActionEnum::SACKREITEN ||
-                Handlung == PlayerActionEnum::DUCKEN) {
+        if (Handlung == PlayerActionEnum::STEHEN || Handlung == PlayerActionEnum::SACKREITEN ||
+            Handlung == PlayerActionEnum::DUCKEN) {
             AustrittAnim = 0;
             AustrittX = xoff + 10.0f;
             AustrittY = yoff + 20.0f;
@@ -4035,56 +4019,56 @@ void PlayerClass::CalcFlamePos() {
 
             // im Sprung?
             if (Handlung == PlayerActionEnum::SPRINGEN) {
-            // dabei hochzielen?
-            if (Aktion[AKTION_OBEN]) {
-                // nur noch?
-                if (!(Aktion[AKTION_LINKS] || Aktion[AKTION_RECHTS])) {
-                    AustrittAnim = 2;
-                    AustrittX = xoff + 62.0f;
-                    AustrittY = yoff - 34.0f;
+                // dabei hochzielen?
+                if (Aktion[AKTION_OBEN]) {
+                    // nur noch?
+                    if (!(Aktion[AKTION_LINKS] || Aktion[AKTION_RECHTS])) {
+                        AustrittAnim = 2;
+                        AustrittX = xoff + 62.0f;
+                        AustrittY = yoff - 34.0f;
+                    }
+
+                    // oder schräg?
+                    else {
+                        AustrittAnim = 1;
+                        AustrittX = xoff + 21.0f;
+                        AustrittY = yoff - 12.0f;
+                    }
                 }
 
-                // oder schräg?
+                // normal springen
                 else {
+                    AustrittAnim = 0;
+                    AustrittX = xoff + 6.0f;
+                    AustrittY = yoff + 15.0f;
+                }
+            }
+
+            else if (Handlung == PlayerActionEnum::LAUFEN) {
+                AustrittAnim = 0;
+                AustrittX = xoff;
+                AustrittY = yoff + 19.0f;
+            }
+
+            else if (Handlung == PlayerActionEnum::SCHIESSEN_LO) {
+                // im Stehen?
+                if (WalkLock) {
                     AustrittAnim = 1;
                     AustrittX = xoff + 21.0f;
-                    AustrittY = yoff - 12.0f;
+                    AustrittY = yoff - 8.0f;
                 }
-            }
 
-            // normal springen
-            else {
-                AustrittAnim = 0;
-                AustrittX = xoff + 6.0f;
-                AustrittY = yoff + 15.0f;
+                // oder im Laufen
+                else {
+                    AustrittAnim = 1;
+                    AustrittX = xoff + 8.0f;
+                    AustrittY = yoff - 10.0f;
+                }
+            } else if (Handlung == PlayerActionEnum::SCHIESSEN_O) {
+                AustrittAnim = 2;
+                AustrittX = xoff + 62.0f;
+                AustrittY = yoff - 33.0f;
             }
-        }
-
-        else if (Handlung == PlayerActionEnum::LAUFEN) {
-            AustrittAnim = 0;
-            AustrittX = xoff;
-            AustrittY = yoff + 19.0f;
-        }
-
-        else if (Handlung == PlayerActionEnum::SCHIESSEN_LO) {
-            // im Stehen?
-            if (WalkLock) {
-                AustrittAnim = 1;
-                AustrittX = xoff + 21.0f;
-                AustrittY = yoff - 8.0f;
-            }
-
-            // oder im Laufen
-            else {
-                AustrittAnim = 1;
-                AustrittX = xoff + 8.0f;
-                AustrittY = yoff - 10.0f;
-            }
-        } else if (Handlung == PlayerActionEnum::SCHIESSEN_O) {
-            AustrittAnim = 2;
-            AustrittX = xoff + 62.0f;
-            AustrittY = yoff - 33.0f;
-        }
     }
 }
 
@@ -4222,9 +4206,8 @@ void PlayerClass::RunPlayerExit() {
 
 bool PlayerClass::Riding() const {
     for (int p = 0; p < NUMPLAYERS; p++)
-        if (Player[p].Handlung != PlayerActionEnum::SACKREITEN &&
-                Player[p].Handlung != PlayerActionEnum::DREHEN &&
-                Player[p].Handlung != PlayerActionEnum::TOT)
+        if (Player[p].Handlung != PlayerActionEnum::SACKREITEN && Player[p].Handlung != PlayerActionEnum::DREHEN &&
+            Player[p].Handlung != PlayerActionEnum::TOT)
             return false;
 
     return true;

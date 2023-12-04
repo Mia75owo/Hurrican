@@ -33,22 +33,18 @@ GegnerShootPlattform::GegnerShootPlattform(int Wert1, int Wert2, bool Light) {
 
 void GegnerShootPlattform::DoDraw() {
     // Button rendern
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
 
     if (Value2 == 1) {
         // Lighflare rendern, wenn angeschossen
         DirectGraphics.SetAdditiveMode();
-        Projectiles.LavaFlare.RenderSprite(xPos - 9.0f - TileEngine.XOffset,
-                                           yPos - 5.0f - TileEngine.YOffset,
-                                           0, 0xAAFFFFFF);
+        Projectiles.LavaFlare.RenderSprite(xPos - 9.0f - TileEngine.XOffset, yPos - 5.0f - TileEngine.YOffset, 0,
+                                           0xAAFFFFFF);
 
-        Projectiles.LavaFlare.RenderSprite(xPos - 9.0f - TileEngine.XOffset,
-                                           yPos - 5.0f - TileEngine.YOffset,
-                                           0, 0x88AAAA00);
-        Projectiles.LavaFlare.RenderSprite(xPos - 9.0f - TileEngine.XOffset,
-                                           yPos - 5.0f - TileEngine.YOffset,
-                                           0, 0x88AA0000);
+        Projectiles.LavaFlare.RenderSprite(xPos - 9.0f - TileEngine.XOffset, yPos - 5.0f - TileEngine.YOffset, 0,
+                                           0x88AAAA00);
+        Projectiles.LavaFlare.RenderSprite(xPos - 9.0f - TileEngine.XOffset, yPos - 5.0f - TileEngine.YOffset, 0,
+                                           0x88AA0000);
         DirectGraphics.SetColorKeyMode();
 
         Value2 = 0;

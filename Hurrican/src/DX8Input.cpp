@@ -43,7 +43,6 @@ bool EnumJoystickDevices(int lpddi, void *pv) {
 }
 #endif
 
-
 // --------------------------------------------------------------------------------------
 // Klassenfunktionen
 // --------------------------------------------------------------------------------------
@@ -82,7 +81,7 @@ DirectInputClass::~DirectInputClass() = default;
 // Keyboard und Maus initialisieren und Joystick, falls vorhanden
 // --------------------------------------------------------------------------------------
 bool DirectInputClass::Init() {
-#if SDL_VERSION_ATLEAST(2,0,0)
+#if SDL_VERSION_ATLEAST(2, 0, 0)
     SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
 #endif
 
@@ -97,14 +96,14 @@ bool DirectInputClass::Init() {
     JoysticksFound = 0;
     JoystickFound = false;
 #else
-#  if SDL_VERSION_ATLEAST(2,0,2)
+#if SDL_VERSION_ATLEAST(2, 0, 2)
     std::string gcdb(g_storage_ext);
     gcdb.append("/data/gamecontrollerdb.txt");
     int res = SDL_GameControllerAddMappingsFromFile(gcdb.c_str());
     if (res > 0) {
         Protokoll << "Loaded " << res << " mappings from game controller db" << std::endl;
     }
-#  endif
+#endif
     JoysticksFound = SDL_NumJoysticks();
 
     for (int i = 0; i < JoysticksFound; i++) {

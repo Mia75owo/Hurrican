@@ -41,8 +41,8 @@ class DirectGraphicsFont {
     int mScaleFactor;  // Font will be scaled this much (default is 1, no scaling)
 
   public:
-    DirectGraphicsFont();              // Konstruktor (leer)
-    ~DirectGraphicsFont();             // Textur freigeben
+    DirectGraphicsFont();                  // Konstruktor (leer)
+    ~DirectGraphicsFont();                 // Textur freigeben
     bool LoadFont(const char *Filename,    // Laden des Bildes "Filename"
                   int xts,                 // Textur-Grösse x
                   int yts,                 // Textur-Grösse y

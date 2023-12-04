@@ -207,8 +207,8 @@ class DirectGraphicsSprite {
         itsRect = itsPreCalcedRects[Anim];
 
         // Und Sprite rendern
-        RenderSpriteScaledRotated(x, y, static_cast<float>(itsRect.right - itsRect.left), static_cast<float>(itsRect.bottom - itsRect.top),
-                                  Winkel, Color);
+        RenderSpriteScaledRotated(x, y, static_cast<float>(itsRect.right - itsRect.left),
+                                  static_cast<float>(itsRect.bottom - itsRect.top), Winkel, Color);
     }
 
     void RenderSpriteScaledRotated(float x,

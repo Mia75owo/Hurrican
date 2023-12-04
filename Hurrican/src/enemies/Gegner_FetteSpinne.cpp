@@ -31,15 +31,14 @@ GegnerFetteSpinne::GegnerFetteSpinne(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerFetteSpinne::DoDraw() {
-
     // normal oder auf dem Kopf?
     bool v = (WalkState != 0);
 
     bool h = (BlickRichtung == DirectionEnum::RECHTS);
 
     pGegnerGrafix[GegnerArt]->itsRect = pGegnerGrafix[GegnerArt]->itsPreCalcedRects[AnimPhase];
-    pGegnerGrafix[GegnerArt]->RenderMirroredSprite(xPos - TileEngine.XOffset,
-                                                   yPos - TileEngine.YOffset, 0xFFFFFFFF, h, v);
+    pGegnerGrafix[GegnerArt]->RenderMirroredSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0xFFFFFFFF, h,
+                                                   v);
 }
 
 // --------------------------------------------------------------------------------------
@@ -50,8 +49,8 @@ void GegnerFetteSpinne::DoKI() {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;  // Dann wieder auf Null setzen
             AnimPhase++;    // Und nächste Animationsphase
@@ -87,23 +86,21 @@ void GegnerFetteSpinne::DoKI() {
 
             // Am Boden? Dann checken : Spieler schiesst auf die Spinne?
             if (WalkState == 0)
-                if (((pAim->xpos + 35.0f < xPos + 50.0f &&
-                    pAim->Blickrichtung == DirectionEnum::RECHTS && BlickRichtung == DirectionEnum::LINKS) ||
-                    (pAim->xpos + 35.0f >= xPos + 50.0f &&
-                    pAim->Blickrichtung == DirectionEnum::LINKS && BlickRichtung == DirectionEnum::RECHTS)) &&
+                if (((pAim->xpos + 35.0f < xPos + 50.0f && pAim->Blickrichtung == DirectionEnum::RECHTS &&
+                      BlickRichtung == DirectionEnum::LINKS) ||
+                     (pAim->xpos + 35.0f >= xPos + 50.0f && pAim->Blickrichtung == DirectionEnum::LINKS &&
+                      BlickRichtung == DirectionEnum::RECHTS)) &&
                     pAim->Aktion[AKTION_SHOOT]) {
                     // Decke über der Spinne suchen
                     bool block = false;
                     int a = 0;
                     uint32_t b =
-                        TileEngine.TileAt(static_cast<int>(xPos / TILESIZE_X),
-                                          static_cast<int>(yPos / TILESIZE_Y) + a)
+                        TileEngine.TileAt(static_cast<int>(xPos / TILESIZE_X), static_cast<int>(yPos / TILESIZE_Y) + a)
                             .Block;
 
                     while (a < 10 && block == false) {
                         b = TileEngine
-                                .TileAt(static_cast<int>(xPos / TILESIZE_X),
-                                        static_cast<int>(yPos / TILESIZE_Y) + a)
+                                .TileAt(static_cast<int>(xPos / TILESIZE_X), static_cast<int>(yPos / TILESIZE_Y) + a)
                                 .Block;
 
                         // Decke gefunden?
@@ -207,12 +204,12 @@ void GegnerFetteSpinne::GegnerExplode() {
                                     yPos - 30.0f + static_cast<float>(GetRandom(72)), EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 4; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(100)),
-                                    yPos + static_cast<float>(GetRandom(30)), SPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(100)), yPos + static_cast<float>(GetRandom(30)),
+                                    SPLITTER);
 
     for (int i = 0; i < 16; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(100)),
-                                    yPos + static_cast<float>(GetRandom(30)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(100)), yPos + static_cast<float>(GetRandom(30)),
+                                    SPIDERSPLITTER);
 
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION3);
 

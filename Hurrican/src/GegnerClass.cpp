@@ -14,36 +14,35 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerClass::GegnerClass() :
-    AnimStart(0),
-    TurnCount(0.0f),
-    HitSound(0),
-    LastAction(-1),
-    AnimPhase(0),
-    AnimEnde(0),
-    blocku(0),
-    blocko(0),
-    blockl(0),
-    blockr(0),
-    AnimSpeed(0.0f),
-    AnimCount(0.0f),
-    xPos(0.0f),
-    yPos(0.0f),
-    xPosOld(0.0f),
-    yPosOld(0.0f),
-    xSpeed(0.0f),
-    ySpeed(0.0f),
-    xAcc(0.0f),
-    yAcc(0.0f),
-    DamageTaken(0.0f),
-    TimeToChange(50.0f),
-    Active(false),
-    TestBlock(true),
-    OwnDraw(false),
-    DontMove(false),
-    ForceLight(false),
-    BackGround(false)
-{
+GegnerClass::GegnerClass()
+    : AnimStart(0),
+      TurnCount(0.0f),
+      HitSound(0),
+      LastAction(-1),
+      AnimPhase(0),
+      AnimEnde(0),
+      blocku(0),
+      blocko(0),
+      blockl(0),
+      blockr(0),
+      AnimSpeed(0.0f),
+      AnimCount(0.0f),
+      xPos(0.0f),
+      yPos(0.0f),
+      xPosOld(0.0f),
+      yPosOld(0.0f),
+      xSpeed(0.0f),
+      ySpeed(0.0f),
+      xAcc(0.0f),
+      yAcc(0.0f),
+      DamageTaken(0.0f),
+      TimeToChange(50.0f),
+      Active(false),
+      TestBlock(true),
+      OwnDraw(false),
+      DontMove(false),
+      ForceLight(false),
+      BackGround(false) {
     // Ziel zufällig wählen
     pAim = ChooseAim();
 }
@@ -175,9 +174,10 @@ void GegnerClass::Render() {
     // Im Debug Mode noch den Abstand zum Spieler anzeigen
     if (DebugMode == true) {
         std::string Buffer = std::to_string(PlayerAbstand());
-        pMenuFont->DrawText(static_cast<float>(xPos - TileEngine.XOffset), static_cast<float>(yPos - TileEngine.YOffset), Buffer.c_str(), 0xFFFFFFFF);
+        pMenuFont->DrawText(static_cast<float>(xPos - TileEngine.XOffset),
+                            static_cast<float>(yPos - TileEngine.YOffset), Buffer.c_str(), 0xFFFFFFFF);
     }
-#endif  //NDEBUG
+#endif  // NDEBUG
 }
 
 // --------------------------------------------------------------------------------------
@@ -236,9 +236,9 @@ bool GegnerClass::Run() {
         // Gegner Energie abziehen, wenn der Spieler ein Rad ist
         for (int p = 0; p < NUMPLAYERS; p++) {
             if ((Player[p].Handlung == PlayerActionEnum::RADELN ||
-                    Player[p].Handlung == PlayerActionEnum::RADELN_FALL) &&
-                    Destroyable == true &&
-                    SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], Player[p].xpos, Player[p].ypos,
+                 Player[p].Handlung == PlayerActionEnum::RADELN_FALL) &&
+                Destroyable == true &&
+                SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], Player[p].xpos, Player[p].ypos,
                                 Player[p].CollideRect) == true) {
                 Energy -= Timer.sync(10.0f);  // Energie abziehen
 
@@ -262,27 +262,27 @@ bool GegnerClass::Run() {
         //
         if (yPos - TileEngine.YOffset < RENDERHEIGHT && yPos - TileEngine.YOffset > 0 - GegnerRect[GegnerArt].bottom &&
             xPos - TileEngine.XOffset < RENDERWIDTH && xPos - TileEngine.XOffset > 0 - GegnerRect[GegnerArt].right) {
-        Active = true;
+            Active = true;
 
-        if (Player[0].xpos + 35 <
-            xPos + GegnerRect[GegnerArt].left + (GegnerRect[GegnerArt].right - GegnerRect[GegnerArt].left) / 2)
-            BlickRichtung = DirectionEnum::LINKS;
-        else
-            BlickRichtung = DirectionEnum::RECHTS;
+            if (Player[0].xpos + 35 <
+                xPos + GegnerRect[GegnerArt].left + (GegnerRect[GegnerArt].right - GegnerRect[GegnerArt].left) / 2)
+                BlickRichtung = DirectionEnum::LINKS;
+            else
+                BlickRichtung = DirectionEnum::RECHTS;
 
-        if (GegnerArt != EXTRAS) {
-            xSpeed = xSpeed * Direction::asInt(BlickRichtung);
-            xAcc = xAcc * Direction::asInt(BlickRichtung);
+            if (GegnerArt != EXTRAS) {
+                xSpeed = xSpeed * Direction::asInt(BlickRichtung);
+                xAcc = xAcc * Direction::asInt(BlickRichtung);
+            }
+
+            if (TestBlock == true) {
+                blockl = TileEngine.BlockLinks(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
+                blockr = TileEngine.BlockRechts(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
+                blocko = TileEngine.BlockOben(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
+                blocku = TileEngine.BlockUntenNormal(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
+            } else
+                blockl = blockr = blocko = blocku = 0;
         }
-
-        if (TestBlock == true) {
-            blockl = TileEngine.BlockLinks(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
-            blockr = TileEngine.BlockRechts(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
-            blocko = TileEngine.BlockOben(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
-            blocku = TileEngine.BlockUntenNormal(xPos, yPos, xPosOld, yPosOld, GegnerRect[GegnerArt]);
-        } else
-            blockl = blockr = blocko = blocku = 0;
-    }
 
     // Positionen sichern
     //
@@ -302,7 +302,6 @@ bool GegnerClass::Run() {
 // --------------------------------------------------------------------------------------
 
 int GegnerClass::PlayerAbstand(bool both) const {
-
     float Abstand = 99999.9f;
 
     if (both) {
@@ -332,7 +331,6 @@ int GegnerClass::PlayerAbstand(bool both) const {
 // --------------------------------------------------------------------------------------
 
 int GegnerClass::PlayerAbstandHoriz(PlayerClass *pTarget) const {
-
     if (pTarget == nullptr)
         pTarget = pAim;
 
@@ -348,7 +346,6 @@ int GegnerClass::PlayerAbstandHoriz(PlayerClass *pTarget) const {
 // --------------------------------------------------------------------------------------
 
 int GegnerClass::PlayerAbstandVert(PlayerClass *pTarget) const {
-
     if (pTarget == nullptr)
         pTarget = pAim;
 
@@ -388,18 +385,17 @@ void GegnerClass::PlattformTest(RECT_struct rect) {
                 Player[p].AufPlattform = nullptr;
         }
 
-        else if (Player[p].AufPlattform == nullptr &&
-                Player[p].Handlung != PlayerActionEnum::SACKREITEN &&
-                Player[p].Handlung != PlayerActionEnum::DREHEN) {
+        else if (Player[p].AufPlattform == nullptr && Player[p].Handlung != PlayerActionEnum::SACKREITEN &&
+                 Player[p].Handlung != PlayerActionEnum::DREHEN) {
             // Feststellen ob der Hurri auf die Plattform gesprungen ist
             //
             // TODO
             // eingestellt, weil man beim pharao boss am anfang nicht draufsteht, wenn er rauskommt
             // bringt das nachteile, wenn man das blockunten nicht abgfragt? bitte testen ;)
-            if (Player[p].yspeed >= 0.0f) { //       &&
+            if (Player[p].yspeed >= 0.0f) {  //       &&
                 //!(TileEngine.BlockUntenNormal(pPlayer->xpos, pPlayer->ypos, pPlayer->xposold, pPlayer->yposold,
-                //!pPlayer->CollideRect) & BLOCKWERT_WAND) && (TileEngine.BlockUntenNormal(pPlayer->xpos, pPlayer->ypos,
-                //!pPlayer->xposold, pPlayer->yposold, pPlayer->CollideRect) & BLOCKWERT_PLATTFORM))
+                //! pPlayer->CollideRect) & BLOCKWERT_WAND) && (TileEngine.BlockUntenNormal(pPlayer->xpos,
+                //! pPlayer->ypos, pPlayer->xposold, pPlayer->yposold, pPlayer->CollideRect) & BLOCKWERT_PLATTFORM))
 
                 int const laenge = abs(static_cast<int>(Player[p].ypos - Player[p].yposold)) + 2;
 
@@ -424,8 +420,7 @@ void GegnerClass::Wegschieben(RECT_struct rect, float dam) {
         if (SpriteCollision(xPos, yPos, rect, Player[i].xpos, Player[i].ypos, Player[i].CollideRect) == true &&
             Player[i].AufPlattform != this) {
             // Spieler als Rad ? Dann abprallen
-            if (Player[i].Handlung == PlayerActionEnum::RADELN ||
-                    Player[i].Handlung == PlayerActionEnum::RADELN_FALL) {
+            if (Player[i].Handlung == PlayerActionEnum::RADELN || Player[i].Handlung == PlayerActionEnum::RADELN_FALL) {
                 if (Player[i].xpos < xPos)
                     Player[i].Blickrichtung = DirectionEnum::LINKS;
                 if (Player[i].xpos > xPos)
@@ -461,8 +456,8 @@ void GegnerClass::SimpleAnimation(bool backward) {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt animiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;  // Dann wieder auf Null setzen
 
@@ -520,7 +515,6 @@ bool GegnerClass::TurnonShot() {
 // --------------------------------------------------------------------------------------
 
 bool GegnerClass::IsOnScreen() const {
-
     int off = std::min(GegnerRect[GegnerArt].left, 0);
 
     int xsize = pGegnerGrafix[GegnerArt]->itsXFrameSize;
@@ -1443,8 +1437,7 @@ void GegnerListClass::LoadSprites() {
 // Gegner "Art" hinzufügen
 // --------------------------------------------------------------------------------------
 
-GegnerClass* GegnerListClass::PushGegner(float x, float y, int Art, int Value1, int Value2, bool Light, bool atEnd) {
-
+GegnerClass *GegnerListClass::PushGegner(float x, float y, int Art, int Value1, int Value2, bool Light, bool atEnd) {
     if (GetNumGegner() >= MAX_GEGNER)  // Grenze überschritten ?
         return nullptr;
 
@@ -2091,7 +2084,6 @@ GegnerClass* GegnerListClass::PushGegner(float x, float y, int Art, int Value1, 
 // --------------------------------------------------------------------------------------
 
 void GegnerListClass::ClearAll() {
-
     enemies.clear();
 }
 
@@ -2100,7 +2092,6 @@ void GegnerListClass::ClearAll() {
 // --------------------------------------------------------------------------------------
 
 int GegnerListClass::GetNumGegner() const {
-
     return enemies.size();
 }
 
@@ -2109,14 +2100,11 @@ int GegnerListClass::GetNumGegner() const {
 // --------------------------------------------------------------------------------------
 
 void GegnerListClass::RenderAll() {
-
     // Zuerst die "Gegner" rendern, die als Background fungieren
     // z.B. der große Lüfter, damit diese nicht die anderen Gegner verdecken können
     //
-    for (auto& enemy: Gegner.enemies)
-    {
-        if (enemy->BackGround && enemy->Active)
-        {
+    for (auto &enemy : Gegner.enemies) {
+        if (enemy->BackGround && enemy->Active) {
             // dann Gegner rendern
             enemy->AlreadyDrawn = false;
             enemy->Render();
@@ -2126,10 +2114,8 @@ void GegnerListClass::RenderAll() {
     // Danach alle anderen "richtigen" Gegner rendern
     //
 
-    for (auto& enemy: Gegner.enemies)
-    {
-        if (!enemy->BackGround && enemy->Active)
-        {
+    for (auto &enemy : Gegner.enemies) {
+        if (!enemy->BackGround && enemy->Active) {
             // dann Gegner rendern
             enemy->AlreadyDrawn = false;
             enemy->Render();
@@ -2142,21 +2128,18 @@ void GegnerListClass::RenderAll() {
 // --------------------------------------------------------------------------------------
 
 void GegnerListClass::RunAll() {
-
     // Alle Einträge der Gegnerliste durchgehen
     //
     auto iter = enemies.begin();
-    while (iter != enemies.end())
-    {
-        GegnerClass* enemy = iter->get();
+    while (iter != enemies.end()) {
+        GegnerClass *enemy = iter->get();
         enemy->Run();
 
         // ggf Gegner löschen (bei Energy <= 0)
         if (enemy->Energy <= 0.0f) {
             enemy->GegnerExplode();  // Jeder Gegner explodiert anders
             iter = enemies.erase(iter);
-        }
-        else
+        } else
             ++iter;
     }
 }
@@ -2168,17 +2151,13 @@ void GegnerListClass::RunAll() {
 void GegnerListClass::DamageEnemiesonScreen(float x, float y, int MaxDamage) {
     // Gegner durchgehen und die auf dem Screen löschen
 
-    for (auto& enemy: enemies)
-    {
+    for (auto &enemy : enemies) {
         float const ax = x - enemy->xPos;
         float const ay = y - enemy->yPos;
         float const dx = sqrtf((ax * ax) + (ay * ay));
 
         // Stampfstein? Fällt runter bei Wackeln
-        if (enemy->Active &&
-            enemy->GegnerArt == STAMPFSTEIN &&
-            enemy->Handlung == GEGNER::STEHEN &&
-            dx < 300 &&
+        if (enemy->Active && enemy->GegnerArt == STAMPFSTEIN && enemy->Handlung == GEGNER::STEHEN && dx < 300 &&
             enemy->xPos + GegnerRect[enemy->GegnerArt].right > TileEngine.XOffset &&
             enemy->xPos + GegnerRect[enemy->GegnerArt].left < TileEngine.XOffset + RENDERWIDTH &&
             enemy->yPos + GegnerRect[enemy->GegnerArt].bottom > TileEngine.YOffset &&
@@ -2193,16 +2172,11 @@ void GegnerListClass::DamageEnemiesonScreen(float x, float y, int MaxDamage) {
         }
 
         // Gegner in der Nähe? Dann Energie abziehen
-        if (enemy->Active &&
-            dx < 300 &&
-            enemy->Destroyable &&
-            enemy->GegnerArt != POWERBLOCK &&
-            enemy->GegnerArt < RIESENPIRANHA &&
-            enemy->xPos + GegnerRect[enemy->GegnerArt].right > TileEngine.XOffset &&
+        if (enemy->Active && dx < 300 && enemy->Destroyable && enemy->GegnerArt != POWERBLOCK &&
+            enemy->GegnerArt < RIESENPIRANHA && enemy->xPos + GegnerRect[enemy->GegnerArt].right > TileEngine.XOffset &&
             enemy->xPos + GegnerRect[enemy->GegnerArt].left < TileEngine.XOffset + RENDERWIDTH &&
             enemy->yPos + GegnerRect[enemy->GegnerArt].bottom > TileEngine.YOffset &&
             enemy->yPos + GegnerRect[enemy->GegnerArt].top < TileEngine.YOffset + RENDERHEIGHT) {
-
             int amount = static_cast<int>(MaxDamage - dx);
 
             if (amount < 0)

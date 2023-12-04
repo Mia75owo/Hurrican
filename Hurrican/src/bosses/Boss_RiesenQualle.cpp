@@ -33,8 +33,8 @@ GegnerRiesenQualle::GegnerRiesenQualle(int Wert1, int Wert2, bool Light) {
 
 void GegnerRiesenQualle::DoKI() {
     // animieren
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;             // Dann wieder auf Null setzen
         AnimPhase++;               // Und nächste Animationsphase

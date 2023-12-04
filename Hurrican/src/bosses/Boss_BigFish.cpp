@@ -12,16 +12,15 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerBigFish::GegnerBigFish(int Wert1, int Wert2, bool Light) :
-    ShotCount(0),
-    MaulWinkel(0.0f),
-    SinOff(0.0f),
-    NewX(0.0f),
-    NewY(0.0f),
-    rotz(0.0f),
-    KugelCount(150.0f),
-    Moving(false)
-{
+GegnerBigFish::GegnerBigFish(int Wert1, int Wert2, bool Light)
+    : ShotCount(0),
+      MaulWinkel(0.0f),
+      SinOff(0.0f),
+      NewX(0.0f),
+      NewY(0.0f),
+      rotz(0.0f),
+      KugelCount(150.0f),
+      Moving(false) {
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 2000;
@@ -153,33 +152,27 @@ void GegnerBigFish::DoDraw() {
     float const YOff = sin(SinOff) * 5.0f;
 
     // Maul rendern
-    Maul.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + 51.0f,
-                                   yPos - TileEngine.YOffset + YOff + 94.0f, mw,
-                                   12, -17, 0xFFFFFFFF, false);
+    Maul.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + 51.0f, yPos - TileEngine.YOffset + YOff + 94.0f, mw, 12,
+                                   -17, 0xFFFFFFFF, false);
 
     // Schwanzflosse rendern
-    FlosseGross.RenderSpriteScaled(xPos - TileEngine.XOffset + 203.0f,
-                                   yPos - TileEngine.YOffset + YOff - 9.0f,
+    FlosseGross.RenderSpriteScaled(xPos - TileEngine.XOffset + 203.0f, yPos - TileEngine.YOffset + YOff - 9.0f,
                                    88 + fs2, 157, 0, 0xFFFFFFFF);
 
     // obere Floße rendern
-    FlosseOben.RenderSpriteScaled(xPos - TileEngine.XOffset + 151.0f,
-                                  yPos - TileEngine.YOffset + YOff - 20.0f + fs2, 74,
-                                  59 - fs2, 0, 0xFFFFFFFF);
+    FlosseOben.RenderSpriteScaled(xPos - TileEngine.XOffset + 151.0f, yPos - TileEngine.YOffset + YOff - 20.0f + fs2,
+                                  74, 59 - fs2, 0, 0xFFFFFFFF);
 
     // untere Floße rendern
-    FlosseUnten.RenderSpriteScaled(xPos - TileEngine.XOffset + 140.0f,
-                                   yPos - TileEngine.YOffset + YOff + 120.0f,
-                                   97, 72 + fs2, 0, 0xFFFFFFFF);
+    FlosseUnten.RenderSpriteScaled(xPos - TileEngine.XOffset + 140.0f, yPos - TileEngine.YOffset + YOff + 120.0f, 97,
+                                   72 + fs2, 0, 0xFFFFFFFF);
 
     // Fisch rendern
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset + YOff, 0,
-                                           0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset + YOff, 0, 0xFFFFFFFF);
 
     // kleine Floße rendern
-    FlosseKlein.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + 184.0f,
-                                          yPos - TileEngine.YOffset + YOff + 80.0f, fs, -28, -9, 0xFFFFFFFF, false);
+    FlosseKlein.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + 184.0f, yPos - TileEngine.YOffset + YOff + 80.0f,
+                                          fs, -28, -9, 0xFFFFFFFF, false);
 
     if (!AlreadyDrawn) {
         DirectGraphics.SetAdditiveMode();
@@ -192,8 +185,7 @@ void GegnerBigFish::DoDraw() {
 
         for (int i = 0; i < 2; i++)
             Projectiles.LavaFlare.RenderSprite(xPos - TileEngine.XOffset - 49.0f,
-                                               yPos - TileEngine.YOffset - 22.0f + YOff, 0,
-                                               col);
+                                               yPos - TileEngine.YOffset - 22.0f + YOff, 0, col);
 
         // Flossen bewegen
         float fact = (xSpeed * xSpeed + ySpeed * ySpeed + 20.0f) / 200.0f;
@@ -236,12 +228,10 @@ void GegnerBigFish::DoKI() {
 
         if (IsKugel)
             Gegner.PushGegner(TileEngine.XOffset + 300.0f + static_cast<float>(300 * LeftOrRight),
-                              TileEngine.YOffset + 200.0f,
-                              KUGELKLEIN + Art, 5, 0, false);
+                              TileEngine.YOffset + 200.0f, KUGELKLEIN + Art, 5, 0, false);
         else
             Gegner.PushGegner(TileEngine.XOffset + 300.0f + static_cast<float>(320 * LeftOrRight),
-                              TileEngine.YOffset + 350.0f,
-                              SWIMWALKER, 5, 0, false);
+                              TileEngine.YOffset + 350.0f, SWIMWALKER, 5, 0, false);
         IsKugel = !IsKugel;
     }
 
@@ -258,7 +248,7 @@ void GegnerBigFish::DoKI() {
     // Levelausschnitt auf den Boss zentrieren, sobald dieser sichtbar wird
     if (Active && Handlung != GEGNER::EXPLODIEREN && TileEngine.Zustand == TileStateEnum::SCROLLBAR && Energy > 0.0f) {
         TileEngine.ScrollLevel(Value1, Value2, TileStateEnum::SCROLLTOLOCK);  // Level auf die Faust zentrieren
-        SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);       // Ausfaden und pausieren
+        SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);             // Ausfaden und pausieren
         xPos += 400;
     }
 

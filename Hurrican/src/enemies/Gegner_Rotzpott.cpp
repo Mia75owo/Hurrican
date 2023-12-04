@@ -107,13 +107,11 @@ void GegnerRotzpott::CalcKnarreWinkel() {
 
 void GegnerRotzpott::DoDraw() {
     // Knarre
-    Gegner.DroneGun.RenderSpriteRotatedOffset(-TileEngine.XOffset + xPos + 20.0f,
-                                              -TileEngine.YOffset + yPos - 28.0f,
+    Gegner.DroneGun.RenderSpriteRotatedOffset(-TileEngine.XOffset + xPos + 20.0f, -TileEngine.YOffset + yPos - 28.0f,
                                               GunWinkel, 0, 0, 0xFFFFFFFF);
 
     // Körper
-    pGegnerGrafix[GegnerArt]->RenderSprite(-TileEngine.XOffset + xPos,
-                                           -TileEngine.YOffset + yPos, 0, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(-TileEngine.XOffset + xPos, -TileEngine.YOffset + yPos, 0, 0xFFFFFFFF);
 
     AlreadyDrawn = true;
 }

@@ -76,7 +76,6 @@ void HUDClass::UpdateValues() {}
 // --------------------------------------------------------------------------------------
 
 void HUDClass::ShowHUD() {
-
     DirectGraphics.SetColorKeyMode();
 
     // Farbe des Huds
@@ -85,7 +84,8 @@ void HUDClass::ShowHUD() {
     HUDGfx.RenderSprite(xpos, ypos, 0, Color);
 
     // Für die Balken-Offsets
-    int BlitzOff = static_cast<int>(BLITZ_STAT_HEIGHT - Player[0].CurrentWeaponLevel[3] * BLITZ_STAT_HEIGHT / BLITZ_STAT_HEIGHT); // ???
+    int BlitzOff = static_cast<int>(BLITZ_STAT_HEIGHT -
+                                    Player[0].CurrentWeaponLevel[3] * BLITZ_STAT_HEIGHT / BLITZ_STAT_HEIGHT);  // ???
 
     // DKS - Added support for font scaling
     int scale_factor = pDefaultFont->GetScaleFactor();
@@ -335,14 +335,13 @@ void HUDClass::ShowHUD() {
                 else
                     WeaponRahmen.itsRect.left = 5;
 
-                WeaponRahmen.RenderSprite(xpos + static_cast<float>(p * 5 + 216 + i * 32),
-                                          ypos + 35.0f, playercol);
+                WeaponRahmen.RenderSprite(xpos + static_cast<float>(p * 5 + 216 + i * 32), ypos + 35.0f, playercol);
             }
 
             // Waffen Punkte
             for (int j = 0; j < Player[p].CurrentWeaponLevel[i]; j++) {
-                if (NUMPLAYERS == 1 || (Player[p].SelectedWeapon == i &&
-                                        Player[p].SelectedWeapon != Player[1 - p].SelectedWeapon))
+                if (NUMPLAYERS == 1 ||
+                    (Player[p].SelectedWeapon == i && Player[p].SelectedWeapon != Player[1 - p].SelectedWeapon))
 
                     WeaponPunkt.RenderSprite(xpos + 217 + i * 32, ypos + 50 - j * 2, 0, playercol);
                 else {
@@ -420,7 +419,8 @@ void HUDClass::ShowHUD() {
         if (BossHUDActive <= 0.0f && TileEngine.Timelimit < 10.0f && TileEngine.Timelimit > 0.0f) {
             DirectGraphics.SetAdditiveMode();
 
-            float size = (static_cast<float>(static_cast<int>(TileEngine.Timelimit + 1)) - TileEngine.Timelimit) * 255.0f;
+            float size =
+                (static_cast<float>(static_cast<int>(TileEngine.Timelimit + 1)) - TileEngine.Timelimit) * 255.0f;
 
             float xoff = 0.0f;
             if (static_cast<int>(TileEngine.Timelimit) == 1)

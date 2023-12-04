@@ -11,9 +11,7 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerStachelbeere::GegnerStachelbeere(int Wert1, int Wert2, bool Light) :
-    RollCount(0.0f)
-{
+GegnerStachelbeere::GegnerStachelbeere(int Wert1, int Wert2, bool Light) : RollCount(0.0f) {
     Handlung = GEGNER::LAUFEN;
     Energy = 120;
     BlickRichtung = DirectionEnum::LINKS;
@@ -32,7 +30,6 @@ GegnerStachelbeere::GegnerStachelbeere(int Wert1, int Wert2, bool Light) :
 // --------------------------------------------------------------------------------------
 
 void GegnerStachelbeere::DoDraw() {
-
     D3DCOLOR color = 0xFFFFFFFF;
 
     bool mirrored = (BlickRichtung == DirectionEnum::RECHTS);
@@ -41,9 +38,8 @@ void GegnerStachelbeere::DoDraw() {
         case GEGNER::LAUFEN:
         case GEGNER::LAUFEN2: {
             pGegnerGrafix[GegnerArt]->SetRect(AnimPhase * 60, 0, (AnimPhase + 1) * 60, 60);
-            pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                                   yPos - TileEngine.YOffset, AnimPhase, color,
-                                                   mirrored);
+            pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase,
+                                                   color, mirrored);
 
         } break;
 
@@ -57,8 +53,7 @@ void GegnerStachelbeere::DoDraw() {
                 pGegnerGrafix[GegnerArt]->RenderMirroredSprite(xPos - TileEngine.XOffset - 60.0f,
                                                                yPos - TileEngine.YOffset, color);
             else
-                pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                                       yPos - TileEngine.YOffset, color);
+                pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, color);
         } break;
     }
 }
@@ -85,7 +80,6 @@ void GegnerStachelbeere::DoKI() {
 
     // AnimSpeed passend zur Bewegugnsgeschwindigkeit setzen
     if (Handlung == GEGNER::LAUFEN || Handlung == GEGNER::LAUFEN2) {
-
         float temp = xSpeed;
         if (temp < 0.0f)
             temp *= -1;
@@ -102,12 +96,10 @@ void GegnerStachelbeere::DoKI() {
             // Partikel erzeugen
             // int i = 0;
             for (int i = 0; i < 10; i++)
-                PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(60)),
-                                            yPos + 50.0f, FUNKE);
+                PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(60)), yPos + 50.0f, FUNKE);
 
             for (int i = 0; i < 5; i++)
-                PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)),
-                                            yPos + 40.0f, SMOKE);
+                PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)), yPos + 40.0f, SMOKE);
 
             // Geschwindigkeit umdrehen
             ySpeed *= -0.5f;
@@ -148,8 +140,8 @@ void GegnerStachelbeere::DoKI() {
 
                 SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::GRANATE);
 
-                Gegner.PushGegner(xPos + static_cast<float>(ShotCount * 15 + off),
-                                  yPos + 10.0f, MINIROCKET, 0, 99, false, false);
+                Gegner.PushGegner(xPos + static_cast<float>(ShotCount * 15 + off), yPos + 10.0f, MINIROCKET, 0, 99,
+                                  false, false);
 
                 RollCount = 2.0f;
                 ShotCount--;
@@ -220,14 +212,16 @@ void GegnerStachelbeere::DoKI() {
 
             // an der Wand umdrehen
             // oder am Screenrand, wenn der Screen gelockt ist
-            if ((TileEngine.Zustand == TileStateEnum::LOCKED && BlickRichtung == DirectionEnum::LINKS && xPos < TileEngine.XOffset) ||
+            if ((TileEngine.Zustand == TileStateEnum::LOCKED && BlickRichtung == DirectionEnum::LINKS &&
+                 xPos < TileEngine.XOffset) ||
 
                 (TileEngine.Zustand == TileStateEnum::LOCKED && BlickRichtung == DirectionEnum::RECHTS &&
                  xPos > TileEngine.XOffset + RENDERWIDTH - 50) ||
 
                 (BlickRichtung == DirectionEnum::LINKS && (blockl & BLOCKWERT_WAND || blockl & BLOCKWERT_GEGNERWAND)) ||
 
-                (BlickRichtung == DirectionEnum::RECHTS && (blockr & BLOCKWERT_WAND || blockr & BLOCKWERT_GEGNERWAND))) {
+                (BlickRichtung == DirectionEnum::RECHTS &&
+                 (blockr & BLOCKWERT_WAND || blockr & BLOCKWERT_GEGNERWAND))) {
                 xSpeed *= -1;
                 BlickRichtung = Direction::invert(BlickRichtung);
             }
@@ -258,8 +252,7 @@ void GegnerStachelbeere::GegnerExplode() {
                                     yPos - 30.0f + static_cast<float>(GetRandom(60)), EXPLOSION_MEDIUM2);
 
     // Explosion
-    PartikelSystem.PushPartikel(xPos - 15.0f,
-                                yPos - 15.0f, EXPLOSION_BIG);
+    PartikelSystem.PushPartikel(xPos - 15.0f, yPos - 15.0f, EXPLOSION_BIG);
 
     SoundManager.PlayWave(100, 128, -GetRandom(2000) + 11025, SOUND::EXPLOSION4);  // Sound ausgeben
 

@@ -4,13 +4,7 @@
 #include "GegnerClass.hpp"
 #include "enemies/Gegner_Stuff.hpp"
 
-enum class ArmState {
-  HEBEN,
-  SENKEN,
-  SENKEN2,
-  UEBERKOPF,
-  WERFEN
-};
+enum class ArmState { HEBEN, SENKEN, SENKEN2, UEBERKOPF, WERFEN };
 
 class GegnerGolem : public GegnerClass {
   private:

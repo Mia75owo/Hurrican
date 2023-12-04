@@ -30,8 +30,7 @@ GegnerBigRocket::GegnerBigRocket(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerBigRocket::DoDraw() {
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
 
     // Noch warten?
     //
@@ -42,12 +41,12 @@ void GegnerBigRocket::DoDraw() {
     //
     if (options_Detail >= DETAIL_HIGH) {
         DirectGraphics.SetAdditiveMode();
-        Projectiles.LavaFlare.RenderSprite(xPos - 27.0f - TileEngine.XOffset,
-                                           yPos + 237.0f - TileEngine.YOffset, 0, 0xCCFFFFFF);
-        Projectiles.LavaFlare.RenderSprite(xPos - 27.0f - TileEngine.XOffset,
-                                           yPos + 237.0f - TileEngine.YOffset, 0, 0xCCAAAA00);
-        Projectiles.LavaFlare.RenderSprite(xPos - 27.0f - TileEngine.XOffset,
-                                           yPos + 237.0f - TileEngine.YOffset, 0, 0xCCAA0000);
+        Projectiles.LavaFlare.RenderSprite(xPos - 27.0f - TileEngine.XOffset, yPos + 237.0f - TileEngine.YOffset, 0,
+                                           0xCCFFFFFF);
+        Projectiles.LavaFlare.RenderSprite(xPos - 27.0f - TileEngine.XOffset, yPos + 237.0f - TileEngine.YOffset, 0,
+                                           0xCCAAAA00);
+        Projectiles.LavaFlare.RenderSprite(xPos - 27.0f - TileEngine.XOffset, yPos + 237.0f - TileEngine.YOffset, 0,
+                                           0xCCAA0000);
         DirectGraphics.SetColorKeyMode();
     }
 }

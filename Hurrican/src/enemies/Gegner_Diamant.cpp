@@ -40,8 +40,8 @@ void GegnerDiamant::DoKI() {
         AnimSpeed = 1.0f;
 
     // Animieren
-    AnimCount += Timer.sync(1.0f);     // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.sync(1.0f);  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)      // Grenze überschritten ?
     {
         AnimCount = 0;              // Dann wieder auf Null setzen
         AnimPhase++;                // Und nächste Animationsphase
@@ -117,7 +117,7 @@ void GegnerDiamant::DoKI() {
                 Player[0].PunisherActive = false;
                 Player[1].PunisherActive = false;
 
-                for (auto& enemy: Gegner.enemies) {
+                for (auto &enemy : Gegner.enemies) {
                     if (enemy->GegnerArt == PUNISHER) {
                         GegnerPunisher *pPunisher = reinterpret_cast<GegnerPunisher *>(enemy.get());
                         pPunisher->Vanish();

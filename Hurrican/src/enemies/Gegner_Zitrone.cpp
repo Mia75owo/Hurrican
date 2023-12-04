@@ -31,7 +31,6 @@ GegnerZitrone::GegnerZitrone(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerZitrone::CalcKnarreWinkel() {
-
     float ydiv = (pAim->ypos + 40) - (yPos + 40);
 
     if (ydiv == 0.0f)
@@ -94,8 +93,7 @@ void GegnerZitrone::DoDraw() {
                                               0xFFFFFFFF);
 
     // Körper
-    pGegnerGrafix[GegnerArt]->RenderSprite(-TileEngine.XOffset + xPos,
-                                           -TileEngine.YOffset + yPos + yoff, AnimPhase,
+    pGegnerGrafix[GegnerArt]->RenderSprite(-TileEngine.XOffset + xPos, -TileEngine.YOffset + yPos + yoff, AnimPhase,
                                            0xFFFFFFFF);
 
     if (AlreadyDrawn == false) {

@@ -43,17 +43,14 @@ void GegnerFahrstuhl::DoDraw() {
     // Schatten rendern
     float l = static_cast<float>(g_Fahrstuhl_yPos) - TileEngine.YOffset - 80.0f;
     pGegnerGrafix[GegnerArt]->RenderSpriteScaled(
-        xPos - TileEngine.XOffset - 10.0f,
-        static_cast<float>(g_Fahrstuhl_yPos) - TileEngine.YOffset,
-        GegnerRect[GegnerArt].right + 20,
-        static_cast<int>(static_cast<float>(GegnerRect[GegnerArt].bottom) + l / 5.0f),
+        xPos - TileEngine.XOffset - 10.0f, static_cast<float>(g_Fahrstuhl_yPos) - TileEngine.YOffset,
+        GegnerRect[GegnerArt].right + 20, static_cast<int>(static_cast<float>(GegnerRect[GegnerArt].bottom) + l / 5.0f),
         AnimPhase, 0x99000000);
 
     DirectGraphics.SetFilterMode(false);
 
     // Fahrstuhl rendern
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           g_Fahrstuhl_yPos - TileEngine.YOffset, AnimPhase,
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, g_Fahrstuhl_yPos - TileEngine.YOffset, AnimPhase,
                                            0xFFFFFFFF);
 }
 
@@ -119,9 +116,9 @@ void GegnerFahrstuhl::DoKI() {
 
                 PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(5)),
                                             yPos + static_cast<float>(GetRandom(5)), FUNKE);
-                PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(5)) +
-                                                static_cast<float>(GegnerRect[GegnerArt].right),
-                                            yPos + static_cast<float>(GetRandom(5)), FUNKE);
+                PartikelSystem.PushPartikel(
+                    xPos + static_cast<float>(GetRandom(5)) + static_cast<float>(GegnerRect[GegnerArt].right),
+                    yPos + static_cast<float>(GetRandom(5)), FUNKE);
 
                 if (GetRandom(20) == 0)
                     PartikelSystem.PushPartikel(xPos - 20.0f, yPos - 10.0f, SMOKEBIG);

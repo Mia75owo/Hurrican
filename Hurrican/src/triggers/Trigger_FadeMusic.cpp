@@ -64,11 +64,11 @@ void GegnerFadeMusic::DoKI() {
     }
 
     // DKS - Disabled, as RenderCircle is only used this once here and what is the point?
-    //#ifndef NDEBUG
+    // #ifndef NDEBUG
     //    if (DebugMode)
     //        RenderCircle(static_cast<float>(xPos + 20 - TileEngine.XOffset),
     //                     static_cast<float>(yPos + 20 - TileEngine.YOffset), 150, 0xFFFFFFFF);
-    //#endif //NDEBUG
+    // #endif //NDEBUG
 }
 
 // --------------------------------------------------------------------------------------

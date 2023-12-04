@@ -12,7 +12,7 @@
 // Include Dateien
 // --------------------------------------------------------------------------------------
 
-
+#include "Projectiles.hpp"
 #include "Console.hpp"
 #include "DX8Font.hpp"
 #include "DX8Sound.hpp"
@@ -22,19 +22,18 @@
 #include "Logdatei.hpp"
 #include "Partikelsystem.hpp"
 #include "Player.hpp"
-#include "Projectiles.hpp"
 #include "Tileengine.hpp"
 #include "Timer.hpp"
 
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 
 // --------------------------------------------------------------------------------------
 // Defines
 // --------------------------------------------------------------------------------------
 
 // DKS - This was unnecessarily high. Changed to the correct figure:
-//constexpr int MAX_SHOTGFX = 300;  // Maximale Anzahl verschiedener Grafiken
+// constexpr int MAX_SHOTGFX = 300;  // Maximale Anzahl verschiedener Grafiken
 constexpr int MAX_SHOTGFX = 264;  // Maximale Anzahl verschiedener Grafiken
 
 // --------------------------------------------------------------------------------------
@@ -42,7 +41,7 @@ constexpr int MAX_SHOTGFX = 264;  // Maximale Anzahl verschiedener Grafiken
 // --------------------------------------------------------------------------------------
 
 DirectGraphicsSprite ProjectileGrafix[MAX_SHOTGFX];  // Grafiken der Schüsse
-RECT_struct ShotRect[MAX_SHOTGFX];                          // Rechtecke für Level Kollision
+RECT_struct ShotRect[MAX_SHOTGFX];                   // Rechtecke für Level Kollision
 int CurrentShotTexture;                              // Aktuelle Textur der Schüsse
 uint32_t bo, bu, bl, br;                             // Blockwerte um den aktuellen Schuss herum
 
@@ -116,7 +115,7 @@ void ProjectileClass::CreateShot(float x, float y, int Art, PlayerClass *pTemp) 
         case DIAMONDSHOT:  // Diamant, der auf den Punisher fliegt
         {
             auto punisher = std::find_if(Gegner.enemies.begin(), Gegner.enemies.end(),
-                         [](const auto& pEnemy) { return pEnemy->GegnerArt == PUNISHER; });
+                                         [](const auto &pEnemy) { return pEnemy->GegnerArt == PUNISHER; });
 
             if (punisher == Gegner.enemies.end())
                 return;
@@ -794,7 +793,7 @@ void ProjectileClass::CreateShot(float x, float y, int Art, PlayerClass *pTemp) 
 
             // DKS - Converted to float:
             float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-            speed = speed * 20;                               // Geschwindigkeit setzen
+            speed = speed * 20;                                     // Geschwindigkeit setzen
 
             absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
             absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -1144,7 +1143,7 @@ void ProjectileClass::CreateShot(float x, float y, int Art, PlayerClass *pTemp) 
 
             // DKS - Converted to float:
             float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-            speed = speed * 20;                                    // Geschwindigkeit
+            speed = speed * 20;                                     // Geschwindigkeit
 
             absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
             absy = speed * absy;
@@ -1809,8 +1808,7 @@ void ProjectileClass::CreateShot(float x, float y, int Art, PlayerClass *pTemp) 
 // --------------------------------------------------------------------------------------
 
 void ProjectileClass::CheckCollision() {
-
-    for (auto& pEnemy: Gegner.enemies)  // Noch nicht alle durch ?
+    for (auto &pEnemy : Gegner.enemies)  // Noch nicht alle durch ?
     {
         if (pEnemy->Active &&                                                // Ist der Gegner überhaupt aktiv ?
             pEnemy->Destroyable &&                                           // und kann man ihn zerstören
@@ -1919,14 +1917,12 @@ void ProjectileClass::CheckCollision() {
 // --------------------------------------------------------------------------------------
 
 void ProjectileClass::Render() {
-
     // Schuss rendern
     //
     if (Damage <= 0)
         return;
 
     if (!OwnDraw) {
-
         float const xts = ProjectileGrafix[ShotArt].itsXTexScale;
         float const yts = ProjectileGrafix[ShotArt].itsYTexScale;
 
@@ -1989,7 +1985,8 @@ void ProjectileClass::Render() {
             Winkel = static_cast<float>(static_cast<int>(Winkel) % 360);
 
             // Rotationsmatrix
-            glm::mat4x4 matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(Winkel)], glm::vec3(0.0f, 0.0f, 1.0f));
+            glm::mat4x4 matRot =
+                glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(Winkel)], glm::vec3(0.0f, 0.0f, 1.0f));
 
             float x = -TileEngine.XOffset + xPos;
             float y = -TileEngine.YOffset + yPos;
@@ -2041,7 +2038,7 @@ void ProjectileClass::Render() {
                        static_cast<float>(yPos - TileEngine.YOffset + ShotRect[ShotArt].top),
                        static_cast<float>(ShotRect[ShotArt].right - ShotRect[ShotArt].left),
                        static_cast<float>(ShotRect[ShotArt].bottom - ShotRect[ShotArt].top), 0x88FFFFFF);
-#endif  //NDEBUG
+#endif  // NDEBUG
 
     }
 
@@ -2080,8 +2077,7 @@ void ProjectileClass::Render() {
         ProjectileGrafix[ShotArt].RenderSpriteScaledRotated(
             46.0f + (xPos - TileEngine.XOffset) - static_cast<float>(AnimPhase + 30),
             54.0f + (yPos - TileEngine.YOffset) - static_cast<float>(AnimPhase + 30),
-            static_cast<int>(AnimPhase * 2.2f + 20.0f),
-            static_cast<int>(AnimPhase * 2.2f + 20.0f), Winkel, Color);
+            static_cast<int>(AnimPhase * 2.2f + 20.0f), static_cast<int>(AnimPhase * 2.2f + 20.0f), Winkel, Color);
         DirectGraphics.SetColorKeyMode();
     }
 
@@ -2160,10 +2156,9 @@ void ProjectileClass::Render() {
             Damage = 500;
         }
 
-        ProjectileGrafix[ShotArt].RenderSpriteScaled(
-            xPos - TileEngine.XOffset - 10.0f,
-            yPos - TileEngine.YOffset - size / 2.0f,
-            length, static_cast<int>(size), 0, col);
+        ProjectileGrafix[ShotArt].RenderSpriteScaled(xPos - TileEngine.XOffset - 10.0f,
+                                                     yPos - TileEngine.YOffset - size / 2.0f, length,
+                                                     static_cast<int>(size), 0, col);
         DirectGraphics.SetColorKeyMode();
     } else if (ShotArt == BRATKLOPSSHOT) {
         DirectGraphics.SetAdditiveMode();
@@ -2185,17 +2180,17 @@ void ProjectileClass::Render() {
         CurrentShotTexture = -1;  // Erst mal einstellen dass wir jetzt die falsche Textur gesetzt haben =)
 
         if (ShotArt == UFOLASER) {
-            PartikelGrafix[UFOLASERFLARE].RenderSpriteRotated(xPos - TileEngine.XOffset - 63.0f,
-                                                              yPos - TileEngine.YOffset - 30.0f, yPos * 0.5f, 0xFFFF22EE);
+            PartikelGrafix[UFOLASERFLARE].RenderSpriteRotated(
+                xPos - TileEngine.XOffset - 63.0f, yPos - TileEngine.YOffset - 30.0f, yPos * 0.5f, 0xFFFF22EE);
         } else if (ShotArt == ELEKTROSCHUSS) {
-            Projectiles.LavaFlare.RenderSpriteScaled(xPos - 28.0f - TileEngine.XOffset, yPos - 28.0f - TileEngine.YOffset,
-                                                     100, 100, 0xFFFF22BB);
+            Projectiles.LavaFlare.RenderSpriteScaled(xPos - 28.0f - TileEngine.XOffset,
+                                                     yPos - 28.0f - TileEngine.YOffset, 100, 100, 0xFFFF22BB);
         } else if (ShotArt == LASERSHOT || ShotArt == LASERSHOT2) {
             switch (static_cast<int>(Winkel)) {
                 case 0:
-                    Projectiles.LaserSmoke.RenderSpriteRotated(xPos - TileEngine.XOffset - 60.0f +
-                                                                   static_cast<float>((ShotArt - LASERSHOT) * 5),
-                                                               yPos - TileEngine.YOffset - 40.0f, Winkel, 0xBB1188FF);
+                    Projectiles.LaserSmoke.RenderSpriteRotated(
+                        xPos - TileEngine.XOffset - 60.0f + static_cast<float>((ShotArt - LASERSHOT) * 5),
+                        yPos - TileEngine.YOffset - 40.0f, Winkel, 0xBB1188FF);
                     break;
 
                 case 45:
@@ -2226,23 +2221,23 @@ void ProjectileClass::Render() {
         else if (ShotArt == LASERSHOTBIG || ShotArt == LASERSHOTBIG2) {
             switch (static_cast<int>(Winkel)) {
                 case 0:
-                    Projectiles.LaserSmokeBig.RenderSpriteRotated(xPos - TileEngine.XOffset - 120.0f,
-                                                                  yPos - TileEngine.YOffset - 80.0f, Winkel, 0xBB1188FF);
+                    Projectiles.LaserSmokeBig.RenderSpriteRotated(
+                        xPos - TileEngine.XOffset - 120.0f, yPos - TileEngine.YOffset - 80.0f, Winkel, 0xBB1188FF);
                     break;
 
                 case 45:
-                    Projectiles.LaserSmokeBig.RenderSpriteRotated(xPos - TileEngine.XOffset - 120.0f,
-                                                                  yPos - TileEngine.YOffset - 85.0f, Winkel, 0xBB1188FF);
+                    Projectiles.LaserSmokeBig.RenderSpriteRotated(
+                        xPos - TileEngine.XOffset - 120.0f, yPos - TileEngine.YOffset - 85.0f, Winkel, 0xBB1188FF);
                     break;
 
                 case 90:
-                    Projectiles.LaserSmokeBig.RenderSpriteRotated(xPos - TileEngine.XOffset - 120.0f,
-                                                                  yPos - TileEngine.YOffset - 85.0f, Winkel, 0xBB1188FF);
+                    Projectiles.LaserSmokeBig.RenderSpriteRotated(
+                        xPos - TileEngine.XOffset - 120.0f, yPos - TileEngine.YOffset - 85.0f, Winkel, 0xBB1188FF);
                     break;
 
                 case 270:
-                    Projectiles.LaserSmokeBig.RenderSpriteRotated(xPos - TileEngine.XOffset - 105.0f,
-                                                                  yPos - TileEngine.YOffset - 85.0f, Winkel, 0xBB1188FF);
+                    Projectiles.LaserSmokeBig.RenderSpriteRotated(
+                        xPos - TileEngine.XOffset - 105.0f, yPos - TileEngine.YOffset - 85.0f, Winkel, 0xBB1188FF);
                     break;
 
                 case 315:
@@ -2256,18 +2251,18 @@ void ProjectileClass::Render() {
         }
 
         else if (ShotArt == SPREADSHOTBIG || ShotArt == SPREADSHOTBIG2) {
-            Projectiles.SpreadShotSmoke.RenderSprite(xPos - 16.0f - TileEngine.XOffset, yPos - 18.0f - TileEngine.YOffset, 0,
-                                                     0xAAFFFFFF);
+            Projectiles.SpreadShotSmoke.RenderSprite(xPos - 16.0f - TileEngine.XOffset,
+                                                     yPos - 18.0f - TileEngine.YOffset, 0, 0xAAFFFFFF);
         }
 
         else if (ShotArt == PFLANZESHOT) {
-            Projectiles.SpreadShotSmoke.RenderSprite(xPos - 24.0f - TileEngine.XOffset, yPos - 24.0f - TileEngine.YOffset, 0,
-                                                     0xAAFFFFFF);
+            Projectiles.SpreadShotSmoke.RenderSprite(xPos - 24.0f - TileEngine.XOffset,
+                                                     yPos - 24.0f - TileEngine.YOffset, 0, 0xAAFFFFFF);
         }
 
         else if (ShotArt == SUCHSCHUSS2) {
-            Projectiles.LavaFlare.RenderSpriteScaled(xPos - 24.0f - TileEngine.XOffset, yPos - 24.0f - TileEngine.YOffset, 64,
-                                                     64, 0xCC0088FF);
+            Projectiles.LavaFlare.RenderSpriteScaled(xPos - 24.0f - TileEngine.XOffset,
+                                                     yPos - 24.0f - TileEngine.YOffset, 64, 64, 0xCC0088FF);
         }
 
         else if (ShotArt == WALKER_LASER)
@@ -2276,8 +2271,8 @@ void ProjectileClass::Render() {
 
         else if (ShotArt == FETTESPINNESHOT || ShotArt == FETTESPINNESHOT2)  // Laser der fetten Spinne
         {
-            Projectiles.SpreadShotSmoke.RenderSprite(xPos - 12.0f - TileEngine.XOffset, yPos - 7.0f - TileEngine.YOffset, 0,
-                                                     0xFFFF0000);
+            Projectiles.SpreadShotSmoke.RenderSprite(xPos - 12.0f - TileEngine.XOffset,
+                                                     yPos - 7.0f - TileEngine.YOffset, 0, 0xFFFF0000);
         }
 
         if (ShotArt == POWERLINE)  // Powerline leuchten lassen ?
@@ -2314,7 +2309,7 @@ void ProjectileClass::Render() {
 void ProjectileClass::Run() {
     bo = bu = bl = br = 0;
 
-    if (AnimEnde > 0)            // Soll überhaupt anmiert werden ?
+    if (AnimEnde > 0)                   // Soll überhaupt anmiert werden ?
         AnimCount += Timer.sync(1.0f);  // Animationscounter weiterzählen
 
     // Bewegen
@@ -2326,8 +2321,10 @@ void ProjectileClass::Run() {
     // Screen verlassen ?
     if (ShotArt != FLAMME && ShotArt != ROCKETSPIDER && ShotArt != EVILBLITZ && ShotArt != EVILBLITZ2 &&
         ShotArt != SNOWBOMB && ShotArt != EIERBOMBE &&
-        (yPos - TileEngine.YOffset > RENDERHEIGHT + 100 || yPos - TileEngine.YOffset + ShotRect[ShotArt].bottom < 0 - 100 ||
-         xPos - TileEngine.XOffset > RENDERWIDTH + 100 || xPos - TileEngine.XOffset + ShotRect[ShotArt].right < 0 - 100))
+        (yPos - TileEngine.YOffset > RENDERHEIGHT + 100 ||
+         yPos - TileEngine.YOffset + ShotRect[ShotArt].bottom < 0 - 100 ||
+         xPos - TileEngine.XOffset > RENDERWIDTH + 100 ||
+         xPos - TileEngine.XOffset + ShotRect[ShotArt].right < 0 - 100))
         Damage = 0;
 
     // Level verlassen ?
@@ -2977,12 +2974,10 @@ void ProjectileClass::Run() {
                 Counter = 0.1f;
 
                 PartikelSystem.PushPartikel(xPos + static_cast<float>(Damage / 2 + 1 + GetRandom(3)),
-                                            yPos + static_cast<float>(Damage / 2 + 1 + GetRandom(3)),
-                                            BEAMSMOKE);
+                                            yPos + static_cast<float>(Damage / 2 + 1 + GetRandom(3)), BEAMSMOKE);
 
                 PartikelSystem.PushPartikel(xPos + static_cast<float>(Damage / 2 - 2 + GetRandom(3)),
-                                            yPos + static_cast<float>(Damage / 2 - 6 + GetRandom(3)),
-                                            BEAMSMOKE2);
+                                            yPos + static_cast<float>(Damage / 2 - 6 + GetRandom(3)), BEAMSMOKE2);
             }
 
             // Wand getroffen?
@@ -3248,8 +3243,7 @@ void ProjectileClass::Run() {
             if (ySpeed < 0.0f)
                 ySpeed += TWO_PI;
 
-            if (pParent->Handlung != PlayerActionEnum::RADELN &&
-                    pParent->Handlung != PlayerActionEnum::RADELN_FALL) {
+            if (pParent->Handlung != PlayerActionEnum::RADELN && pParent->Handlung != PlayerActionEnum::RADELN_FALL) {
                 // DKS - Support new trig sin/cos lookup table and use deg/rad versions of sin/cos:
                 // xPos = float (pParent->xpos + 28 + sin (ySpeed) * 40);
                 // yPos = float (pParent->ypos + 38 + cos (ySpeed) * 40);
@@ -3460,8 +3454,7 @@ void ProjectileClass::ExplodeShot() {
         case LASERSHOTBIG:
         case LASERSHOTBIG2: {
             for (int i = 0; i < 8; i++)
-                PartikelSystem.PushPartikel(xPos + 10.0f + static_cast<float>(GetRandom(70)),
-                                            yPos + 5.0f, LASERFUNKE);
+                PartikelSystem.PushPartikel(xPos + 10.0f + static_cast<float>(GetRandom(70)), yPos + 5.0f, LASERFUNKE);
 
             if (xSpeed > 0.0f)
                 for (int i = 0; i < 5; i++)
@@ -3483,24 +3476,32 @@ void ProjectileClass::ExplodeShot() {
             if (pParent->CurrentWeaponLevel[pParent->SelectedWeapon] > 2) {
                 if (bl & BLOCKWERT_WAND) {
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                 } else if (br & BLOCKWERT_WAND) {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                 } else if (bo & BLOCKWERT_WAND) {
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                 } else {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed), BOUNCESHOT2, pParent);
+                    Projectiles.PushProjectile(xPos + 4.0f - Timer.sync(xSpeed), yPos + 4.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT2, pParent);
                 }
             }
 
@@ -3519,24 +3520,32 @@ void ProjectileClass::ExplodeShot() {
             if (pParent->CurrentWeaponLevel[pParent->SelectedWeapon] >= 5) {
                 if (bl & BLOCKWERT_WAND) {
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                 } else if (br & BLOCKWERT_WAND) {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                 } else if (bo & BLOCKWERT_WAND) {
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                 } else {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed), BOUNCESHOT3, pParent);
+                    Projectiles.PushProjectile(xPos + 3.0f - Timer.sync(xSpeed), yPos + 3.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOT3, pParent);
                 }
             }
 
@@ -3564,24 +3573,32 @@ void ProjectileClass::ExplodeShot() {
             if (pParent->CurrentWeaponLevel[pParent->SelectedWeapon] > 2) {
                 if (bl & BLOCKWERT_WAND) {
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                 } else if (br & BLOCKWERT_WAND) {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                 } else if (bo & BLOCKWERT_WAND) {
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                 } else {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG2, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG2, pParent);
                 }
             }
 
@@ -3600,24 +3617,32 @@ void ProjectileClass::ExplodeShot() {
             if (pParent->CurrentWeaponLevel[pParent->SelectedWeapon] >= 5) {
                 if (bl & BLOCKWERT_WAND) {
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                 } else if (br & BLOCKWERT_WAND) {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                 } else if (bo & BLOCKWERT_WAND) {
                     WinkelUebergabe = 225;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                     WinkelUebergabe = 135;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                 } else {
                     WinkelUebergabe = 315;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                     WinkelUebergabe = 45;
-                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed), BOUNCESHOTBIG3, pParent);
+                    Projectiles.PushProjectile(xPos + 8.0f - Timer.sync(xSpeed), yPos + 8.0f - Timer.sync(ySpeed),
+                                               BOUNCESHOTBIG3, pParent);
                 }
             }
 
@@ -3648,7 +3673,8 @@ void ProjectileClass::ExplodeShot() {
             SoundManager.PlayWave(100, 128, 9000, SOUND::BLITZENDE);
             SoundManager.PlayWave(100, 128, 9000, SOUND::BLITZENDE);
 
-            Projectiles.PushProjectile(TileEngine.XOffset - 60.0f, TileEngine.YOffset + RENDERHEIGHT - 128.0f, ELEKTROPAMPE);
+            Projectiles.PushProjectile(TileEngine.XOffset - 60.0f, TileEngine.YOffset + RENDERHEIGHT - 128.0f,
+                                       ELEKTROPAMPE);
         } break;
 
             /*
@@ -3696,8 +3722,10 @@ void ProjectileClass::ExplodeShot() {
             PartikelSystem.PushPartikel(xPos + 8, yPos + 8, EXPLOSION_MEDIUM2);
 
             for (int i = 0; i < 100; i++) {
-                PartikelSystem.PushPartikel(xPos + GetRandom(55) + 10.0f - 6.0f, yPos + GetRandom(55) + 10.0f - 6.0f, ROCKETSMOKE);
-                PartikelSystem.PushPartikel(xPos + GetRandom(35) + 20.0f - 6.0f, yPos + GetRandom(35) + 20.0f - 6.0f, ROCKETSMOKE);
+                PartikelSystem.PushPartikel(xPos + GetRandom(55) + 10.0f - 6.0f, yPos + GetRandom(55) + 10.0f - 6.0f,
+                                            ROCKETSMOKE);
+                PartikelSystem.PushPartikel(xPos + GetRandom(35) + 20.0f - 6.0f, yPos + GetRandom(35) + 20.0f - 6.0f,
+                                            ROCKETSMOKE);
             }
 
             SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION1);
@@ -3771,10 +3799,8 @@ void ProjectileClass::ExplodeShot() {
             // aus)
             //
 
-            PartikelSystem.PushPartikel(xPos - 32.0f + (Damage / 2),
-                                        yPos - 32.0f + (Damage / 2), BEAMSMOKE5);
-            PartikelSystem.PushPartikel(xPos - 31.0f + (Damage / 2),
-                                        yPos - 32.0f + (Damage / 2), BEAMSMOKE5);
+            PartikelSystem.PushPartikel(xPos - 32.0f + (Damage / 2), yPos - 32.0f + (Damage / 2), BEAMSMOKE5);
+            PartikelSystem.PushPartikel(xPos - 31.0f + (Damage / 2), yPos - 32.0f + (Damage / 2), BEAMSMOKE5);
 
             // Screen aufblitzen
             int alpha = static_cast<int>(Damage * 2.0f);
@@ -3820,7 +3846,8 @@ void ProjectileClass::ExplodeShot() {
 
         case BRATKLOPSSHOT: {
             for (int i = 0; i < 5; i++)
-                PartikelSystem.PushPartikel(xPos - 20.0f + GetRandom(40), yPos - 20.0f + GetRandom(40), EXPLOSION_GREEN);
+                PartikelSystem.PushPartikel(xPos - 20.0f + GetRandom(40), yPos - 20.0f + GetRandom(40),
+                                            EXPLOSION_GREEN);
 
             for (int i = 0; i < 100; i++)
                 PartikelSystem.PushPartikel(xPos + 10.0f + GetRandom(40), yPos + 10.0f + GetRandom(40), FUNKE2);
@@ -3865,7 +3892,8 @@ void ProjectileClass::ExplodeShot() {
                 PartikelSystem.PushPartikel(xPos - 10.0f + GetRandom(20), yPos - 10.0f + GetRandom(20), BLUE_EXPLOSION);
 
             for (int i = 0; i < 15; i++)
-                PartikelSystem.PushPartikel(xPos - 10.0f + GetRandom(20), yPos - 10.0f + GetRandom(20), WATERFLUSH_HIGH2);
+                PartikelSystem.PushPartikel(xPos - 10.0f + GetRandom(20), yPos - 10.0f + GetRandom(20),
+                                            WATERFLUSH_HIGH2);
 
         } break;
 
@@ -3877,15 +3905,18 @@ void ProjectileClass::ExplodeShot() {
                 PartikelSystem.PushPartikel(xPos + 10.0f + GetRandom(40), yPos + 10.0f + GetRandom(60), SPIDERSPLITTER);
 
             for (int i = 0; i < 5; i++)
-                PartikelSystem.PushPartikel(xPos - 30.0f + GetRandom(66), yPos - 30.0f + GetRandom(83), EXPLOSION_MEDIUM2);
+                PartikelSystem.PushPartikel(xPos - 30.0f + GetRandom(66), yPos - 30.0f + GetRandom(83),
+                                            EXPLOSION_MEDIUM2);
         } break;
 
         case ARCSHOT: {
             // PartikelSystem.PushPartikel(xPos + 8, yPos + 8, EXPLOSION_MEDIUM2);
 
             for (int i = 0; i < 50; i++) {
-                PartikelSystem.PushPartikel(xPos + GetRandom(20) - 10.0f, yPos + GetRandom(20) - 10.0f, ROCKETSMOKEBLUE);
-                PartikelSystem.PushPartikel(xPos + GetRandom(20) - 10.0f, yPos + GetRandom(20) - 10.0f, ROCKETSMOKEBLUE);
+                PartikelSystem.PushPartikel(xPos + GetRandom(20) - 10.0f, yPos + GetRandom(20) - 10.0f,
+                                            ROCKETSMOKEBLUE);
+                PartikelSystem.PushPartikel(xPos + GetRandom(20) - 10.0f, yPos + GetRandom(20) - 10.0f,
+                                            ROCKETSMOKEBLUE);
             }
 
             SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION1);
@@ -3933,7 +3964,8 @@ void ProjectileClass::ExplodeShot() {
             PartikelSystem.PushPartikel(xPos - 40.0f, yPos - 40.0f, EXPLOSION_GIANT);
 
             for (int i = 0; i < 4; i++)
-                PartikelSystem.PushPartikel(xPos - 30.0f + GetRandom(40), yPos - 30.0f + GetRandom(40), EXPLOSION_MEDIUM2);
+                PartikelSystem.PushPartikel(xPos - 30.0f + GetRandom(40), yPos - 30.0f + GetRandom(40),
+                                            EXPLOSION_MEDIUM2);
 
         } break;
 
@@ -3982,7 +4014,7 @@ void ProjectileClass::ExplodeShot() {
             if (ShotArt == BOMBEBIG)
                 schaden = 250;
 
-            for (auto& pEnemy: Gegner.enemies)   // Noch nicht alle durch ?
+            for (auto &pEnemy : Gegner.enemies)  // Noch nicht alle durch ?
             {
                 xdiff = (xPos + ShotRect[ShotArt].left + (ShotRect[ShotArt].right - ShotRect[ShotArt].left) / 2) -
                         (pEnemy->xPos + GegnerRect[pEnemy->GegnerArt].right / 2);
@@ -4018,17 +4050,16 @@ void ProjectileClass::ExplodeShot() {
                 // DKS - Converted to float:
                 Abstand = sqrtf((xdiff * xdiff) + (ydiff * ydiff));
 
-                if (((ShotArt == BOMBE && Abstand <= 60) ||
-                        (ShotArt == BOMBEBIG && Abstand <= 80)) &&
-                        (Player[p].Handlung == PlayerActionEnum::RADELN ||
-                        Player[p].Handlung == PlayerActionEnum::RADELN_FALL)) {
+                if (((ShotArt == BOMBE && Abstand <= 60) || (ShotArt == BOMBEBIG && Abstand <= 80)) &&
+                    (Player[p].Handlung == PlayerActionEnum::RADELN ||
+                     Player[p].Handlung == PlayerActionEnum::RADELN_FALL)) {
                     if (ShotArt == BOMBE)
                         Player[p].yspeed -= 45.0f;  // Bombe
                     else
                         Player[p].yspeed -= 75.0f;  // SuperBombe
 
-                    Player[p].JumpAdd = PLAYER_JUMPADDSPEED;  // lassen
-                    Player[p].Handlung = PlayerActionEnum::RADELN_FALL;         // als Rad
+                    Player[p].JumpAdd = PLAYER_JUMPADDSPEED;             // lassen
+                    Player[p].Handlung = PlayerActionEnum::RADELN_FALL;  // als Rad
                 }
             }
 
@@ -4048,7 +4079,8 @@ void ProjectileClass::ExplodeShot() {
             SoundManager.PlayWave(100, 128, 10000 + GetRandom(2000), SOUND::SPREADHIT);
 
             for (int i = 0; i < 24; i++)
-                PartikelSystem.PushPartikel(xPos - 1.0f + GetRandom(2), yPos + static_cast<float>(i * 2) + GetRandom(2), LASERFUNKE2);
+                PartikelSystem.PushPartikel(xPos - 1.0f + GetRandom(2), yPos + static_cast<float>(i * 2) + GetRandom(2),
+                                            LASERFUNKE2);
         } break;
 
         case KRABBLERLASER2: {

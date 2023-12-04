@@ -38,8 +38,8 @@ void GegnerRoboMan1::DoKI() {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;              // Dann wieder auf Null setzen
             AnimPhase++;                // Und nächste Animationsphase
@@ -59,10 +59,8 @@ void GegnerRoboMan1::DoKI() {
     if (SmokeCount < 0.0f) {
         SmokeCount += 0.1f;
 
-        PartikelSystem.PushPartikel(xPos + 29.0f + static_cast<float>(GetRandom(5)),
-                                    yPos + 90.0f, ROBOMANSMOKE);
-        PartikelSystem.PushPartikel(xPos + 40.0f + static_cast<float>(GetRandom(5)),
-                                    yPos + 90.0f, ROBOMANSMOKE);
+        PartikelSystem.PushPartikel(xPos + 29.0f + static_cast<float>(GetRandom(5)), yPos + 90.0f, ROBOMANSMOKE);
+        PartikelSystem.PushPartikel(xPos + 40.0f + static_cast<float>(GetRandom(5)), yPos + 90.0f, ROBOMANSMOKE);
     }
 
     // Immer den Spieler im Auge behalten

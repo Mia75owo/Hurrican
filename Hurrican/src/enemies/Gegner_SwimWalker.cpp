@@ -89,8 +89,8 @@ void GegnerSwimWalker::DoKI() {
 
 void GegnerSwimWalker::GegnerExplode() {
     // blubbern
-    PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(20)),
-                                yPos + static_cast<float>(GetRandom(20)), EXPLOSION_MEDIUM3);
+    PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(20)), yPos + static_cast<float>(GetRandom(20)),
+                                EXPLOSION_MEDIUM3);
 
     PartikelSystem.PushPartikel(xPos, yPos, EXPLOSION_MEDIUM2);
 

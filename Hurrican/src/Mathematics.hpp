@@ -27,11 +27,19 @@
 extern void seed_fast_rand(uint32_t seed);
 extern int fast_rand();
 
-inline void SetRandomSeed(int s) { seed_fast_rand(s); }
-inline int GetRandom(int max) { return fast_rand() % max; }
+inline void SetRandomSeed(int s) {
+    seed_fast_rand(s);
+}
+inline int GetRandom(int max) {
+    return fast_rand() % max;
+}
 #else
-inline void SetRandomSeed(int s) { srand(s); }
-inline int GetRandom(int max) { return rand() % max; }
+inline void SetRandomSeed(int s) {
+    srand(s);
+}
+inline int GetRandom(int max) {
+    return rand() % max;
+}
 #endif  // USE_FAST_RNG
 
 // --------------------------------------------------------------------------------------
@@ -41,14 +49,18 @@ inline int GetRandom(int max) { return rand() % max; }
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
-constexpr float PI      = static_cast<float>(M_PI);
-constexpr float TWO_PI  = static_cast<float>(M_PI * 2.0);
+constexpr float PI = static_cast<float>(M_PI);
+constexpr float TWO_PI = static_cast<float>(M_PI * 2.0);
 constexpr float HALF_PI = static_cast<float>(M_PI / 2.0);
 
 // DKS - RAD/DEG conversions:
 // Multiply by a constant ratio (these save a division):
-inline float DegToRad(float x) { return x * static_cast<float>(M_PI / 180.0); }
-inline float RadToDeg(float x) { return x * static_cast<float>(180.0 / M_PI); }
+inline float DegToRad(float x) {
+    return x * static_cast<float>(M_PI / 180.0);
+}
+inline float RadToDeg(float x) {
+    return x * static_cast<float>(180.0 / M_PI);
+}
 
 // Override libm's double sin/cos (but not sinf/cosf, keep those for when we need accuracy)
 #define sin(X) sin_rad(X)

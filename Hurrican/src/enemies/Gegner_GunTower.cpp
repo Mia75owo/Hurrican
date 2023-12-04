@@ -93,7 +93,7 @@ void GegnerGunTower::DoKI() {
                 AnimEnde = 0;
                 AnimStart = 0;
                 AnimCount = static_cast<float>(Value1);  // Je nach Editor-Einstellung die Reload-Sperre
-                Handlung = GEGNER::STEHEN;   // setzen
+                Handlung = GEGNER::STEHEN;               // setzen
             }
         } break;
 

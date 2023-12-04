@@ -30,8 +30,8 @@ GegnerRiesenWasp::GegnerRiesenWasp(int Wert1, int Wert2, bool Light) {
 
 void GegnerRiesenWasp::DoKI() {
     // animieren
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;  // Dann wieder auf Null setzen
         AnimPhase++;    // Und nächste Animationsphase
@@ -92,9 +92,9 @@ void GegnerRiesenWasp::DoKI() {
                                        yPos + 51.0f, SUCHSCHUSS2);
 
             for (int i = 0; i < 5; i++)
-                PartikelSystem.PushPartikel(xPos + 50.0f + static_cast<float>(GetRandom(5) + Direction::asInt(BlickRichtung) * 60),
-                                            yPos + 75.0f + static_cast<float>(GetRandom(5)),
-                                            SMOKE3);
+                PartikelSystem.PushPartikel(
+                    xPos + 50.0f + static_cast<float>(GetRandom(5) + Direction::asInt(BlickRichtung) * 60),
+                    yPos + 75.0f + static_cast<float>(GetRandom(5)), SMOKE3);
         }
     }
 

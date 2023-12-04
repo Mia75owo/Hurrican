@@ -28,12 +28,10 @@ GegnerSchienenViech::GegnerSchienenViech(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerSchienenViech::DoDraw() {
-
     D3DCOLOR col = 0xFFCCCCCC;
 
     // Draw kommt jetzt erst hier, damit der Gegner über allen Leveltiles gerendert wird
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, col);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, col);
 
     AlreadyDrawn = true;
 }
@@ -58,8 +56,8 @@ void GegnerSchienenViech::DoKI() {
         xAcc *= -1.0f;
     }
 
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;  // Dann wieder auf Null setzen
 

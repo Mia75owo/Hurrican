@@ -49,7 +49,7 @@ void GegnerPunisher::DoDraw() {
             for (int i = 0; i < 170; i++) {
                 pGegnerGrafix[GegnerArt]->SetRect(3 * 170, 2 * 170 + i, 4 * 170, 2 * 170 + i + 1);
                 pGegnerGrafix[GegnerArt]->RenderSprite(
-                        xPos - TileEngine.XOffset +
+                    xPos - TileEngine.XOffset +
                         static_cast<float>(sin((alpha / 20.0f) + i / 10.0f) * ((255.0f - alpha) / 255.0f * 200.0f)),
                     yPos - TileEngine.YOffset + static_cast<float>(i),
                     D3DCOLOR_RGBA(255, 255, 255, static_cast<int>(alpha)));
@@ -58,8 +58,7 @@ void GegnerPunisher::DoDraw() {
 
         // normal rendern
         case GEGNER::LAUFEN: {
-            pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                                   yPos - TileEngine.YOffset, AnimPhase,
+            pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase,
                                                    D3DCOLOR_RGBA(255, 255, 255, 255));
         } break;
     }
@@ -138,7 +137,7 @@ void GegnerPunisher::DoKI() {
                         if (Player[p].CurrentWeaponLevel[i] > 1)
                             Player[p].CurrentWeaponLevel[i]--;
 
-                    //Player[p].CalcWeaponLevels();
+                    // Player[p].CalcWeaponLevels();
 
                     // bekommt dafür aber wieder Zeit
                     TileEngine.resetTimelimit();

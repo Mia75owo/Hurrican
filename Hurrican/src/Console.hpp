@@ -28,7 +28,7 @@
 
 // DKS - Compensating for larger line spacing, which was too tight originally and allowed
 //      only for small non-block cursor indicator:
-//constexpr int MAX_LINES = 20;  // Anzahl der Zeilen in der Konsole
+// constexpr int MAX_LINES = 20;  // Anzahl der Zeilen in der Konsole
 constexpr int MAX_LINES = 16;  // Anzahl der Zeilen in der Konsole
 constexpr int MAX_CHARS = 90;  // Anzahl der Zeichen pro Zeile
 
@@ -44,15 +44,15 @@ class ConsoleClass {
     bool Activate;                    // Aktivierungstaste gedrückt oder nicht
     char Text[MAX_LINES][MAX_CHARS];  // Text in der Konsole
     char Buffer[MAX_CHARS];
-    std::bitset<256> Pressed;         // Für Tasten-lock
+    std::bitset<256> Pressed;  // Für Tasten-lock
 
     bool CONSOLE_CHEAT(char *cheat);
     int GetIntFromBuffer(int index);
     // DKS - New console joystick support - CursorChar stores the candidate character (space by default)
     char CursorChar[2];
 
-    inline bool CONSOLE_COMMAND(const char* command);
-    inline bool CONSOLE_COMMAND_ARG(const char* command, int len);
+    inline bool CONSOLE_COMMAND(const char *command);
+    inline bool CONSOLE_COMMAND_ARG(const char *command, int len);
 
   public:
     bool Active;        // Gerade aktiv ?

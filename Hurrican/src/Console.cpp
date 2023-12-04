@@ -14,8 +14,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <string>
 #include <filesystem>
+#include <string>
 namespace fs = std::filesystem;
 #include "Console.hpp"
 #include "DX8Graphics.hpp"
@@ -152,7 +152,6 @@ void ConsoleClass::ShowConsole() {
 // --------------------------------------------------------------------------------------
 
 bool ConsoleClass::CONSOLE_CHEAT(char *cheat) {
-
     // TODO FIX
     bool result = CONSOLE_COMMAND(convertText(cheat));
 
@@ -173,7 +172,7 @@ void ConsoleClass::CheckCommands() {
     // Hilfe
     //
     // DKS - Re-enabled help, as it seems to be just fine
-    //#ifndef NDEBUG
+    // #ifndef NDEBUG
     // TODO FIX
     if (CONSOLE_COMMAND("help")) {
         this->print(" ");
@@ -191,122 +190,123 @@ void ConsoleClass::CheckCommands() {
 
         // Konsole löschen
         if (CONSOLE_COMMAND("clear")) {
-        for (int i = 0; i < MAX_LINES; i++)
-            strcpy_s(Text[i], "");
+            for (int i = 0; i < MAX_LINES; i++)
+                strcpy_s(Text[i], "");
 
-        strcpy_s(Buffer, "");
-        CursorChar[0] = ' ';
-    } else
+            strcpy_s(Buffer, "");
+            CursorChar[0] = ' ';
+        } else
 
-        // Levelinfo anzeigen
-        if (CONSOLE_COMMAND("levelinfo")) {
-        std::string StringBuffer;
+            // Levelinfo anzeigen
+            if (CONSOLE_COMMAND("levelinfo")) {
+                std::string StringBuffer;
 
-        this->print(" ");
-        this->print("Levelinfo");
-        this->print("-------------");
-        this->print(" ");
+                this->print(" ");
+                this->print("Levelinfo");
+                this->print("-------------");
+                this->print(" ");
 
-        this->print(TileEngine.Beschreibung);
+                this->print(TileEngine.Beschreibung);
 
-        StringBuffer = "Level Offset X : ";
-        StringBuffer += std::to_string(TileEngine.XOffset);
-        this->print(StringBuffer);
+                StringBuffer = "Level Offset X : ";
+                StringBuffer += std::to_string(TileEngine.XOffset);
+                this->print(StringBuffer);
 
-        StringBuffer = "Level Offset Y : ";
-        StringBuffer += std::to_string(TileEngine.XOffset);
-        this->print(StringBuffer);
+                StringBuffer = "Level Offset Y : ";
+                StringBuffer += std::to_string(TileEngine.XOffset);
+                this->print(StringBuffer);
 
-        StringBuffer = "Level Size X : ";
-        StringBuffer += std::to_string(TileEngine.LEVELSIZE_X);
-        this->print(StringBuffer);
+                StringBuffer = "Level Size X : ";
+                StringBuffer += std::to_string(TileEngine.LEVELSIZE_X);
+                this->print(StringBuffer);
 
-        StringBuffer = "Level Size Y : ";
-        StringBuffer += std::to_string(TileEngine.LEVELSIZE_Y);
-        this->print(StringBuffer);
-    } else
+                StringBuffer = "Level Size Y : ";
+                StringBuffer += std::to_string(TileEngine.LEVELSIZE_Y);
+                this->print(StringBuffer);
+            } else
 
-        // Spiel sofort verlassen
-        if (CONSOLE_COMMAND("quit")) {
-        this->print("Shutting down ...");
-        GameRunning = false;
-    } else
+                // Spiel sofort verlassen
+                if (CONSOLE_COMMAND("quit")) {
+                    this->print("Shutting down ...");
+                    GameRunning = false;
+                } else
 
-        // Volle Extrawaffen
-        if (CONSOLE_CHEAT(Cheats[CHEAT::EXTRAS])) {
-        for (int p = 0; p < NUMPLAYERS; p++) {
-            Player[p].PowerLines = 999;
-            Player[p].Grenades = 999;
-            Player[p].SmartBombs = 999;
-        }
+                    // Volle Extrawaffen
+                    if (CONSOLE_CHEAT(Cheats[CHEAT::EXTRAS])) {
+                        for (int p = 0; p < NUMPLAYERS; p++) {
+                            Player[p].PowerLines = 999;
+                            Player[p].Grenades = 999;
+                            Player[p].SmartBombs = 999;
+                        }
 
-        this->print("-> Let's rock!");
-    } else
+                        this->print("-> Let's rock!");
+                    } else
 
-        // Volle Zeit
-        if (CONSOLE_CHEAT(Cheats[CHEAT::ZEIT])) {
-        TileEngine.Timelimit = 999.0f;
+                        // Volle Zeit
+                        if (CONSOLE_CHEAT(Cheats[CHEAT::ZEIT])) {
+                            TileEngine.Timelimit = 999.0f;
 
-        this->print("-> knowing that there's no rhyme...");
-    } else
+                            this->print("-> knowing that there's no rhyme...");
+                        } else
 
-        // Volle Waffen
-        if (CONSOLE_CHEAT(Cheats[CHEAT::WAFFEN])) {
-        for (int p = 0; p < NUMPLAYERS; p++) {
-            Player[p].CurrentWeaponLevel[3] = 16;
+                            // Volle Waffen
+                            if (CONSOLE_CHEAT(Cheats[CHEAT::WAFFEN])) {
+                                for (int p = 0; p < NUMPLAYERS; p++) {
+                                    Player[p].CurrentWeaponLevel[3] = 16;
 
-            for (int w = 0; w <= 2; w++)
-                Player[p].CurrentWeaponLevel[w] = 8;
-        }
+                                    for (int w = 0; w <= 2; w++)
+                                        Player[p].CurrentWeaponLevel[w] = 8;
+                                }
 
-        this->print("-> Blast Off and Strike The Evil Bydo Empire!");
-    } else
+                                this->print("-> Blast Off and Strike The Evil Bydo Empire!");
+                            } else
 
-        // Schild
-        if (CONSOLE_CHEAT(Cheats[CHEAT::SCHILD])) {
-        for (int i = 0; i < NUMPLAYERS; i++) {
-            /*
-            if (Player[i].Shield <= 0.0f)
-            {
-                Projectiles.PushProjectile (Player[i].xpos, Player[i].ypos, SHIELDSPAWNER, Player[i]);
-                Projectiles.PushProjectile (Player[i].xpos, Player[i].ypos, SHIELDSPAWNER2, Player[i]);
-            }
+                                // Schild
+                                if (CONSOLE_CHEAT(Cheats[CHEAT::SCHILD])) {
+                                    for (int i = 0; i < NUMPLAYERS; i++) {
+                                        /*
+                                        if (Player[i].Shield <= 0.0f)
+                                        {
+                                            Projectiles.PushProjectile (Player[i].xpos, Player[i].ypos, SHIELDSPAWNER,
+                                        Player[i]); Projectiles.PushProjectile (Player[i].xpos, Player[i].ypos,
+                                        SHIELDSPAWNER2, Player[i]);
+                                        }
 
-            // Schild setzen
-            Player[i].Shield = 500.0f;*/
+                                        // Schild setzen
+                                        Player[i].Shield = 500.0f;*/
 
-            Player[i].Lives = 99;
-        }
+                                        Player[i].Lives = 99;
+                                    }
 
-        strcpy_s(Buffer, "-> Live long and prosper!");
-    } else
+                                    strcpy_s(Buffer, "-> Live long and prosper!");
+                                } else
 
-        // Dauerfeuer
-        if (CONSOLE_CHEAT(Cheats[CHEAT::SUPERSHOT])) {
-        for (int i = 0; i < NUMPLAYERS; i++)
-            Player[i].RiesenShotExtra += 500;
+                                    // Dauerfeuer
+                                    if (CONSOLE_CHEAT(Cheats[CHEAT::SUPERSHOT])) {
+                                        for (int i = 0; i < NUMPLAYERS; i++)
+                                            Player[i].RiesenShotExtra += 500;
 
-        strcpy_s(Buffer, "-> Supershot");
-    } else
+                                        strcpy_s(Buffer, "-> Supershot");
+                                    } else
 
-        // Dauerfeuer
-        if (CONSOLE_CHEAT(Cheats[CHEAT::AUTOFIRE])) {
-        for (int i = 0; i < NUMPLAYERS; i++)
-            Player[i].AutoFireExtra += 500;
+                                        // Dauerfeuer
+                                        if (CONSOLE_CHEAT(Cheats[CHEAT::AUTOFIRE])) {
+                                            for (int i = 0; i < NUMPLAYERS; i++)
+                                                Player[i].AutoFireExtra += 500;
 
-        strcpy_s(Buffer, "-> Autofire");
-    } else
+                                            strcpy_s(Buffer, "-> Autofire");
+                                        } else
 
-        // Flammenwerfer Mode
-        if (CONSOLE_CHEAT(Cheats[CHEAT::FLAMER])) {
-        FlameThrower = !FlameThrower;
+                                            // Flammenwerfer Mode
+                                            if (CONSOLE_CHEAT(Cheats[CHEAT::FLAMER])) {
+                                                FlameThrower = !FlameThrower;
 
-        if (FlameThrower) {
-            this->print("-> Flamethrower on");
-        } else {
-            this->print("-> Flamethrower off");
-        }
-    }  // else
+                                                if (FlameThrower) {
+                                                    this->print("-> Flamethrower on");
+                                                } else {
+                                                    this->print("-> Flamethrower off");
+                                                }
+                                            }  // else
 
     // GodMode
     if (CONSOLE_CHEAT(Cheats[CHEAT::GOD])) {
@@ -348,8 +348,8 @@ void ConsoleClass::CheckCommands() {
         Timer.SetMaxFPS(argument);
     }
 
-    //#ifndef NDEBUG
-    // Speed setzen
+    // #ifndef NDEBUG
+    //  Speed setzen
     if (CONSOLE_COMMAND_ARG("setspeed ", 9)) {
         // Bis zu der Zahl vorgehen
         int argument = GetIntFromBuffer(9);
@@ -362,7 +362,7 @@ void ConsoleClass::CheckCommands() {
         // und Speed Setzen
         Timer.SetMoveSpeed(static_cast<float>(argument));
     }
-    //#endif
+    // #endif
 
     // Stage laden
     if (CONSOLE_COMMAND_ARG("loadmap ", 8)) {
@@ -678,7 +678,7 @@ void ConsoleClass::CheckInput() {
                 std::string Temp(Buffer, strlen(Buffer) - 1);
 
                 strcpy_s(Buffer, "");
-                strncat_s(Buffer, Temp.c_str(), MAX_CHARS-1);
+                strncat_s(Buffer, Temp.c_str(), MAX_CHARS - 1);
             }
 
             // Neue Zeile
@@ -797,12 +797,12 @@ bool ConsoleClass::DoConsole() {
 }  // DoCOnsole
 
 void ConsoleClass::print(const std::string &output) {
-    strcpy_s(Buffer, MAX_CHARS-1, output.c_str());
+    strcpy_s(Buffer, MAX_CHARS - 1, output.c_str());
     ScrollUp();
 }
 
 void ConsoleClass::print(const char *output) {
-    strcpy_s(Buffer, MAX_CHARS-1, output);
+    strcpy_s(Buffer, MAX_CHARS - 1, output);
     ScrollUp();
 }
 
@@ -820,28 +820,28 @@ int ConsoleClass::GetIntFromBuffer(int index) {
     return number;
 }
 
-inline bool ConsoleClass::CONSOLE_COMMAND(const char* command) {
+inline bool ConsoleClass::CONSOLE_COMMAND(const char *command) {
 #if defined(ENABLE_CONSOLE_COMMANDS)
 
-#  if defined(PLATFORM_SDL)
+#if defined(PLATFORM_SDL)
     return strcmp(Buffer, command) == 0;
-#  else
+#else
     return strcmp(_strlwr_s(Buffer), command) == 0;
-#  endif
+#endif
 
 #else
     return false;
 #endif
 }
 
-inline bool ConsoleClass::CONSOLE_COMMAND_ARG(const char* command, int len) {
+inline bool ConsoleClass::CONSOLE_COMMAND_ARG(const char *command, int len) {
 #if defined(ENABLE_CONSOLE_COMMANDS)
 
-#  if defined(PLATFORM_SDL)
+#if defined(PLATFORM_SDL)
     return strncmp(Buffer, command, len) == 0;
-#  else
+#else
     return strncmp(_strlwr_s(Buffer), command, len) == 0;
-#  endif
+#endif
 
 #else
     return false;

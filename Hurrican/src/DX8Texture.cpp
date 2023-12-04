@@ -172,8 +172,8 @@ void TexturesystemClass::ReadScaleFactorsFiles() {
     if (fs::exists(fullpath) && fs::is_regular_file(fullpath))
         ReadScaleFactorsFile(fullpath);
 
-    // Then, handle any files in the compressed-textures subfolders, their data will also be loaded,
-    // and any data they contain will override what's already loaded, on a file-by-file basis.
+        // Then, handle any files in the compressed-textures subfolders, their data will also be loaded,
+        // and any data they contain will override what's already loaded, on a file-by-file basis.
 #if defined(USE_ETC1)
     fullpath = path + "etc1/" + scalefactors_filename;
     if (fs::exists(fullpath) && fs::is_regular_file(fullpath))

@@ -9,17 +9,14 @@
 #include "stdafx.hpp"
 
 //					    	Spread Laser Bounce	Blitz Shield Energy	Rad	Powerline Granate Smartbomb Autofire Supershot
-//Score
+// Score
 int WaffenVerteilung[14] = {100, 200, 300, 500, 505, 530, 550, 600, 650, 675, 680, 685, 1000, 1000};
 
 // --------------------------------------------------------------------------------------
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerPowerBlock::GegnerPowerBlock(int Wert1, int Wert2, bool Light) :
-    ExtraType(Wert2),
-    WeaponSpawned(NUMPLAYERS)
-{
+GegnerPowerBlock::GegnerPowerBlock(int Wert1, int Wert2, bool Light) : ExtraType(Wert2), WeaponSpawned(NUMPLAYERS) {
     Handlung = GEGNER::STEHEN;
     AnimPhase = 0;
     Energy = 100.0f;
@@ -61,16 +58,14 @@ void GegnerPowerBlock::DoDraw() {
 
     // normal
     if (AnimPhase > 0) {
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset,
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset,
                                                1 + TileEngine.GetUsedPowerBlock() * 2, 0xFFFFFFFF);
     }
 
     // nochmal leuchtend drüber (ausfadend)
     if (AnimPhase == 2) {
         D3DCOLOR col = D3DCOLOR_RGBA(255, 255, 255, static_cast<int>(DamageTaken));
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset,
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset,
                                                AnimPhase + TileEngine.GetUsedPowerBlock() * 2, col);
     }
 }

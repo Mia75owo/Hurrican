@@ -84,8 +84,7 @@ void GegnerPresswurst::DoKI() {
                     yAcc = 2.5f;
 
                     if (PlayerAbstand(true) < 600)
-                        SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f),
-                                                static_cast<int>(yPos + 330.0f), 11025,
+                        SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f), static_cast<int>(yPos + 330.0f), 11025,
                                                 SOUND::PRESSE);
                 }
         } break;
@@ -129,8 +128,7 @@ void GegnerPresswurst::DoKI() {
                 SmokeCount = 5.0f;
 
                 if (PlayerAbstand() < 600)
-                    SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f),
-                                            static_cast<int>(yPos + 330.0f), 11025,
+                    SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f), static_cast<int>(yPos + 330.0f), 11025,
                                             SOUND::DOORSTOP);
 
                 ShakeScreen(2.0f);
@@ -156,8 +154,7 @@ void GegnerPresswurst::DoKI() {
                 Handlung = GEGNER::SPECIAL2;
                 AnimCount = 28.0f;
                 if (PlayerAbstand() < 600)
-                    SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f),
-                                            static_cast<int>(yPos + 330.0f), 13000,
+                    SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f), static_cast<int>(yPos + 330.0f), 13000,
                                             SOUND::STEAM2);
             }
         } break;
@@ -177,9 +174,8 @@ void GegnerPresswurst::DoKI() {
             AnimCount -= Timer.sync(1.0f);
             if (AnimCount < 0.0f) {
                 // Spinne spawnen
-                Gegner.PushGegner(xPos + 60.0f,
-                                  yPos + 357.0f - GegnerRect[SPIDERBOMB].bottom,
-                                  SPIDERBOMB, 0, 0, false, true);
+                Gegner.PushGegner(xPos + 60.0f, yPos + 357.0f - GegnerRect[SPIDERBOMB].bottom, SPIDERBOMB, 0, 0, false,
+                                  true);
 
                 // wieder hochfahren
                 Handlung = GEGNER::LAUFEN;
@@ -187,8 +183,7 @@ void GegnerPresswurst::DoKI() {
                 yAcc = 0.2f;
 
                 if (PlayerAbstand() < 600)
-                    SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f),
-                                            static_cast<int>(yPos + 330.0f), 11025,
+                    SoundManager.PlayWave3D(static_cast<int>(xPos + 90.0f), static_cast<int>(yPos + 330.0f), 11025,
                                             SOUND::PRESSE);
             }
         } break;

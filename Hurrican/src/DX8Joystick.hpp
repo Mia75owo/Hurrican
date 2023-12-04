@@ -21,7 +21,7 @@ constexpr int MAX_JOYSTICKBUTTONS = 128;
 // Include Dateien
 // --------------------------------------------------------------------------------------
 #if defined(PLATFORM_SDL)
-#  include "SDL_port.hpp"
+#include "SDL_port.hpp"
 #endif
 
 #include <bitset>
@@ -47,23 +47,23 @@ class DirectJoystickClass {
     int lt;
     int rt;
 
-    int NumButtons;                             // How many buttons joystick supports
-    int TotalButtons;                           // How many buttons joystick supports including triggers
-    int NumAxis;                                // How many axis joystick supports
-    int NumHats;                                // How many hats joystick supports
+    int NumButtons;    // How many buttons joystick supports
+    int TotalButtons;  // How many buttons joystick supports including triggers
+    int NumAxis;       // How many axis joystick supports
+    int NumHats;       // How many hats joystick supports
 
     bool CanForceFeedback;
 
   public:
     bool Active;
-    int JoystickX;                              // Joystick x-Koordinaten
-    int JoystickY;                              // Joystick y-Koordinaten
-    int JoystickX2;                             // Joystick x-Koordinaten 2. analog Stick
-    int JoystickY2;                             // Joystick y-Koordinaten 2. analog Stick
-    int JoystickPOV;                            // POV (für coolie hat)
-    int JoystickMode;                           // Joypad oder Stickmode
+    int JoystickX;                                     // Joystick x-Koordinaten
+    int JoystickY;                                     // Joystick y-Koordinaten
+    int JoystickX2;                                    // Joystick x-Koordinaten 2. analog Stick
+    int JoystickY2;                                    // Joystick y-Koordinaten 2. analog Stick
+    int JoystickPOV;                                   // POV (für coolie hat)
+    int JoystickMode;                                  // Joypad oder Stickmode
     std::bitset<MAX_JOYSTICKBUTTONS> JoystickButtons;  // Feuerknopf gedrückt?
-    std::string JoystickName;                   // Joystick Produktname
+    std::string JoystickName;                          // Joystick Produktname
 
     DirectJoystickClass();
     ~DirectJoystickClass();

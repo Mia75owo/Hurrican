@@ -21,11 +21,8 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerBratklops::GegnerBratklops(int Wert1, int Wert2, bool Light) :
-    ShotDelay(0.0f),
-    ActionDelay(0.0f),
-    FlareDelay(0.0f)
-{
+GegnerBratklops::GegnerBratklops(int Wert1, int Wert2, bool Light)
+    : ShotDelay(0.0f), ActionDelay(0.0f), FlareDelay(0.0f) {
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 8000;
@@ -77,8 +74,7 @@ void GegnerBratklops::DoDraw() {
     if (a > 5)
         a = 10 - a;
 
-    pGfx[a]->RenderSprite(xPos - TileEngine.XOffset,
-                          yPos - TileEngine.YOffset, 0xFFFFFFFF);
+    pGfx[a]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0xFFFFFFFF);
 
     // Laser rendern ?
     //
@@ -96,11 +92,9 @@ void GegnerBratklops::DoDraw() {
 
         DirectGraphics.SetAdditiveMode();
         D3DCOLOR Color = D3DCOLOR_RGBA(255, 255, 255, c);
-        pFlare->RenderSpriteRotated(xPos - TileEngine.XOffset + 64.0f,
-                                    yPos - TileEngine.YOffset + 122.0f,
+        pFlare->RenderSpriteRotated(xPos - TileEngine.XOffset + 64.0f, yPos - TileEngine.YOffset + 122.0f,
                                     FlareDelay * 2.0f, Color);
-        pFlare->RenderSpriteRotated(xPos - TileEngine.XOffset + 64.0f,
-                                    yPos - TileEngine.YOffset + 122.0f,
+        pFlare->RenderSpriteRotated(xPos - TileEngine.XOffset + 64.0f, yPos - TileEngine.YOffset + 122.0f,
                                     FlareDelay * 2.0f, Color);
 
         // Laser rendern
@@ -154,11 +148,12 @@ void GegnerBratklops::DoDraw() {
             // Blitz rotieren lassen
             glm::mat4x4 matTrans, matTrans2;
 
-            glm::mat4x4 matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[360 - Winkel], glm::vec3(0.0f, 0.0f, 1.0f));  // Rotationsmatrix
-            D3DXMatrixTranslation(&matTrans, -l - 15, -o, 0.0f);      // Transformation zum Ursprung
-            D3DXMatrixTranslation(&matTrans2, l + 15, o, 0.0f);       // Transformation wieder zurück
-            /*glm::mat4x4*/ matWorld = matRot * matTrans;        // Verschieben und rotieren
-            matWorld = matTrans2 * matWorld;     // und wieder zurück
+            glm::mat4x4 matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[360 - Winkel],
+                                             glm::vec3(0.0f, 0.0f, 1.0f));  // Rotationsmatrix
+            D3DXMatrixTranslation(&matTrans, -l - 15, -o, 0.0f);            // Transformation zum Ursprung
+            D3DXMatrixTranslation(&matTrans2, l + 15, o, 0.0f);             // Transformation wieder zurück
+            /*glm::mat4x4*/ matWorld = matRot * matTrans;                   // Verschieben und rotieren
+            matWorld = matTrans2 * matWorld;                                // und wieder zurück
             g_matModelView = matWorld * g_matView;
 #if defined(USE_GL1)
             load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
@@ -196,12 +191,11 @@ void GegnerBratklops::DoDraw() {
 
             // Rechtecke für die Kollisionsabfrage rotieren lassen
             for (int i = 0; i < 25; i++) {
-            // Zum anzeigen der Rects, die geprüft werden
+                // Zum anzeigen der Rects, die geprüft werden
 #ifndef NDEBUG
                 if (DebugMode == true)
-                    RenderRect(xstart - TileEngine.XOffset, ystart - TileEngine.YOffset, 24, 24,
-                               0x80FFFFFF);
-#endif  //NDEBUG
+                    RenderRect(xstart - TileEngine.XOffset, ystart - TileEngine.YOffset, 24, 24, 0x80FFFFFF);
+#endif  // NDEBUG
 
                 // Laser auf Kollision mit dem Spieler prüfen
                 //
@@ -248,7 +242,7 @@ void GegnerBratklops::DoDraw() {
 // --------------------------------------------------------------------------------------
 
 void GegnerBratklops::DoKI() {
-    //glm::mat4x4 swap;
+    // glm::mat4x4 swap;
 
     /*// TODO
     static float c = 480.0f;
@@ -268,8 +262,8 @@ void GegnerBratklops::DoKI() {
 
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;              // Dann wieder auf Null setzen
             AnimPhase++;                // Und nächste Animationsphase
@@ -287,7 +281,7 @@ void GegnerBratklops::DoKI() {
     if (Active == true && TileEngine.Zustand == TileStateEnum::SCROLLBAR) {
         TileEngine.ScrollLevel(static_cast<float>(Value1), static_cast<float>(Value2),
                                TileStateEnum::SCROLLTOLOCK);  // Level auf den Boss zentrieren
-        xPos -= 232;                                   // und Boss aus dem Screen setzen
+        xPos -= 232;                                          // und Boss aus dem Screen setzen
 
         SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);  // Ausfaden und pausieren
     }
@@ -471,7 +465,7 @@ void GegnerBratklops::DoKI() {
                                             yPos + static_cast<float>(GetRandom(500)), EXPLOSION_GREEN);
             if (GetRandom(3) == 0)
                 PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(150)),
-                                            yPos + 100.0f + static_cast<float>(GetRandom(200)) , MADEBLUT);
+                                            yPos + 100.0f + static_cast<float>(GetRandom(200)), MADEBLUT);
             if (GetRandom(8) == 0)
                 SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION1);
 

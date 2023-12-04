@@ -36,10 +36,9 @@ void GegnerEisFaust::DoKI() {
 
     // Levelausschnitt auf die Faust zentrieren, sobald dieses sichtbar wird
     if (Active == true && TileEngine.Zustand == TileStateEnum::SCROLLBAR) {
-        TileEngine.ScrollLevel(static_cast<float>(Value1),
-                               static_cast<float>(Value2),
+        TileEngine.ScrollLevel(static_cast<float>(Value1), static_cast<float>(Value2),
                                TileStateEnum::SCROLLTOLOCK);  // Level auf die Faust zentrieren
-        yPos -= 300;                                   // und Faust aus dem Screen setzen
+        yPos -= 300;                                          // und Faust aus dem Screen setzen
 
         SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);  // Ausfaden und pausieren
     }
@@ -156,9 +155,9 @@ void GegnerEisFaust::DoKI() {
 
                 // Schnee am Boden erzeugen
                 for (int i = 0; i < 80; i++)
-                    PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(200)),
-                                                yPos + static_cast<float>(GegnerRect[GegnerArt].bottom - 40 + GetRandom(20)),
-                                                WATERFLUSH2);
+                    PartikelSystem.PushPartikel(
+                        xPos + static_cast<float>(GetRandom(200)),
+                        yPos + static_cast<float>(GegnerRect[GegnerArt].bottom - 40 + GetRandom(20)), WATERFLUSH2);
 
                 // Beschleunigung und Geschwindigkeit wieder richtig setzen um hochzufliegen
                 yAcc = -1.5f;
@@ -256,9 +255,9 @@ void GegnerEisFaust::DoKI() {
 
                 // Schnee am Boden erzeugen
                 for (int i = 0; i < 80; i++)
-                    PartikelSystem.PushPartikel(xPos + 30.0f + static_cast<float>(GetRandom(180)),
-                                                yPos + static_cast<float>(GegnerRect[GegnerArt].bottom - 40 + GetRandom(20)),
-                                                                          WATERFLUSH2);
+                    PartikelSystem.PushPartikel(
+                        xPos + 30.0f + static_cast<float>(GetRandom(180)),
+                        yPos + static_cast<float>(GegnerRect[GegnerArt].bottom - 40 + GetRandom(20)), WATERFLUSH2);
 
                 // Beschleunigung und Geschwindigkeit wieder richtig setzen um hochzufliegen
                 yAcc = -0.5f;

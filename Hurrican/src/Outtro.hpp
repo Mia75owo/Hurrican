@@ -26,12 +26,7 @@
 
 //----- Zustände
 
-enum class OutroStateEnum {
-  FADEIN,
-  TOWER_EXPLODE,
-  PLAYER_FLEES,
-  SCROLLER
-};
+enum class OutroStateEnum { FADEIN, TOWER_EXPLODE, PLAYER_FLEES, SCROLLER };
 
 // --------------------------------------------------------------------------------------
 // Klassen Deklaration für das Outtro

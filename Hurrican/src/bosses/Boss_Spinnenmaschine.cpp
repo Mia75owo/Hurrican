@@ -11,24 +11,23 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerSpinnenmaschine::GegnerSpinnenmaschine(int Wert1, int Wert2, bool Light) :
-    DisplayState(0),
-    OldDisplayState(0),
-    DeckelPhase(0),
-    AnimUnten(0),
-    DeckelStatus(DeckelStateEnum::ZU),
-    HochStatus(DeckelStateEnum::ZU),
-    DeckelCount(0.0f),
-    DeckelOffset(0.0f),
-    OpenCounter(TIME_TILL_OPEN),
-    HochCounter(TIME_TILL_HOCH),
-    ShotDelay(5.0f),
-    SpawnDelay(8.0f),
-    SmokeDelay(0.0f),
-    SmokeDelay2(0.0f),
-    LightRayCount(0.0f),
-    AktionFertig(false)
-{
+GegnerSpinnenmaschine::GegnerSpinnenmaschine(int Wert1, int Wert2, bool Light)
+    : DisplayState(0),
+      OldDisplayState(0),
+      DeckelPhase(0),
+      AnimUnten(0),
+      DeckelStatus(DeckelStateEnum::ZU),
+      HochStatus(DeckelStateEnum::ZU),
+      DeckelCount(0.0f),
+      DeckelOffset(0.0f),
+      OpenCounter(TIME_TILL_OPEN),
+      HochCounter(TIME_TILL_HOCH),
+      ShotDelay(5.0f),
+      SpawnDelay(8.0f),
+      SmokeDelay(0.0f),
+      SmokeDelay2(0.0f),
+      LightRayCount(0.0f),
+      AktionFertig(false) {
     Handlung = GEGNER::INIT;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 4000;
@@ -60,7 +59,6 @@ GegnerSpinnenmaschine::GegnerSpinnenmaschine(int Wert1, int Wert2, bool Light) :
 // --------------------------------------------------------------------------------------
 
 void GegnerSpinnenmaschine::DoDraw() {
-
     int Wert = 255 - (static_cast<int>(DamageTaken));
 
     D3DCOLOR Color;
@@ -75,8 +73,8 @@ void GegnerSpinnenmaschine::DoDraw() {
         if (DeckelStatus != DeckelStateEnum::ZU) {
             DirectGraphics.SetAdditiveMode();
             Strahl.RenderSpriteScaled(xPos - TileEngine.XOffset - LightRayCount * 8.0f + 170.0f,
-                                      yPos - TileEngine.YOffset,
-                                      static_cast<int>(LightRayCount * 16.0f), 190, 0xFFFF8822);
+                                      yPos - TileEngine.YOffset, static_cast<int>(LightRayCount * 16.0f), 190,
+                                      0xFFFF8822);
             DirectGraphics.SetColorKeyMode();
         }
 
@@ -85,20 +83,20 @@ void GegnerSpinnenmaschine::DoDraw() {
         // DeckelOffset = -(static_cast<float>(cos(DeckelCount) * 20.0f) + static_cast<float>(cos(PI) * 20));
         DeckelOffset = -(static_cast<float>(cos(DeckelCount) * 20.0f) - 20.0f);
         pGegnerGrafix[GegnerArt]->RenderMirroredSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset - DeckelOffset, 0, Color);
+                                                       yPos - TileEngine.YOffset - DeckelOffset, 0, Color);
 
         // Anzeige
         Display.RenderMirroredSprite(xPos - TileEngine.XOffset + 133.0f,
-                             yPos - TileEngine.YOffset + 263.0f - DeckelOffset, DisplayState, Color);
+                                     yPos - TileEngine.YOffset + 263.0f - DeckelOffset, DisplayState, Color);
 
         // Topfdeckel
         Deckel.RenderMirroredSprite(xPos - TileEngine.XOffset + 75.0f,
-                            yPos - TileEngine.YOffset + 159.0f - DeckelOffset, DeckelPhase, Color);
+                                    yPos - TileEngine.YOffset + 159.0f - DeckelOffset, DeckelPhase, Color);
     }
 
     // Unterteil
-    Unten[AnimUnten].RenderMirroredSprite(xPos - TileEngine.XOffset + 45.0f,
-                                  yPos - TileEngine.YOffset + 352.0f, 0, 0xFFFFFFFF);
+    Unten[AnimUnten].RenderMirroredSprite(xPos - TileEngine.XOffset + 45.0f, yPos - TileEngine.YOffset + 352.0f, 0,
+                                          0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------
@@ -155,23 +153,20 @@ void GegnerSpinnenmaschine::DoDeckel() {
                     case 1: {
                         SpawnDelay = 6.0f;
                         Gegner.PushGegner(xPos + 100.0f + static_cast<float>(GetRandom(60)),
-                                          yPos + 190.0f - DeckelOffset, CLIMBSPIDER, 99, 0,
-                                          false, false);
+                                          yPos + 190.0f - DeckelOffset, CLIMBSPIDER, 99, 0, false, false);
                     } break;
 
                     // Dronen
                     case 2: {
                         SpawnDelay = 20.0f;
-                        Gegner.PushGegner(xPos + 135.0f,
-                                          yPos + 190.0f - DeckelOffset, DRONE, 99, 0, false, false);
+                        Gegner.PushGegner(xPos + 135.0f, yPos + 190.0f - DeckelOffset, DRONE, 99, 0, false, false);
                     } break;
 
                     // Spinnenbombe
                     case 3: {
                         SpawnDelay = 15.0f;
                         Gegner.PushGegner(xPos + 100.0f + static_cast<float>(GetRandom(80)),
-                                          yPos + 180.0f - DeckelOffset, SPIDERBOMB, 99, 0, false,
-                                          false);
+                                          yPos + 180.0f - DeckelOffset, SPIDERBOMB, 99, 0, false, false);
                     } break;
                 }
             }
@@ -304,7 +299,7 @@ void GegnerSpinnenmaschine::DoKI() {
     if (Active == true && Handlung != GEGNER::SPECIAL && TileEngine.Zustand == TileStateEnum::SCROLLBAR) {
         if (PlayerAbstandHoriz() < 450) {
             TileEngine.ScrollLevel(static_cast<float>(Value1), static_cast<float>(Value2),
-                                   TileStateEnum::SCROLLTOLOCK);             // Level auf den Boss zentrieren
+                                   TileStateEnum::SCROLLTOLOCK);       // Level auf den Boss zentrieren
             SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);  // Ausfaden und pausieren
         }
     }
@@ -452,8 +447,8 @@ void GegnerSpinnenmaschine::DoKI() {
                 int xo = GetRandom(300);
                 int yo = GetRandom(400);
 
-                PartikelSystem.PushPartikel(xPos + static_cast<float>(xo),
-                                            yPos + static_cast<float>(yo), EXPLOSION_MEDIUM2);
+                PartikelSystem.PushPartikel(xPos + static_cast<float>(xo), yPos + static_cast<float>(yo),
+                                            EXPLOSION_MEDIUM2);
 
                 // ggf. Rauch
                 if (GetRandom(2) == 0)
@@ -473,8 +468,7 @@ void GegnerSpinnenmaschine::DoKI() {
                 if (yo > 100 && GetRandom(5) == 0)
                     for (int i = 0; i < 10; i++)
                         PartikelSystem.PushPartikel(xPos + static_cast<float>(xo - 10 + GetRandom(20)),
-                                                    yPos + static_cast<float>(yo - 10 + GetRandom(20)),
-                                                    SPIDERSPLITTER);
+                                                    yPos + static_cast<float>(yo - 10 + GetRandom(20)), SPIDERSPLITTER);
             }
 
             DeathCount -= Timer.sync(1.0f);
@@ -560,7 +554,7 @@ void GegnerSpinnenmaschine::DoKI() {
         for (int p = 0; p < NUMPLAYERS; p++)
             if (Player[p].xpos < xPos + 250.0f) {
                 if (Player[p].Handlung == PlayerActionEnum::RADELN ||
-                        Player[p].Handlung == PlayerActionEnum::RADELN_FALL) {
+                    Player[p].Handlung == PlayerActionEnum::RADELN_FALL) {
                     if (Player[p].Blickrichtung == DirectionEnum::LINKS)
                         Player[p].Blickrichtung = DirectionEnum::RECHTS;
                 } else

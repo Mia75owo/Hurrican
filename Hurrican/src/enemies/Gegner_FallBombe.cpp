@@ -52,8 +52,7 @@ void GegnerFallBombe::DoKI() {
 
             if (SmokeDelay <= 0.0f) {
                 SmokeDelay = 0.15f;
-                PartikelSystem.PushPartikel(xPos - static_cast<float>(GetRandom(8)),
-                                            yPos - 16.0f, SMOKE);
+                PartikelSystem.PushPartikel(xPos - static_cast<float>(GetRandom(8)), yPos - 16.0f, SMOKE);
             }
         } break;
 

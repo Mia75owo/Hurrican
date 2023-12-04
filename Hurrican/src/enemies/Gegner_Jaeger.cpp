@@ -34,15 +34,13 @@ void GegnerJaeger::DoDraw() {
     // beim Hoch fliegen
     //
     if (Handlung == GEGNER::DREHEN)
-        pGegnerGrafix[GegnerArt]->RenderSpriteScaled(xPos - TileEngine.XOffset,
-                                                     yPos - TileEngine.YOffset, 35, 26, AnimPhase,
-                                                     0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSpriteScaled(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 35, 26,
+                                                     AnimPhase, 0xFFFFFFFF);
     // und beim runterfliegen
     //
     else if (Handlung == GEGNER::DREHEN2)
-        pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                      yPos - TileEngine.YOffset, 180, AnimPhase,
-                                                      0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 180,
+                                                      AnimPhase, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------
@@ -133,10 +131,10 @@ void GegnerJaeger::GegnerExplode() {
                                     yPos - 8.0f + static_cast<float>(GetRandom(30)), EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 20; i++) {
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(30)),
-                                    yPos + static_cast<float>(GetRandom(64)), MINIFLARE);
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(25)),
-                                    yPos + static_cast<float>(GetRandom(50)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(30)), yPos + static_cast<float>(GetRandom(64)),
+                                    MINIFLARE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(25)), yPos + static_cast<float>(GetRandom(50)),
+                                    SPIDERSPLITTER);
     }
 
     Player[0].Score += 100;

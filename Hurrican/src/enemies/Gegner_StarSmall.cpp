@@ -81,8 +81,8 @@ void GegnerStarSmall::GegnerExplode() {
                                     yPos - 30.0f + static_cast<float>(GetRandom(40)), EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 8; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)),
-                                    yPos + static_cast<float>(GetRandom(40)), LONGFUNKE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(40)), yPos + static_cast<float>(GetRandom(40)),
+                                    LONGFUNKE);
 
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION1);
 

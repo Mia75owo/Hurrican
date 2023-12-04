@@ -16,7 +16,7 @@
 // --------------------------------------------------------------------------------------
 
 #ifdef NDEBUG
-#  define SHOW_CRACKTRO
+#define SHOW_CRACKTRO
 #endif
 
 // --------------------------------------------------------------------------------------
@@ -31,8 +31,8 @@
 #include <iostream>
 namespace fs = std::filesystem;
 
-#include <iomanip>
 #include <SDL.h>
+#include <iomanip>
 #include "CCracktro.hpp"
 #include "Console.hpp"
 #include "DX8Sound.hpp"
@@ -49,8 +49,8 @@ namespace fs = std::filesystem;
 
 // Memory Leaks
 
-//#include <stdlib.h>
-//#include <crtdbg.h>
+// #include <stdlib.h>
+// #include <crtdbg.h>
 
 // --------------------------------------------------------------------------------------
 // externe Variablen
@@ -64,14 +64,14 @@ extern DirectGraphicsSprite PartikelGrafix[MAX_PARTIKELGFX];  // Grafiken der Pa
 // globale Variablen
 // --------------------------------------------------------------------------------------
 
-bool FixedFramerate = false;  // true = Spiel mit 50 Frames laufen lassen
-                              // false = Spiel so flüssig wie möglich laufen lassen
+bool FixedFramerate = false;     // true = Spiel mit 50 Frames laufen lassen
+                                 // false = Spiel so flüssig wie möglich laufen lassen
 bool GameRunning = true;         // Spiel läuft :-)
 bool GamePaused = false;         // Spiel eingefroren (wenn man zb das Fenster verlässt)
 bool NochKeinFullScreen = true;  // Logo noch anzeigen in Paint ?
 #ifndef NDEBUG
 bool DebugMode = false;              // Debug Mode ein/aus
-#endif                               //NDEBUG
+#endif                               // NDEBUG
 TexturesystemClass Textures;         // DKS - Added Texturesystem class (see DX8Sprite.cpp)
 DirectGraphicsClass DirectGraphics;  // Grafik-Objekt
 DirectInputClass DirectInput;        // Input-Objekt
@@ -95,12 +95,12 @@ ConsoleClass Console;                // Konsolen-Objekt
 CGUISystem GUI;                      // GUI System
 CCracktro *Cracktro;
 
-std::string g_storage_ext;      // Where data files (levels, graphics, music, etc)
-                                //      for the game are stored (read)
-std::string g_config_ext;       // Where configuration files
-                                //      are written (-DKS) (write)
-std::string g_save_ext;         // Where high scores and save games
-                                //      are written (-DKS) (write)
+std::string g_storage_ext;  // Where data files (levels, graphics, music, etc)
+                            //      for the game are stored (read)
+std::string g_config_ext;   // Where configuration files
+                            //      are written (-DKS) (write)
+std::string g_save_ext;     // Where high scores and save games
+                            //      are written (-DKS) (write)
 
 sCommandLineParams CommandLineParams;
 
@@ -112,11 +112,10 @@ sCommandLineParams CommandLineParams;
 // PlayerClass				*pPlayer[2];					// Werte der Spieler
 PlayerClass Player[2];  // Werte der Spieler
 
-HUDClass HUD;                           // Das HUD
+HUDClass HUD;                                          // Das HUD
 GameStateEnum SpielZustand = GameStateEnum::CRACKTRO;  // Aktueller Zustand des Spieles
 
 void FillCommandLineParams(int argc, char *args[]) {
-
     // Set some sensible defaults
     CommandLineParams.RunWindowMode = ScreenMode::FULLSCREEN;
     CommandLineParams.Scanlines = false;
@@ -291,8 +290,8 @@ void FillCommandLineParams(int argc, char *args[]) {
         } else if (strstr(args[i], "--arcade") != nullptr) {
             CommandLineParams.Arcade = true;
             std::cout << "Arcade mode enabled" << std::endl;
-        }
-        else std::cout << "Uknonwn: " << args[i] << std::endl;
+        } else
+            std::cout << "Uknonwn: " << args[i] << std::endl;
     }
 }
 
@@ -301,7 +300,6 @@ void FillCommandLineParams(int argc, char *args[]) {
 // --------------------------------------------------------------------------------------
 #ifdef USE_HOME_DIR
 std::string createDir(const char *path, const char *subdir) {
-
     std::string dir(path);
     dir.append(subdir);
     bool success = fs::is_directory(dir) || fs::create_directories(dir);
@@ -315,7 +313,6 @@ std::string createDir(const char *path, const char *subdir) {
 }
 
 std::string getXdgDir(const char *xdgVar, const char *fallback) {
-
     std::string xdg_ext;
     char *xdgdir = getenv(xdgVar);
     if (xdgdir) {
@@ -358,7 +355,7 @@ int main(int argc, char *argv[]) {
 #if defined(ANDROID)
         g_storage_ext = SDL_AndroidGetExternalStoragePath();
 #else  // NON-ANDROID:
-#  ifdef USE_STORAGE_PATH
+#ifdef USE_STORAGE_PATH
         // A data-files storage path has been specified in the Makefile:
         g_storage_ext = USE_STORAGE_PATH;
         // Attempt to locate the dir
@@ -368,9 +365,9 @@ int main(int argc, char *argv[]) {
             Protokoll << "\tUsing '.' folder as fallback." << std::endl;
             g_storage_ext = ".";
         }
-#  else
+#else
         g_storage_ext = ".";
-#  endif
+#endif
 #endif  // ANDROID
     }
 
@@ -385,16 +382,18 @@ int main(int argc, char *argv[]) {
         g_save_ext = SDL_AndroidGetExternalStoragePath();
         g_config_ext = g_save_ext;
 #else  // NON-ANDROID:
-#  ifdef USE_HOME_DIR
-        // Makefile is specifying this is a UNIX machine and we should write saves, settings, etc to $XDG_CONFIG_HOME/hurrican/ dir
+#ifdef USE_HOME_DIR
+        // Makefile is specifying this is a UNIX machine and we should write saves, settings, etc to
+        // $XDG_CONFIG_HOME/hurrican/ dir
         g_config_ext = getXdgDir("XDG_CONFIG_HOME", "/.config/hurrican");
 
-        // Makefile is specifying this is a UNIX machine and we should write saves, settings, etc to $XDG_DATA_HOME/hurrican/ dir
+        // Makefile is specifying this is a UNIX machine and we should write saves, settings, etc to
+        // $XDG_DATA_HOME/hurrican/ dir
         g_save_ext = getXdgDir("XDG_DATA_HOME", "/.local/share/hurrican");
-#  else
+#else
         g_save_ext = ".";
         g_config_ext = g_save_ext;
-#  endif  // USE_HOME_DIR
+#endif  // USE_HOME_DIR
 #endif  // ANDROID
     }
 
@@ -421,7 +420,7 @@ int main(int argc, char *argv[]) {
                 GameRunning = false;
         }
 
-            // DKS - Exceptions can now be disabled, reducing unnecessary code-bloat:
+        // DKS - Exceptions can now be disabled, reducing unnecessary code-bloat:
 #ifndef USE_NO_EXCEPTIONS
         try
 #endif  // USE_NO_EXCEPTIONS
@@ -455,7 +454,7 @@ int main(int argc, char *argv[]) {
                     Timer.setSpeedFactor(0.28f);
             }
         }
-            // DKS - Exceptions can now be disabled, reducing unnecessary code-bloat:
+        // DKS - Exceptions can now be disabled, reducing unnecessary code-bloat:
 #ifndef USE_NO_EXCEPTIONS
         catch (const char *str) {
             Protokoll << "Failure! Unhandled exception\n" << str << std::endl;
@@ -925,9 +924,9 @@ jump:
     return true;
 }
 
-    // --------------------------------------------------------------------------------------
-    // So Firlefanz wie FPS usw anzeigen
-    // --------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+// So Firlefanz wie FPS usw anzeigen
+// --------------------------------------------------------------------------------------
 
 #ifndef NDEBUG
 // --------------------------------------------------------------------------------------
@@ -1029,7 +1028,7 @@ void ShowDebugInfo() {
                     pDefaultFont->DrawText(300+i, 100+j, ".", 0xFFFFFF00);*/
 }
 
-#endif  //NDEBUG
+#endif  // NDEBUG
 
 // DKS - added FPS reporting via command switch
 void ShowFPS() {

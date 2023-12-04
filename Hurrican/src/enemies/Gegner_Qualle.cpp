@@ -127,8 +127,7 @@ void GegnerQualle::GegnerExplode() {
     }
 
     // Blutwolke dazu
-    PartikelSystem.PushPartikel(xPos + 2.0f,
-                                yPos - 5.0f, PIRANHABLUT);
+    PartikelSystem.PushPartikel(xPos + 2.0f, yPos - 5.0f, PIRANHABLUT);
 
     SoundManager.PlayWave(100, 128, -GetRandom(2000) + 11025, SOUND::EXPLOSION1);  // Sound ausgeben
 

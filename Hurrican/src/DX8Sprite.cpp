@@ -283,7 +283,6 @@ bool DirectGraphicsSprite::LoadImage(const std::string &filename,
 // --------------------------------------------------------------------------------------
 
 void DirectGraphicsSprite::RenderSprite(float x, float y, D3DCOLOR Color) {
-
     // Vertice Koordinaten
     float l = x;                                   // Links
     float r = x + (itsRect.right - itsRect.left);  // Rechts
@@ -338,7 +337,6 @@ void DirectGraphicsSprite::RenderSprite(float x,
                                         D3DCOLOR c2,
                                         D3DCOLOR c3,
                                         D3DCOLOR c4) {
-
     // Ausschnitt einstellen
     Anim %= 255;
 
@@ -393,7 +391,7 @@ void DirectGraphicsSprite::RenderSprite(float x,
 // Sprite vertikal spiegelverkehrt zeichnen
 // --------------------------------------------------------------------------------------
 void DirectGraphicsSprite::RenderMirroredSprite(float x, float y, D3DCOLOR Color, bool h, bool v) {
-    float l, r, o, u;      // Vertice Koordinaten
+    float l, r, o, u;  // Vertice Koordinaten
 
     if (!v) {
         o = y;                                   // Unten
@@ -454,7 +452,6 @@ void DirectGraphicsSprite::RenderMirroredSprite(float x, float y, D3DCOLOR Color
 // --------------------------------------------------------------------------------------
 
 void DirectGraphicsSprite::RenderMirroredSprite(float x, float y, D3DCOLOR Color) {
-
     // Vertice Koordinaten
     float r = x;                                   // Links
     float l = x + (itsRect.right - itsRect.left);  // Rechts
@@ -502,7 +499,6 @@ void DirectGraphicsSprite::RenderMirroredSprite(float x, float y, D3DCOLOR Color
 // --------------------------------------------------------------------------------------
 
 void DirectGraphicsSprite::RenderSpriteScaled(float x, float y, int width, int height, D3DCOLOR col) {
-
     // Vertice Koordinaten
     float l = x;           // Links
     float r = x + width;   // Rechts
@@ -554,7 +550,6 @@ void DirectGraphicsSprite::RenderSpriteScaled(float x, float y, int width, int h
 // --------------------------------------------------------------------------------------
 
 void DirectGraphicsSprite::RenderSpriteScaled(float x, float y, int width, int height, int Anim, D3DCOLOR col) {
-
     // Vertice Koordinaten
     float l = x;           // Links
     float r = x + width;   // Rechts
@@ -606,7 +601,6 @@ void DirectGraphicsSprite::RenderSpriteScaled(float x, float y, int width, int h
 // --------------------------------------------------------------------------------------
 
 void DirectGraphicsSprite::RenderSpriteRotated(float x, float y, float Winkel, D3DCOLOR Color) {
-
     // Vertice Koordinaten
     float l = x;                                   // Links
     float r = x + (itsRect.right - itsRect.left);  // Rechts
@@ -691,7 +685,6 @@ void DirectGraphicsSprite::RenderSpriteRotated(float x, float y, float Winkel, D
 // --------------------------------------------------------------------------------------
 
 void DirectGraphicsSprite::RenderSpriteRotated(float x, float y, float Winkel, int Anim, D3DCOLOR Color, bool mirror) {
-
     // Ausschnitt einstellen
     Anim %= 255;
     itsRect = itsPreCalcedRects[Anim];
@@ -700,7 +693,7 @@ void DirectGraphicsSprite::RenderSpriteRotated(float x, float y, float Winkel, i
     float height = itsRect.bottom - itsRect.top;
     float width = itsRect.right - itsRect.left;
 
-    float l, r, o, u;      // Vertice Koordinaten
+    float l, r, o, u;  // Vertice Koordinaten
 
     // normal
     //
@@ -808,13 +801,12 @@ void DirectGraphicsSprite::RenderSpriteRotatedOffset(float x,
                                                      float offy,
                                                      D3DCOLOR Color,
                                                      bool mirrored) {
-
     // DKS - Pulled duplicated math out of logic below:
     float height = itsRect.bottom - itsRect.top;
     float width = itsRect.right - itsRect.left;
 
     // Vertice Koordinaten
-    float l = x;          // Links
+    float l = x;  // Links
     // r = x+(itsRect.right-itsRect.left-1)+0.5f;	// Rechts       //DKS
     float r = x + width;  // Rechts
 
@@ -825,7 +817,7 @@ void DirectGraphicsSprite::RenderSpriteRotatedOffset(float x,
     } else
         Winkel = 360.0f - Winkel;
 
-    float o = y;           // Oben
+    float o = y;  // Oben
     // u = y+(itsRect.bottom-itsRect.top-1)+0.5f;	// Unten        //DKS
     float u = y + height;  // Unten
 
@@ -912,7 +904,6 @@ void DirectGraphicsSprite::RenderSpriteScaledRotated(float x,
                                                      float height,
                                                      float Winkel,
                                                      D3DCOLOR Color) {
-
     // Vertice Koordinaten
     float l = x;           // Links
     float r = x + width;   // Rechts
@@ -1001,7 +992,6 @@ void DirectGraphicsSprite::RenderSpriteScaledRotated(float x,
 // --------------------------------------------------------------------------------------
 
 void RenderRect4(float x, float y, float width, float height, D3DCOLOR c1, D3DCOLOR c2, D3DCOLOR c3, D3DCOLOR c4) {
-
     // Vertice Koordinaten
     float l = x;           // Links
     float r = x + width;   // Rechts

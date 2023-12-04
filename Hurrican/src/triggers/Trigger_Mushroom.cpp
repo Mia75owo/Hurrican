@@ -33,8 +33,8 @@ void GegnerMushroom::DoDraw() {
     // Mushroom rendern
     //
     pGegnerGrafix[GegnerArt]->RenderSpriteScaled(xPos - TileEngine.XOffset,
-                                                 yPos - TileEngine.YOffset + (61.0f - ySize) * 2.0f,
-                                                 135, static_cast<int>(ySize), 0, 0xFFFFFFFF);
+                                                 yPos - TileEngine.YOffset + (61.0f - ySize) * 2.0f, 135,
+                                                 static_cast<int>(ySize), 0, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

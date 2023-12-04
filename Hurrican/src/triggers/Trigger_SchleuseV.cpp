@@ -43,11 +43,9 @@ void GegnerSchleuseV::DoKI() {
         }
 
     // Testen, ob ein Gegner die Schleuse berührt hat
-    for (auto& pEnemy: Gegner.enemies)
-    {
-        if (pEnemy->Active &&
-            SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], pEnemy->xPos, pEnemy->yPos,
-                                                     GegnerRect[pEnemy->GegnerArt])) {
+    for (auto &pEnemy : Gegner.enemies) {
+        if (pEnemy->Active && SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], pEnemy->xPos, pEnemy->yPos,
+                                              GegnerRect[pEnemy->GegnerArt])) {
             if (pEnemy->xPos < xPos)
                 pEnemy->xPos = xPos + GegnerRect[GegnerArt].left - GegnerRect[pEnemy->GegnerArt].right;
             if (pEnemy->xPos > xPos)

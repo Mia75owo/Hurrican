@@ -38,14 +38,12 @@ GegnerUfo::GegnerUfo(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerUfo::DoDraw() {
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
 
     if (AlreadyDrawn == false) {
         DirectGraphics.SetAdditiveMode();
-        Projectiles.LavaFlare.RenderSpriteRotated(xPos + 40.0f - TileEngine.XOffset,
-                                                  yPos + 20.0f - TileEngine.YOffset, xPos * 0.5f,
-                                                  0xFFFF2288);
+        Projectiles.LavaFlare.RenderSpriteRotated(xPos + 40.0f - TileEngine.XOffset, yPos + 20.0f - TileEngine.YOffset,
+                                                  xPos * 0.5f, 0xFFFF2288);
 
         // DKS - This was commented out in original source code:
         //		Projectiles.LavaFlare.RenderSpriteRotated(xPos + 40.0f - TileEngine.XOffset,
@@ -72,8 +70,8 @@ void GegnerUfo::DoKI() {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;              // Dann wieder auf Null setzen
             AnimPhase++;                // Und nächste Animationsphase
@@ -86,7 +84,7 @@ void GegnerUfo::DoKI() {
     if (Active == true && TileEngine.Zustand == TileStateEnum::SCROLLBAR) {
         TileEngine.ScrollLevel(static_cast<float>(Value1), static_cast<float>(Value2),
                                TileStateEnum::SCROLLTOLOCK);  // Level auf den Boss zentrieren
-        yPos -= 300;                                   // und Boss aus dem Screen setzen
+        yPos -= 300;                                          // und Boss aus dem Screen setzen
         Handlung = GEGNER::INIT;
 
         SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);  // Ausfaden und pausieren
@@ -145,7 +143,7 @@ void GegnerUfo::DoKI() {
             Energy = 4000;
             DamageTaken = 0.0f;
 
-            yPos += Timer.sync(8.0f);                 // Ufo nach unten bewegen
+            yPos += Timer.sync(8.0f);                   // Ufo nach unten bewegen
             if (yPos >= TileEngine.ScrolltoY + 100.0f)  // Weit genug unten ?
             {
                 yPos = TileEngine.ScrolltoY + 100.0f;
@@ -198,11 +196,11 @@ void GegnerUfo::DoKI() {
                         Handlung = GEGNER::FALLEN;
                         ySpeed = 28.0f;
                         yAcc = -2.0f;
-                        ShotDelay = 1.0f; // FIXME this one is overwritten below
+                        ShotDelay = 1.0f;  // FIXME this one is overwritten below
                     } break;
                 }
 
-                ShotDelay = 10.0f; // FIXME move before the switch?
+                ShotDelay = 10.0f;  // FIXME move before the switch?
                 ActionDelay = 60.0f;
             }
         } break;

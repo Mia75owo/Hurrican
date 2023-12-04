@@ -10,15 +10,14 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerSkeletor::GegnerSkeletor(int Wert1, int Wert2, bool Light) :
-    ShotCount(0),
-    LastHandlung(-1),
-    SmokeDelay(0.0f),
-    ShotDelay(0.0f),
-    GunWinkel(0.0f),
-    HasLaughed(false),
-    DrawNow(false)
-{
+GegnerSkeletor::GegnerSkeletor(int Wert1, int Wert2, bool Light)
+    : ShotCount(0),
+      LastHandlung(-1),
+      SmokeDelay(0.0f),
+      ShotDelay(0.0f),
+      GunWinkel(0.0f),
+      HasLaughed(false),
+      DrawNow(false) {
     AnimPhase = 10;
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::RECHTS;
@@ -56,7 +55,6 @@ void GegnerSkeletor::Laugh() {
 // --------------------------------------------------------------------------------------
 
 void GegnerSkeletor::CalcGunWinkel() {
-
     float ydiv = (pAim->ypos + 40.0f) - (yPos + 100.0f);
     if (ydiv == 0.0f)
         ydiv = 0.00001f;
@@ -105,16 +103,14 @@ void GegnerSkeletor::DoDraw() {
     }
     */
 
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset + yoff, AnimPhase, Color,
-                                           mirror);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset + yoff, AnimPhase,
+                                           Color, mirror);
 
     if (Handlung == GEGNER::SPECIAL2) {
         for (int i = 0; i < 4; i++) {
             D3DCOLOR col = D3DCOLOR_RGBA(255, 255, 255, 200 - i * 30);
             pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset - xSpeed * static_cast<float>(i * 2),
-                                                   yPos - TileEngine.YOffset + yoff, AnimPhase, col,
-                                                   mirror);
+                                                   yPos - TileEngine.YOffset + yoff, AnimPhase, col, mirror);
         }
     }
 
@@ -130,12 +126,12 @@ void GegnerSkeletor::DoDraw() {
 
         if (BlickRichtung == DirectionEnum::RECHTS)
             Flamme.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + static_cast<float>(foff),
-                                             yPos - TileEngine.YOffset + 60.0f, 90 - GunWinkel, -50, 0,
-                                             0xFFFFFFFF, !mirror);
+                                             yPos - TileEngine.YOffset + 60.0f, 90 - GunWinkel, -50, 0, 0xFFFFFFFF,
+                                             !mirror);
         else
             Flamme.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + static_cast<float>(foff),
-                                             yPos - TileEngine.YOffset + 60.0f, GunWinkel - 90, -50, 0,
-                                             0xFFFFFFFF, !mirror);
+                                             yPos - TileEngine.YOffset + 60.0f, GunWinkel - 90, -50, 0, 0xFFFFFFFF,
+                                             !mirror);
 
         DirectGraphics.SetColorKeyMode();
     }

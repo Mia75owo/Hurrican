@@ -13,20 +13,19 @@ int DamageAnims[4] = {1, 2, 1, 0};
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerSchneeKoenig::GegnerSchneeKoenig(int Wert1, int Wert2, bool Light) :
-    ShotCount(0),
-    SpezialAktion(Value2),
-    Action(-1),
-    SmokeDelay(0.0f),
-    yOffset(0.0f),
-    KnarreWinkel(0.0f),
-    KnarreY(60.0f),
-    ShotDelay(0.0f),
-    WackelAnim(0.0f),
-    WackelCount(0.0f),
-    GunSlide(0.0f),
-    DrawNow(false)
-{
+GegnerSchneeKoenig::GegnerSchneeKoenig(int Wert1, int Wert2, bool Light)
+    : ShotCount(0),
+      SpezialAktion(Value2),
+      Action(-1),
+      SmokeDelay(0.0f),
+      yOffset(0.0f),
+      KnarreWinkel(0.0f),
+      KnarreY(60.0f),
+      ShotDelay(0.0f),
+      WackelAnim(0.0f),
+      WackelCount(0.0f),
+      GunSlide(0.0f),
+      DrawNow(false) {
     Handlung = GEGNER::INIT;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 50000;
@@ -98,7 +97,6 @@ void GegnerSchneeKoenig::DoDraw() {
 // --------------------------------------------------------------------------------------
 
 void GegnerSchneeKoenig::RenderLaser() {
-
     // DKS - Support new trig sin/cos lookup table and use deg/rad versions of sin/cos:
     // w = (KnarreWinkel + 180.0f) * PI / 180.0f;
     // Laser.RenderSpriteRotatedOffset(static_cast<float>(xPos - TileEngine.XOffset) + 90.0f + (float)sin(w) * 70.0f,
@@ -115,7 +113,6 @@ void GegnerSchneeKoenig::RenderLaser() {
 // --------------------------------------------------------------------------------------
 
 float GegnerSchneeKoenig::WinkelToPlayer() {
-
     // Abstände berechnen
     float dx = (xPos + 100.0f) - (pAim->xpos + 35.0f);
 
@@ -504,8 +501,8 @@ void GegnerSchneeKoenig::DoKI() {
                     PartikelSystem.PushPartikel(xPos + 95.0f + static_cast<float>(GetRandom(20)),
                                                 yPos + 140.0f + yOffset, FUNKE);
 
-                    Projectiles.PushProjectile(xPos + 75.0f + static_cast<float>(GetRandom(4)),
-                                               yPos + 80.0f + yOffset, FEUERFALLE3);
+                    Projectiles.PushProjectile(xPos + 75.0f + static_cast<float>(GetRandom(4)), yPos + 80.0f + yOffset,
+                                               FEUERFALLE3);
 
                     // Explodieren?
                     if (Value1 >= 2 && GetRandom(2) == 0) {
@@ -611,7 +608,7 @@ void GegnerSchneeKoenig::DoKI() {
 
     // Checken, ob der Schneekönig von einer Schneekoppe getroffen wurde =)
     if (Handlung != GEGNER::AUSFAHREN)
-        for (auto& enemy: Gegner.enemies) {
+        for (auto &enemy : Gegner.enemies) {
             if (enemy->GegnerArt == SCHNEEKOPPE)
                 if (SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], enemy->xPos, enemy->yPos,
                                     GegnerRect[enemy->GegnerArt])) {

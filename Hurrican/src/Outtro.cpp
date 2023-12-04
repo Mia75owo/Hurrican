@@ -61,8 +61,8 @@ OuttroClass::OuttroClass() {
 
     // Ein paar Schneepartikel adden
     for (int i = 0; i < 100; i++)
-        PartikelSystem.PushPartikel(static_cast<float>(GetRandom(RENDERWIDTH)), static_cast<float>(GetRandom(RENDERHEIGHT)),
-                                    SCHNEEFLOCKE_END);
+        PartikelSystem.PushPartikel(static_cast<float>(GetRandom(RENDERWIDTH)),
+                                    static_cast<float>(GetRandom(RENDERHEIGHT)), SCHNEEFLOCKE_END);
 }
 
 // --------------------------------------------------------------------------------------
@@ -375,16 +375,17 @@ void OuttroClass::DoOuttro() {
                         char text1[255];
                         char text2[255];
                         SplitLine(text1, text2, text.c_str());
-                        pDefaultFont->DrawTextCenterAlign(320, static_cast<float>(display_line * yoff_inc) - Counter, text1,
-                                                          0xFFEEFFFF, 0);
+                        pDefaultFont->DrawTextCenterAlign(320, static_cast<float>(display_line * yoff_inc) - Counter,
+                                                          text1, 0xFFEEFFFF, 0);
                         display_line++;
-                        pDefaultFont->DrawTextCenterAlign(320, static_cast<float>(display_line * yoff_inc) - Counter, text2,
-                                                          0xFFEEFFFF, 0);
+                        pDefaultFont->DrawTextCenterAlign(320, static_cast<float>(display_line * yoff_inc) - Counter,
+                                                          text2, 0xFFEEFFFF, 0);
 
                     } else {
                         if (!text.empty())
-                            pDefaultFont->DrawTextCenterAlign(320, static_cast<float>(display_line * yoff_inc) - Counter, text.c_str(),
-                                                              0xFFEEFFFF, 0);
+                            pDefaultFont->DrawTextCenterAlign(320,
+                                                              static_cast<float>(display_line * yoff_inc) - Counter,
+                                                              text.c_str(), 0xFFEEFFFF, 0);
                     }
                 }
             }

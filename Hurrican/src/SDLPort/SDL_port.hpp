@@ -34,9 +34,9 @@
 #include "Logdatei.hpp"
 #include "SDL.h"
 #include "SDL_image.h"
-#include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "glm/mat4x4.hpp"
 #include "keymap.hpp"
 #include "opengl.hpp"
 
@@ -51,7 +51,7 @@ struct RECT_struct {
 using LPDIRECT3DDEVICE8 = std::uint32_t;
 
 class HCOLOR {
-public:
+  public:
     inline HCOLOR(std::uint32_t c) {
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
         this->color = glm::tvec4<std::uint8_t>((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF, (c >> 24) & 0xFF);
@@ -60,25 +60,30 @@ public:
 #endif
     };
     inline HCOLOR() = default;
-    friend HCOLOR operator| (HCOLOR lhs, const HCOLOR& rhs) {
+    friend HCOLOR operator|(HCOLOR lhs, const HCOLOR &rhs) {
         lhs.color |= rhs.color;
         return lhs;
     };
-private:
+
+  private:
     glm::tvec4<std::uint8_t> color;
 };
 using D3DCOLOR = HCOLOR;
 
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
-#define D3DCOLOR_RGBA(r, g, b, a) ((static_cast<std::uint32_t>(a) << 24u) | (static_cast<std::uint32_t>(r) << 16u) | (static_cast<std::uint32_t>(g) << 8u) | static_cast<std::uint32_t>(b))
+#define D3DCOLOR_RGBA(r, g, b, a)                                                      \
+    ((static_cast<std::uint32_t>(a) << 24u) | (static_cast<std::uint32_t>(r) << 16u) | \
+     (static_cast<std::uint32_t>(g) << 8u) | static_cast<std::uint32_t>(b))
 #else
-#define D3DCOLOR_RGBA(r, g, b, a) ((static_cast<std::uint32_t>(b) << 24u) | (static_cast<std::uint32_t>(g) << 16u) | (static_cast<std::uint32_t>(r) << 8u) | static_cast<std::uint32_t>(a))
+#define D3DCOLOR_RGBA(r, g, b, a)                                                      \
+    ((static_cast<std::uint32_t>(b) << 24u) | (static_cast<std::uint32_t>(g) << 16u) | \
+     (static_cast<std::uint32_t>(r) << 8u) | static_cast<std::uint32_t>(a))
 #endif
 
 #define LPDIRECTINPUTDEVICE8 SDL_Joystick *
 
 #define D3DXMatrixScaling(m, x, y, z) (*(m)) = glm::scale(glm::mat4x4(1.0f), glm::vec3((x), (y), (z)))
-#define D3DXMatrixTranslation(m, x, y, z) (*(m))=glm::translate(glm::mat4x4(1.0f), glm::vec3((x), (y), (z)))
+#define D3DXMatrixTranslation(m, x, y, z) (*(m)) = glm::translate(glm::mat4x4(1.0f), glm::vec3((x), (y), (z)))
 
 // DKS - No need for construction or destruction or virtual types, changed to struct:
 struct D3DXVECTOR2 {
@@ -86,7 +91,7 @@ struct D3DXVECTOR2 {
     float y;
 };
 
-#if !defined( __WIN32__) || defined(__MINGW32__)
+#if !defined(__WIN32__) || defined(__MINGW32__)
 void strcat_s(char *dst, const char *src);
 void strcat_s(char *dst, uint32_t size, const char *src);
 void strncat_s(char *dst, const char *src, uint32_t size);

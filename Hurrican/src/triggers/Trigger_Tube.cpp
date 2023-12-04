@@ -40,30 +40,26 @@ void GegnerTube::DoDraw() {
 
     // Mutant drin?
     if (Value1 >= 4)
-        pGegnerGrafix[MUTANT]->RenderSprite(
-            xPos - TileEngine.XOffset - 1.0f,
-            yPos - TileEngine.YOffset + 60.0f + static_cast<float>(sin(SinOff)) * 1.8f, 0, 0xFFFFFFFF);
+        pGegnerGrafix[MUTANT]->RenderSprite(xPos - TileEngine.XOffset - 1.0f,
+                                            yPos - TileEngine.YOffset + 60.0f + static_cast<float>(sin(SinOff)) * 1.8f,
+                                            0, 0xFFFFFFFF);
 
     // Flüssigkeit drin?
     if (Value2 == 1) {
         DirectGraphics.SetAdditiveMode();
 
         if (Value1 % 4 == 0 || Value1 == 5) {
-            RenderRect4(xPos - TileEngine.XOffset + 18.0f,
-                        yPos - TileEngine.YOffset + 75.0f, 62.0f, 3.0f, 0xFF008822, 0xFF008822, 0xFF004411,
-                        0xFF004411);
+            RenderRect4(xPos - TileEngine.XOffset + 18.0f, yPos - TileEngine.YOffset + 75.0f, 62.0f, 3.0f, 0xFF008822,
+                        0xFF008822, 0xFF004411, 0xFF004411);
 
-            RenderRect4(xPos - TileEngine.XOffset + 18.0f,
-                        yPos - TileEngine.YOffset + 78.0f, 62.0f, 89.0f, 0xFF004411, 0xFF004411, 0xFF00DD22,
-                        0xFF00DD22);
+            RenderRect4(xPos - TileEngine.XOffset + 18.0f, yPos - TileEngine.YOffset + 78.0f, 62.0f, 89.0f, 0xFF004411,
+                        0xFF004411, 0xFF00DD22, 0xFF00DD22);
         } else {
-            RenderRect4(xPos - TileEngine.XOffset + 18.0f,
-                        yPos - TileEngine.YOffset + 145.0f, 62.0f, 3.0f, 0xFF008822, 0xFF008822, 0xFF004411,
-                        0xFF004411);
+            RenderRect4(xPos - TileEngine.XOffset + 18.0f, yPos - TileEngine.YOffset + 145.0f, 62.0f, 3.0f, 0xFF008822,
+                        0xFF008822, 0xFF004411, 0xFF004411);
 
-            RenderRect4(xPos - TileEngine.XOffset + 18.0f,
-                        yPos - TileEngine.YOffset + 148.0f, 62.0f, 19.0f, 0xFF004411, 0xFF004411, 0xFF008822,
-                        0xFF008822);
+            RenderRect4(xPos - TileEngine.XOffset + 18.0f, yPos - TileEngine.YOffset + 148.0f, 62.0f, 19.0f, 0xFF004411,
+                        0xFF004411, 0xFF008822, 0xFF008822);
         }
 
         DirectGraphics.SetColorKeyMode();
@@ -74,8 +70,7 @@ void GegnerTube::DoDraw() {
 
     if (Value1 == 5)
         a = 0;
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, a, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, a, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

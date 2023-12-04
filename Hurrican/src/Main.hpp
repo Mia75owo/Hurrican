@@ -18,11 +18,7 @@
 #include "Intro.hpp"
 #include "Outtro.hpp"
 
-enum class ScreenMode {
-  FULLSCREEN,
-  FULLSCREEN_STRETCHED,
-  WINDOW
-};
+enum class ScreenMode { FULLSCREEN, FULLSCREEN_STRETCHED, WINDOW };
 
 struct sCommandLineParams {
     ScreenMode RunWindowMode;
@@ -69,17 +65,17 @@ constexpr int RENDERHEIGHT = 480;
 //      platform does not support the default value of 32, you may define it
 //      by setting DEFAULT_SCREENBPP to correct value in Makefile.
 #ifndef DEFAULT_SCREENBPP
-#  define DEFAULT_SCREENBPP 32
+#define DEFAULT_SCREENBPP 32
 #endif
 
 // --------------------------------------------------------------------------------------
 // Prototypen von Funktionen
 // --------------------------------------------------------------------------------------
 
-bool GameInit();  // Spiel vor  dem Cracktro initialisieren
-bool GameInit2();                           // Spiel nach dem Cracktro initialisieren
-bool GameExit();                            // Spiel de-initialisieren
-bool Heartbeat();                           // Haupt Game Loop
+bool GameInit();   // Spiel vor  dem Cracktro initialisieren
+bool GameInit2();  // Spiel nach dem Cracktro initialisieren
+bool GameExit();   // Spiel de-initialisieren
+bool Heartbeat();  // Haupt Game Loop
 
 // DKS - I made a separate set of spritesheets with blue coloring for Player 2, so these
 //      are no longer necessary and have been disabled:

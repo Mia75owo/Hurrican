@@ -32,13 +32,11 @@ GegnerSpikelift::GegnerSpikelift(int Wert1, int Wert2, bool Light) {
 void GegnerSpikelift::DoDraw() {
     // Unterteil rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset + 40.0f, 1, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset + 40.0f, 1, 0xFFFFFFFF);
 
     // Oberteil (Spikes) rendern
     if (Value1 == 0)
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, 0, 0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

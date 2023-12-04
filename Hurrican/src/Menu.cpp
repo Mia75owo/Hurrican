@@ -36,118 +36,46 @@
 
 // Farben für die Highscore erstellen, in der die Namen aufblinken
 const std::array<D3DCOLOR, MAX_COLORS> HighscoreColors = {
-    D3DCOLOR_RGBA(75, 75, 75, 255),
-    D3DCOLOR_RGBA(105, 105, 105, 255),
-    D3DCOLOR_RGBA(135, 135, 135, 255),
-    D3DCOLOR_RGBA(165, 165, 165, 255),
-    D3DCOLOR_RGBA(195, 195, 195, 255),
-    D3DCOLOR_RGBA(225, 225, 225, 255),
-    D3DCOLOR_RGBA(255, 255, 255, 255),
-    D3DCOLOR_RGBA(255, 225, 225, 255),
-    D3DCOLOR_RGBA(255, 195, 195, 255),
-    D3DCOLOR_RGBA(255, 165, 165, 255),
-    D3DCOLOR_RGBA(255, 135, 135, 255),
-    D3DCOLOR_RGBA(255, 105, 105, 255),
-    D3DCOLOR_RGBA(255, 75, 75, 255),
-    D3DCOLOR_RGBA(255, 45, 45, 255),
-    D3DCOLOR_RGBA(255, 15, 15, 255),
-    D3DCOLOR_RGBA(255, 0, 0, 255),
-    D3DCOLOR_RGBA(255, 15, 0, 255),
-    D3DCOLOR_RGBA(255, 45, 0, 255),
-    D3DCOLOR_RGBA(255, 75, 0, 255),
-    D3DCOLOR_RGBA(255, 105, 0, 255),
-    D3DCOLOR_RGBA(255, 135, 0, 255),
-    D3DCOLOR_RGBA(255, 165, 0, 255),
-    D3DCOLOR_RGBA(255, 195, 0, 255),
-    D3DCOLOR_RGBA(255, 225, 0, 255),
-    D3DCOLOR_RGBA(255, 255, 0, 255),
-    D3DCOLOR_RGBA(225, 255, 0, 255),
-    D3DCOLOR_RGBA(195, 255, 0, 255),
-    D3DCOLOR_RGBA(165, 255, 0, 255),
-    D3DCOLOR_RGBA(135, 255, 0, 255),
-    D3DCOLOR_RGBA(105, 255, 0, 255),
-    D3DCOLOR_RGBA(75, 255, 0, 255),
-    D3DCOLOR_RGBA(45, 255, 0, 255),
-    D3DCOLOR_RGBA(15, 255, 0, 255),
-    D3DCOLOR_RGBA(0, 255, 0, 255),
-    D3DCOLOR_RGBA(0, 255, 15, 255),
-    D3DCOLOR_RGBA(0, 255, 45, 255),
-    D3DCOLOR_RGBA(0, 255, 75, 255),
-    D3DCOLOR_RGBA(0, 255, 105, 255),
-    D3DCOLOR_RGBA(0, 255, 135, 255),
-    D3DCOLOR_RGBA(0, 255, 165, 255),
-    D3DCOLOR_RGBA(0, 255, 195, 255),
-    D3DCOLOR_RGBA(0, 255, 225, 255),
-    D3DCOLOR_RGBA(15, 255, 255, 255),
-    D3DCOLOR_RGBA(45, 255, 255, 255),
-    D3DCOLOR_RGBA(75, 255, 255, 255),
-    D3DCOLOR_RGBA(105, 255, 255, 255),
-    D3DCOLOR_RGBA(135, 255, 255, 255),
-    D3DCOLOR_RGBA(165, 255, 255, 255),
-    D3DCOLOR_RGBA(195, 255, 255, 255),
-    D3DCOLOR_RGBA(225, 255, 255, 255),
-    D3DCOLOR_RGBA(255, 255, 255, 255),
-    D3DCOLOR_RGBA(255, 255, 225, 255),
-    D3DCOLOR_RGBA(255, 240, 195, 255),
-    D3DCOLOR_RGBA(255, 225, 165, 255),
-    D3DCOLOR_RGBA(255, 210, 135, 255),
-    D3DCOLOR_RGBA(255, 195, 105, 255),
-    D3DCOLOR_RGBA(255, 180, 75, 255),
-    D3DCOLOR_RGBA(255, 165, 45, 255),
-    D3DCOLOR_RGBA(255, 165, 15, 255),
-    D3DCOLOR_RGBA(255, 150, 0, 255),
-    D3DCOLOR_RGBA(255, 135, 0, 255),
-    D3DCOLOR_RGBA(255, 105, 0, 255),
-    D3DCOLOR_RGBA(255, 75, 0, 255),
-    D3DCOLOR_RGBA(255, 45, 0, 255),
-    D3DCOLOR_RGBA(255, 15, 0, 255),
-    D3DCOLOR_RGBA(255, 0, 0, 255),
-    D3DCOLOR_RGBA(255, 0, 15, 255),
-    D3DCOLOR_RGBA(255, 0, 45, 255),
-    D3DCOLOR_RGBA(255, 0, 75, 255),
-    D3DCOLOR_RGBA(255, 0, 105, 255),
-    D3DCOLOR_RGBA(255, 0, 135, 255),
-    D3DCOLOR_RGBA(255, 0, 165, 255),
-    D3DCOLOR_RGBA(255, 0, 195, 255),
-    D3DCOLOR_RGBA(255, 0, 225, 255),
-    D3DCOLOR_RGBA(255, 0, 254, 255),
-    D3DCOLOR_RGBA(225, 15, 255, 255),
-    D3DCOLOR_RGBA(195, 45, 255, 255),
-    D3DCOLOR_RGBA(165, 75, 255, 255),
-    D3DCOLOR_RGBA(135, 105, 255, 255),
-    D3DCOLOR_RGBA(105, 135, 255, 255),
-    D3DCOLOR_RGBA(75, 165, 255, 255),
-    D3DCOLOR_RGBA(45, 195, 255, 255),
-    D3DCOLOR_RGBA(15, 225, 255, 255),
-    D3DCOLOR_RGBA(0, 255, 225, 255),
-    D3DCOLOR_RGBA(0, 255, 195, 255),
-    D3DCOLOR_RGBA(0, 255, 165, 255),
-    D3DCOLOR_RGBA(0, 255, 135, 255),
-    D3DCOLOR_RGBA(0, 255, 105, 255),
-    D3DCOLOR_RGBA(0, 255, 75, 255),
-    D3DCOLOR_RGBA(0, 255, 45, 255),
-    D3DCOLOR_RGBA(0, 255, 15, 255),
-    D3DCOLOR_RGBA(0, 225, 0, 255),
-    D3DCOLOR_RGBA(15, 195, 15, 255),
-    D3DCOLOR_RGBA(30, 180, 30, 255),
-    D3DCOLOR_RGBA(45, 165, 45, 255),
-    D3DCOLOR_RGBA(60, 150, 60, 255),
-    D3DCOLOR_RGBA(75, 135, 75, 255),
-    D3DCOLOR_RGBA(75, 120, 75, 255),
-    D3DCOLOR_RGBA(75, 105, 75, 255),
+    D3DCOLOR_RGBA(75, 75, 75, 255), D3DCOLOR_RGBA(105, 105, 105, 255), D3DCOLOR_RGBA(135, 135, 135, 255),
+    D3DCOLOR_RGBA(165, 165, 165, 255), D3DCOLOR_RGBA(195, 195, 195, 255), D3DCOLOR_RGBA(225, 225, 225, 255),
+    D3DCOLOR_RGBA(255, 255, 255, 255), D3DCOLOR_RGBA(255, 225, 225, 255), D3DCOLOR_RGBA(255, 195, 195, 255),
+    D3DCOLOR_RGBA(255, 165, 165, 255), D3DCOLOR_RGBA(255, 135, 135, 255), D3DCOLOR_RGBA(255, 105, 105, 255),
+    D3DCOLOR_RGBA(255, 75, 75, 255), D3DCOLOR_RGBA(255, 45, 45, 255), D3DCOLOR_RGBA(255, 15, 15, 255),
+    D3DCOLOR_RGBA(255, 0, 0, 255), D3DCOLOR_RGBA(255, 15, 0, 255), D3DCOLOR_RGBA(255, 45, 0, 255),
+    D3DCOLOR_RGBA(255, 75, 0, 255), D3DCOLOR_RGBA(255, 105, 0, 255), D3DCOLOR_RGBA(255, 135, 0, 255),
+    D3DCOLOR_RGBA(255, 165, 0, 255), D3DCOLOR_RGBA(255, 195, 0, 255), D3DCOLOR_RGBA(255, 225, 0, 255),
+    D3DCOLOR_RGBA(255, 255, 0, 255), D3DCOLOR_RGBA(225, 255, 0, 255), D3DCOLOR_RGBA(195, 255, 0, 255),
+    D3DCOLOR_RGBA(165, 255, 0, 255), D3DCOLOR_RGBA(135, 255, 0, 255), D3DCOLOR_RGBA(105, 255, 0, 255),
+    D3DCOLOR_RGBA(75, 255, 0, 255), D3DCOLOR_RGBA(45, 255, 0, 255), D3DCOLOR_RGBA(15, 255, 0, 255),
+    D3DCOLOR_RGBA(0, 255, 0, 255), D3DCOLOR_RGBA(0, 255, 15, 255), D3DCOLOR_RGBA(0, 255, 45, 255),
+    D3DCOLOR_RGBA(0, 255, 75, 255), D3DCOLOR_RGBA(0, 255, 105, 255), D3DCOLOR_RGBA(0, 255, 135, 255),
+    D3DCOLOR_RGBA(0, 255, 165, 255), D3DCOLOR_RGBA(0, 255, 195, 255), D3DCOLOR_RGBA(0, 255, 225, 255),
+    D3DCOLOR_RGBA(15, 255, 255, 255), D3DCOLOR_RGBA(45, 255, 255, 255), D3DCOLOR_RGBA(75, 255, 255, 255),
+    D3DCOLOR_RGBA(105, 255, 255, 255), D3DCOLOR_RGBA(135, 255, 255, 255), D3DCOLOR_RGBA(165, 255, 255, 255),
+    D3DCOLOR_RGBA(195, 255, 255, 255), D3DCOLOR_RGBA(225, 255, 255, 255), D3DCOLOR_RGBA(255, 255, 255, 255),
+    D3DCOLOR_RGBA(255, 255, 225, 255), D3DCOLOR_RGBA(255, 240, 195, 255), D3DCOLOR_RGBA(255, 225, 165, 255),
+    D3DCOLOR_RGBA(255, 210, 135, 255), D3DCOLOR_RGBA(255, 195, 105, 255), D3DCOLOR_RGBA(255, 180, 75, 255),
+    D3DCOLOR_RGBA(255, 165, 45, 255), D3DCOLOR_RGBA(255, 165, 15, 255), D3DCOLOR_RGBA(255, 150, 0, 255),
+    D3DCOLOR_RGBA(255, 135, 0, 255), D3DCOLOR_RGBA(255, 105, 0, 255), D3DCOLOR_RGBA(255, 75, 0, 255),
+    D3DCOLOR_RGBA(255, 45, 0, 255), D3DCOLOR_RGBA(255, 15, 0, 255), D3DCOLOR_RGBA(255, 0, 0, 255),
+    D3DCOLOR_RGBA(255, 0, 15, 255), D3DCOLOR_RGBA(255, 0, 45, 255), D3DCOLOR_RGBA(255, 0, 75, 255),
+    D3DCOLOR_RGBA(255, 0, 105, 255), D3DCOLOR_RGBA(255, 0, 135, 255), D3DCOLOR_RGBA(255, 0, 165, 255),
+    D3DCOLOR_RGBA(255, 0, 195, 255), D3DCOLOR_RGBA(255, 0, 225, 255), D3DCOLOR_RGBA(255, 0, 254, 255),
+    D3DCOLOR_RGBA(225, 15, 255, 255), D3DCOLOR_RGBA(195, 45, 255, 255), D3DCOLOR_RGBA(165, 75, 255, 255),
+    D3DCOLOR_RGBA(135, 105, 255, 255), D3DCOLOR_RGBA(105, 135, 255, 255), D3DCOLOR_RGBA(75, 165, 255, 255),
+    D3DCOLOR_RGBA(45, 195, 255, 255), D3DCOLOR_RGBA(15, 225, 255, 255), D3DCOLOR_RGBA(0, 255, 225, 255),
+    D3DCOLOR_RGBA(0, 255, 195, 255), D3DCOLOR_RGBA(0, 255, 165, 255), D3DCOLOR_RGBA(0, 255, 135, 255),
+    D3DCOLOR_RGBA(0, 255, 105, 255), D3DCOLOR_RGBA(0, 255, 75, 255), D3DCOLOR_RGBA(0, 255, 45, 255),
+    D3DCOLOR_RGBA(0, 255, 15, 255), D3DCOLOR_RGBA(0, 225, 0, 255), D3DCOLOR_RGBA(15, 195, 15, 255),
+    D3DCOLOR_RGBA(30, 180, 30, 255), D3DCOLOR_RGBA(45, 165, 45, 255), D3DCOLOR_RGBA(60, 150, 60, 255),
+    D3DCOLOR_RGBA(75, 135, 75, 255), D3DCOLOR_RGBA(75, 120, 75, 255), D3DCOLOR_RGBA(75, 105, 75, 255),
     D3DCOLOR_RGBA(75, 90, 75, 255),
 
     // Die ersten 20 nochmal ...
 
-    D3DCOLOR_RGBA(75, 75, 75, 255),
-    D3DCOLOR_RGBA(105, 105, 105, 255),
-    D3DCOLOR_RGBA(135, 135, 135, 255),
-    D3DCOLOR_RGBA(165, 165, 165, 255),
-    D3DCOLOR_RGBA(195, 195, 195, 255),
-    D3DCOLOR_RGBA(225, 225, 225, 255),
-    D3DCOLOR_RGBA(255, 255, 255, 255),
-    D3DCOLOR_RGBA(255, 225, 225, 255),
-    D3DCOLOR_RGBA(255, 195, 195, 255),
+    D3DCOLOR_RGBA(75, 75, 75, 255), D3DCOLOR_RGBA(105, 105, 105, 255), D3DCOLOR_RGBA(135, 135, 135, 255),
+    D3DCOLOR_RGBA(165, 165, 165, 255), D3DCOLOR_RGBA(195, 195, 195, 255), D3DCOLOR_RGBA(225, 225, 225, 255),
+    D3DCOLOR_RGBA(255, 255, 255, 255), D3DCOLOR_RGBA(255, 225, 225, 255), D3DCOLOR_RGBA(255, 195, 195, 255),
     /* DKS - Commented out the rest of this, as it is writing past the end of the array: */
     /*
     D3DCOLOR_RGBA(255, 165, 165, 255),
@@ -212,7 +140,7 @@ MenuClass::MenuClass() {
     AktuellerPunkt = MENUPUNKT_STARTGAME;
 
     // Sterne initialisieren
-    for (auto& star: Stars) {
+    for (auto &star : Stars) {
         star.Count = static_cast<float>(GetRandom(628)) / 100.0f;
         star.Abstand = static_cast<float>(GetRandom(400) + 20);
         star.Ebene = GetRandom(120) + 20;
@@ -274,7 +202,7 @@ void MenuClass::ShowMenuBack() {
     MenuStar.SetRect(0, 0, 5, 5);
 
     // Sterne anzeigen
-    for (const auto& star: Stars)
+    for (const auto &star : Stars)
         MenuStar.RenderSpriteRotated(320 - static_cast<float>(sin(star.Count) * star.Abstand),
                                      240 + static_cast<float>(cos(star.Count) * star.Abstand), star.Count,
                                      D3DCOLOR_RGBA(255, 255, 255, star.Ebene));
@@ -287,7 +215,6 @@ void MenuClass::ShowMenuBack() {
 // --------------------------------------------------------------------------------------
 
 void MenuClass::ShowMenu() {
-
     int alpha = static_cast<int>(Rotation);
     D3DCOLOR menucolor = D3DCOLOR_RGBA(255, 255, 255, alpha);
     D3DCOLOR menucolor2 = D3DCOLOR_RGBA(255, 255, 255, alpha / 2);
@@ -307,8 +234,8 @@ void MenuClass::ShowMenu() {
     if (CommandLineParams.LowRes) {
         // Under Low-res, don't display controls message at bottom and shift other text up a bit
         pDefaultFont->DrawText(10.0f, 458, "www.poke53280.de", menucolor, 0);
-        pDefaultFont->DrawText(static_cast<float>(640 - pDefaultFont->StringLength("www.hurrican-game.de", 0) - 10), 458,
-                               "www.hurrican-game.de", menucolor, 0);
+        pDefaultFont->DrawText(static_cast<float>(640 - pDefaultFont->StringLength("www.hurrican-game.de", 0) - 10),
+                               458, "www.hurrican-game.de", menucolor, 0);
 #if defined(GCW)
         // Draw port credit text for Pickle & Senquack
         if (AktuellerZustand == MENUZUSTAND_MAINMENU)
@@ -320,8 +247,8 @@ void MenuClass::ShowMenu() {
 
             pDefaultFont->DrawTextCenterAlign(320.0f, 462, TextArray[TEXT::MENUE_ANLEITUNG], menucolor, 0);
         pDefaultFont->DrawText(10.0f, 462, "www.poke53280.de", menucolor, 0);
-        pDefaultFont->DrawText(static_cast<float>(640 - pDefaultFont->StringLength("www.hurrican-game.de", 0) - 10), 462,
-                               "www.hurrican-game.de", menucolor, 0);
+        pDefaultFont->DrawText(static_cast<float>(640 - pDefaultFont->StringLength("www.hurrican-game.de", 0) - 10),
+                               462, "www.hurrican-game.de", menucolor, 0);
     }
 
     // graue Linien
@@ -380,8 +307,8 @@ void MenuClass::ShowMenu() {
             constexpr int OFFSET2 = 20;
 
             float d = static_cast<float>(pMenuFont->StringLength(TextArray[TEXT::MENUE_EINSTELLUNGEN], 2));
-            pMenuFont->DrawText(320 - d / 2.0f, ypos + OFFSET - OFFSET2, TextArray[TEXT::MENUE_EINSTELLUNGEN], menucolor,
-                                2);
+            pMenuFont->DrawText(320 - d / 2.0f, ypos + OFFSET - OFFSET2, TextArray[TEXT::MENUE_EINSTELLUNGEN],
+                                menucolor, 2);
 
             // Sound / Musik Lautstärke
             for (int i = 0; i < 2; i++) {
@@ -610,13 +537,13 @@ void MenuClass::ShowMenu() {
                 if (pCurrentPlayer->ControlType == CONTROLTYPE_KEYBOARD)
                     // Keyboard text
                     pDefaultFont->DrawText(col1_off_x + j * col2_off_x,
-                                           line1_off_y + MENU_TASTEN_TYPE_LINE * line_spacing, TextArray[TEXT::KEYBOARD],
-                                           col);
+                                           line1_off_y + MENU_TASTEN_TYPE_LINE * line_spacing,
+                                           TextArray[TEXT::KEYBOARD], col);
                 else {
                     // Print joystick name, truncated to fit if necessary
                     std::string tmpbuf = std::to_string(pCurrentPlayer->JoystickIndex)
-                        .append(":")
-                        .append(DirectInput.Joysticks[pCurrentPlayer->JoystickIndex].JoystickName);
+                                             .append(":")
+                                             .append(DirectInput.Joysticks[pCurrentPlayer->JoystickIndex].JoystickName);
                     int cutoff = tmpbuf.length() - 1;
                     int const max_w = col2_off_x - 10;
                     while (cutoff > 1 && pDefaultFont->StringLength(tmpbuf.c_str()) > max_w) {
@@ -734,9 +661,10 @@ void MenuClass::ShowMenu() {
                                     }
                                 } else {
                                     // Joy button
-                                    Buf.append(TextArray[TEXT::BUTTON]).append(" ").append(
-                                              DirectInput.MapButtonToString(pCurrentPlayer->JoystickIndex,
-                                                                            pCurrentPlayer->AktionJoystick[i]));
+                                    Buf.append(TextArray[TEXT::BUTTON])
+                                        .append(" ")
+                                        .append(DirectInput.MapButtonToString(pCurrentPlayer->JoystickIndex,
+                                                                              pCurrentPlayer->AktionJoystick[i]));
                                 }
 
                                 pDefaultFont->DrawText(col1_off_x + j * col2_off_x, controls_off_y + i * line_spacing,
@@ -749,13 +677,13 @@ void MenuClass::ShowMenu() {
                         if (scale_factor <= 1) {
                             if (pCurrentPlayer->ControlType == CONTROLTYPE_KEYBOARD)
                                 // Ask for new key
-                                Buf=TextArray[TEXT::TASTEN_NEU_T];
+                                Buf = TextArray[TEXT::TASTEN_NEU_T];
                             else
                                 // Ask for new button
-                                Buf=TextArray[TEXT::TASTEN_NEU_B];
+                                Buf = TextArray[TEXT::TASTEN_NEU_B];
                         } else {
                             // When using scaled fonts (low-res device), there's not enough room for the text prompt
-                            Buf="???";
+                            Buf = "???";
                         }
 
                         pDefaultFont->DrawText(col1_off_x + j * col2_off_x, controls_off_y + i * line_spacing,
@@ -776,7 +704,6 @@ void MenuClass::ShowMenu() {
             pMenuFont->DrawText(xpos + 420, ypos + 55, TextArray[TEXT::HIGHSCORE_SKILL], 0xFFFFFFFF, 2);
 
             for (int i = 0; i < MAX_HIGHSCORES; i++) {
-
                 D3DCOLOR Color = HighscoreColors[i + BlinkOffset];
 
                 //_itoa_s(i+1, Buffer, 10);
@@ -785,13 +712,15 @@ void MenuClass::ShowMenu() {
                 pMenuFont->DrawText(xpos - 120, ypos + static_cast<float>(105 + i * 26), Highscores[i].Name, Color, 2);
 
                 std::string strbuf = std::to_string(Highscores[i].Score);
-                pMenuFont->DrawTextRightAlign(xpos + 270, ypos + static_cast<float>(105 + i * 26), strbuf.c_str(), Color, 2);
+                pMenuFont->DrawTextRightAlign(xpos + 270, ypos + static_cast<float>(105 + i * 26), strbuf.c_str(),
+                                              Color, 2);
 
                 strbuf = std::to_string(Highscores[i].Stage);
-                pMenuFont->DrawTextCenterAlign(xpos + 350, ypos + static_cast<float>(105 + i * 26), strbuf.c_str(), Color, 2);
+                pMenuFont->DrawTextCenterAlign(xpos + 350, ypos + static_cast<float>(105 + i * 26), strbuf.c_str(),
+                                               Color, 2);
 
-                Skills.RenderSpriteScaled(xpos + 422, ypos + static_cast<float>(105 + i * 26), 30, 30, Highscores[i].Skill,
-                                          0xFFFFFFFF);
+                Skills.RenderSpriteScaled(xpos + 422, ypos + static_cast<float>(105 + i * 26), 30, 30,
+                                          Highscores[i].Skill, 0xFFFFFFFF);
             }
 
             // Highscore-Farben blinken lassen
@@ -834,7 +763,6 @@ void MenuClass::ShowMenu() {
 
             int i;
             for (i = 0; i < num_lines; i++) {
-
                 int alpha2 = i * yoff_inc - static_cast<int>(CreditsPosition);
 
                 if (alpha2 > 360) {
@@ -921,8 +849,8 @@ void MenuClass::ShowMenu() {
 
             for (int i = 0; i < 4; i++)
                 if (AktuellerPunkt != i)
-                    pMenuFont->DrawText(310, ypos + OFFSET + (i + 2) * 35, TextArray[TEXT::MENUE_LEICHT + i], menucolor2,
-                                        2);
+                    pMenuFont->DrawText(310, ypos + OFFSET + (i + 2) * 35, TextArray[TEXT::MENUE_LEICHT + i],
+                                        menucolor2, 2);
 
             pMenuFont->DrawText(310, ypos + OFFSET + (AktuellerPunkt + 2) * 35,
                                 TextArray[TEXT::MENUE_LEICHT + AktuellerPunkt], menucolor, 2);
@@ -963,8 +891,8 @@ void MenuClass::ShowMenu() {
 
             // "Save Game"
             if (scale_factor <= 1) {
-                pMenuFont->DrawTextCenterAlign(320.0f, ypos + OFFSET, TextArray[TEXT::MENUE_SPIEL_SPEICHERN], 0xFFFFFFFF,
-                                               2);
+                pMenuFont->DrawTextCenterAlign(320.0f, ypos + OFFSET, TextArray[TEXT::MENUE_SPIEL_SPEICHERN],
+                                               0xFFFFFFFF, 2);
             } else {
                 // Use the smaller default font since this we're using scaled fonts and need it to fit:
                 pDefaultFont->DrawTextCenterAlign(320.0f, ypos + 20, TextArray[TEXT::MENUE_SPIEL_SPEICHERN], 0xFFFFFFFF,
@@ -1044,7 +972,7 @@ void MenuClass::DoMenu() {
 
     // Sterne bewegen
     //
-    for (auto& star: Stars) {
+    for (auto &star : Stars) {
         star.Count += Timer.sync(star.Ebene / 20000.0f);
 
         if (star.Count > TWO_PI)
@@ -1142,9 +1070,11 @@ void MenuClass::DoMenu() {
             for (int i = 0; i < 2; i++) {
                 if (Player[i].ControlType != CONTROLTYPE_KEYBOARD)
                     continue;
-                if (KeyDown(Player[i].AktionKeyboard[AKTION_RECHTS]) || KeyDown(Player[i].AktionKeyboard[AKTION_LINKS]) ||
-                    KeyDown(Player[i].AktionKeyboard[AKTION_OBEN]) || KeyDown(Player[i].AktionKeyboard[AKTION_DUCKEN]) ||
-                    KeyDown(Player[i].AktionKeyboard[AKTION_SHOOT]) || KeyDown(Player[i].AktionKeyboard[AKTION_WAFFEN_CYCLE]))
+                if (KeyDown(Player[i].AktionKeyboard[AKTION_RECHTS]) ||
+                    KeyDown(Player[i].AktionKeyboard[AKTION_LINKS]) || KeyDown(Player[i].AktionKeyboard[AKTION_OBEN]) ||
+                    KeyDown(Player[i].AktionKeyboard[AKTION_DUCKEN]) ||
+                    KeyDown(Player[i].AktionKeyboard[AKTION_SHOOT]) ||
+                    KeyDown(Player[i].AktionKeyboard[AKTION_WAFFEN_CYCLE]))
                     KeyOK = false;
             }
         }
@@ -1564,8 +1494,8 @@ void MenuClass::DoMenu() {
                             //      Also added exclusions for keys 1,2 and 3 because they are
                             //      hard-coded in the game to be Weapon-selection keys.
                             int j = KeyCode(i);
-                            if (TastaturPuffer[i] && j != DIK_NUMLOCK && j != DIK_CAPITAL && j != DIK_SCROLL && j != DIK_TAB &&
-                                j != DIK_ESCAPE && j != DIK_1 && j != DIK_2 &&
+                            if (TastaturPuffer[i] && j != DIK_NUMLOCK && j != DIK_CAPITAL && j != DIK_SCROLL &&
+                                j != DIK_TAB && j != DIK_ESCAPE && j != DIK_1 && j != DIK_2 &&
                                 j != DIK_3)  // ob eine Taste gedrückt wurde
                             {
 #if defined(GCW)
@@ -1587,14 +1517,14 @@ void MenuClass::DoMenu() {
                         }
                     } else {
                         // Neuer Button?
-                        const DirectJoystickClass& joystick = DirectInput.Joysticks[pCurrentPlayer->JoystickIndex];
+                        const DirectJoystickClass &joystick = DirectInput.Joysticks[pCurrentPlayer->JoystickIndex];
                         if (joystick.Active) {
 #if defined(GCW)
                             int startButton = DirectInput.GetInternalJoystickMainMenuButton();
 #else
                             int startButton = joystick.GetMainMenuButton();
 #endif  // GCW
-                            // DKS - TODO - this seems to be where more work is needed in accepting new button input
+        // DKS - TODO - this seems to be where more work is needed in accepting new button input
                             for (int i = 0; i < joystick.GetNumButtons(); i++) {
                                 if (joystick.JoystickButtons[i]) {
                                     // Exclusion for button START, as it is hard-coded
@@ -1804,10 +1734,8 @@ void MenuClass::DoMenu() {
             int newname_len = strlen(NewName);
             int newname_maxlen = 16;
 
-            if (CommandLineParams.Arcade)
-            {
-                for (int i = 0; i < 2; i++)
-                {
+            if (CommandLineParams.Arcade) {
+                for (int i = 0; i < 2; i++) {
                     if (Player[i].ControlType != CONTROLTYPE_KEYBOARD)
                         continue;
                     if (KeyDown(Player[i].AktionKeyboard[AKTION_RECHTS]))
@@ -1874,7 +1802,7 @@ void MenuClass::DoMenu() {
                 }
 
                 // Neuen Namen an die neue Position setzen
-                strcpy_s(Highscores[NewRank].Name, 32-1, NewName);
+                strcpy_s(Highscores[NewRank].Name, 32 - 1, NewName);
 
                 Highscores[NewRank].Stage = NewStage;
                 Highscores[NewRank].Skill = NewSkill;
@@ -1895,8 +1823,8 @@ void MenuClass::DoMenu() {
                 possible = true;
 
                 // Test whether the pressed key was released
-                if ((!CommandLineParams.Arcade && (KeyDown(Taste) || KeyDown(DIK_BACK) || KeyDown(DIK_SPACE))) || joy_left || joy_right || joy_up ||
-                    joy_down)
+                if ((!CommandLineParams.Arcade && (KeyDown(Taste) || KeyDown(DIK_BACK) || KeyDown(DIK_SPACE))) ||
+                    joy_left || joy_right || joy_up || joy_down)
                     possible = false;
             }
 
@@ -2136,11 +2064,11 @@ void MenuClass::DoMenu() {
                     }
 
                     // An der Stelle im Savegame weiterspielen
-                    AktuellerZustand = 3; // MAINMENU ???
+                    AktuellerZustand = 3;  // MAINMENU ???
                     AktuellerPunkt = 0;
                     //					SoundManager.StopSong(MUSIC::MENU, false);
-                    InitNewGameLevel();  // Neues level laden
-                    SpielZustand = GameStateEnum::GAMELOOP;     // Weiterspielen
+                    InitNewGameLevel();                      // Neues level laden
+                    SpielZustand = GameStateEnum::GAMELOOP;  // Weiterspielen
                 }
             }
         } break;  // Load Game
@@ -2181,7 +2109,7 @@ void MenuClass::DoMenu() {
                     std::string timestr(asctime(ptm));
 
                     strcpy_s(Savegames[AktuellerPunkt].Name, 1, "");
-                    strcpy_s(Savegames[AktuellerPunkt].Name, 40-1, timestr.c_str());
+                    strcpy_s(Savegames[AktuellerPunkt].Name, 40 - 1, timestr.c_str());
 
                     Savegames[AktuellerPunkt].Players = NUMPLAYERS;
                     Savegames[AktuellerPunkt].Score = Player[0].Score;
@@ -2248,7 +2176,7 @@ void MenuClass::DoMenu() {
                 // oder Weiter/Continue  ?
                 //				if (AktuellerPunkt == MAX_SAVEGAMES)
                 {
-                    AktuellerZustand = 3; // MAINMENU ???
+                    AktuellerZustand = 3;  // MAINMENU ???
                     AktuellerPunkt = 0;
                     InitNewGameLevel();  // Neues level laden
                 }
@@ -2265,7 +2193,6 @@ void MenuClass::DoMenu() {
 // --------------------------------------------------------------------------------------
 
 void MenuClass::LoadSavegames() {
-
     // Versuchen, die einzelnen Savegames zu laden
     for (int i = 0; i < MAX_SAVEGAMES; i++) {
         // Name des Savegames erstellen
@@ -2381,7 +2308,8 @@ void MenuClass::ShowSavegames(int Highlight) {
 
         // oder ist dort noch ein leerer Slot ?
         else {
-            pDefaultFont->DrawTextCenterAlign(320, savegames_off_y + i * line_off_y, TextArray[TEXT::SAVE_LEER], col, 0);
+            pDefaultFont->DrawTextCenterAlign(320, savegames_off_y + i * line_off_y, TextArray[TEXT::SAVE_LEER], col,
+                                              0);
         }
     }
 }
@@ -2389,8 +2317,7 @@ void MenuClass::ShowSavegames(int Highlight) {
 // --------------------------------------------------------------------------------------
 // Highscore checksum
 // --------------------------------------------------------------------------------------
-inline long CalcChecksum(const HighscoreStruct& Highscore) {
-
+inline long CalcChecksum(const HighscoreStruct &Highscore) {
     long Pruefsumme = 0;
     unsigned int const nameLen = strlen(Highscore.Name);
     for (unsigned int j = 0; j < nameLen; j++)
@@ -2405,7 +2332,6 @@ inline long CalcChecksum(const HighscoreStruct& Highscore) {
 // --------------------------------------------------------------------------------------
 
 void MenuClass::LoadHighscore() {
-
     // Versuchen, die Highscore Datei zu öffnen
     // falls sie nicht existiert oder es eine Fehler gibt, wird die Standard
     // Highscore gesetzt
@@ -2432,18 +2358,16 @@ void MenuClass::LoadHighscore() {
         // ansonsten wieder standard Highscore setzen
 
         for (int i = 0; i < MAX_HIGHSCORES; i++) {
-
             Highscores[i].Score = FixEndian(Highscores[i].Score);
             Highscores[i].Stage = FixEndian(Highscores[i].Stage);
             Highscores[i].Skill = FixEndian(Highscores[i].Skill);
             Highscores[i].Pruefsumme = FixEndian(Highscores[i].Pruefsumme);
 
             // Sanity check
-            if (Highscores[i].Skill < SKILL_EASY ||
-                Highscores[i].Skill > SKILL_HURRICAN) {
+            if (Highscores[i].Skill < SKILL_EASY || Highscores[i].Skill > SKILL_HURRICAN) {
                 Highscores[i].Skill = SKILL_EASY;
             }
-            
+
             long Pruefsumme = CalcChecksum(Highscores[i]);
 
             // Pruefsumme stimmt nicht mehr ?
@@ -2461,7 +2385,6 @@ void MenuClass::LoadHighscore() {
 // --------------------------------------------------------------------------------------
 
 void MenuClass::SaveHighscore() {
-
     // Highscore Datei öffnen
     std::string name = g_save_ext + "/Hurrican.hsl";
     std::ofstream Datei(name, std::ofstream::binary);
@@ -2531,7 +2454,6 @@ void MenuClass::ResetHighscore() {
 
 // DKS - Fixed displaying language info with scaled fonts, made rectangle drawing smarter and sized dynamically
 void MenuClass::ShowLanguageInfo() {
-
     if (ShowLanguageInfoCounter < 0.0f)
         return;
 
@@ -2561,7 +2483,8 @@ void MenuClass::ShowLanguageInfo() {
     RenderRect(rect_x - 1, rect_y - 1, rect_w + 2, rect_h + 2, D3DCOLOR_RGBA(0, 0, 64, a2));
     RenderRect(rect_x, rect_y, rect_w, rect_h, D3DCOLOR_RGBA(0, 0, 64, a2));
     pDefaultFont->DrawText(static_cast<float>(320 - pDefaultFont->StringLength(TextArray[TEXT::BENUTZTES_FILE]) / 2),
-                           static_cast<float>(rect_y + border), TextArray[TEXT::BENUTZTES_FILE], D3DCOLOR_RGBA(255, 255, 255, a1));
+                           static_cast<float>(rect_y + border), TextArray[TEXT::BENUTZTES_FILE],
+                           D3DCOLOR_RGBA(255, 255, 255, a1));
 
     for (int i = 0; i < 9; i++) {
         unsigned int const len = strlen(TextArray[i]);
@@ -2570,8 +2493,8 @@ void MenuClass::ShowLanguageInfo() {
             char c[2];
             c[0] = TextArray[i][j];
             c[1] = '\0';
-            pDefaultFont->DrawText(static_cast<float>(xoff), static_cast<float>(rect_y + border + ((2 + i) * yoff_inc)), c,
-                                   D3DCOLOR_RGBA(255, 255, 255, a1));
+            pDefaultFont->DrawText(static_cast<float>(xoff), static_cast<float>(rect_y + border + ((2 + i) * yoff_inc)),
+                                   c, D3DCOLOR_RGBA(255, 255, 255, a1));
             xoff += xoff_inc;
         }
     }

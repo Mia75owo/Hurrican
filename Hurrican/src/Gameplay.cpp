@@ -59,10 +59,10 @@ bool HasCheated = false;
 
 bool RunningTutorial = false;
 
-constexpr const char* DEMO_ID = "Hurrican Demo File";  // Kennung
-constexpr const char* CONFIGFILE = "Hurrican.cfg";  // Name der Konfigurationsdatei
+constexpr const char *DEMO_ID = "Hurrican Demo File";  // Kennung
+constexpr const char *CONFIGFILE = "Hurrican.cfg";     // Name der Konfigurationsdatei
 
-constexpr const char* DEFAULT_LANG_FILE = "english.lng";
+constexpr const char *DEFAULT_LANG_FILE = "english.lng";
 
 std::string StageReihenfolge[256];
 
@@ -72,18 +72,9 @@ bool FlugsackFliesFree;
 
 int DisplayHintNr = -1;
 
-const int TextureCount[10] = {
-  117, // Tutorial
-  106, // Stages
-  109,
-   87,
-   82,
-  130,
-  118,
-  135,
-   88,
-  127
-};
+const int TextureCount[10] = {117,  // Tutorial
+                              106,  // Stages
+                              109, 87, 82, 130, 118, 135, 88, 127};
 
 // --------------------------------------------------------------------------------------
 // Ein neues Spiel initialisieren
@@ -140,7 +131,7 @@ void InitNewGameLevel() {
 
     // Externes Level aus Command Line laden ?
     //
-    int NumTextures = 75; // unknown, use a default
+    int NumTextures = 75;  // unknown, use a default
     std::string Name;
 
     if (!CommandLineParams.RunUserLevel) {
@@ -224,7 +215,8 @@ void ShowGameOver() {
     if (col > 255)  // Obergrenze checken
         col = 255;
 
-    TileEngine.GameOver.RenderSprite((RENDERWIDTH - 400) * 0.5f, (RENDERHEIGHT - 90) * 0.5f, D3DCOLOR_RGBA(255, 255, 255, col));
+    TileEngine.GameOver.RenderSprite((RENDERWIDTH - 400) * 0.5f, (RENDERHEIGHT - 90) * 0.5f,
+                                     D3DCOLOR_RGBA(255, 255, 255, col));
 
     Player[0].GameOverTimer -= Timer.sync(0.75f);
 
@@ -384,7 +376,6 @@ void GameLoop() {
 
     // evtl Warning Schild rendern
     if (WarningCount > 0.0f) {
-
         int a = static_cast<int>(WarningCount * 2.55f);
         D3DCOLOR Col = D3DCOLOR_RGBA(255, 255, 255, a);
 
@@ -426,8 +417,8 @@ void GameLoop() {
         ShowGameOver();
 
     // Gameloop verlassen ?
-    if ((KeyDown(DIK_ESCAPE) || DirectInput.Joysticks[Player[0].JoystickIndex].ButtonStartPressed())
-            && Player[0].GameOverTimer == 0.0f)
+    if ((KeyDown(DIK_ESCAPE) || DirectInput.Joysticks[Player[0].JoystickIndex].ButtonStartPressed()) &&
+        Player[0].GameOverTimer == 0.0f)
         LeaveGameLoop();
 
 #if defined(GCW)
@@ -844,7 +835,6 @@ bool LoadConfig() {
 // --------------------------------------------------------------------------------------
 
 void SaveConfig() {
-
     std::string filename = g_config_ext + "/" + CONFIGFILE;
 
     std::ofstream Datei(filename, std::ifstream::binary);
@@ -857,7 +847,7 @@ void SaveConfig() {
     // Spracheinstellung speichern
     char lang[256];
     std::size_t length = ActualLanguage.copy(lang, 255);
-    lang[length]='\0';
+    lang[length] = '\0';
     Datei.write(reinterpret_cast<char *>(&lang), sizeof(lang));
 
     // Daten für Sound und Musik-Lautstärke schreiben
@@ -922,8 +912,8 @@ bool DisplayLoadInfo(const char Text[100]) {
 #ifndef NDEBUG
     std::string buf = std::to_string(pMenu->ItemsLoaded());
 
-    pDefaultFont->DrawText((RENDERWIDTH - pDefaultFont->StringLength(buf.c_str())) / 2.0f, 300,
-                           buf.c_str(), 0xFFFFFFFF);
+    pDefaultFont->DrawText((RENDERWIDTH - pDefaultFont->StringLength(buf.c_str())) / 2.0f, 300, buf.c_str(),
+                           0xFFFFFFFF);
 #endif
 
     // Hint anzeigen
@@ -1015,7 +1005,8 @@ void SummaryScreen() {
     int const box_x = RENDERWIDTH / 2 - box_w / 2;
     int const box_y = RENDERHEIGHT / 2 - box_h / 2;
 
-    int const title_txt_y = box_y - 10;  // Note that borders of boxes mean drawable region is a bit higher than specified
+    int const title_txt_y =
+        box_y - 10;  // Note that borders of boxes mean drawable region is a bit higher than specified
     int const pressanykey_txt_y = box_y + box_h - 8;
     constexpr int SPRITE_SPACING = 96;
     int const sprites_y = box_y + 40;
@@ -1081,37 +1072,28 @@ void SummaryScreen() {
 
         pGegnerGrafix[POWERBLOCK]->RenderSpriteScaled(static_cast<float>(sprite1_x - 16),
                                                       static_cast<float>(sprites_y - 16), 32, 32, 1, color);
-        pGegnerGrafix[DIAMANT]->RenderSprite(static_cast<float>(sprite2_x - 14),
-                                             static_cast<float>(sprites_y - 14), 0, color);
-        pGegnerGrafix[ONEUP]->RenderSpriteScaled(static_cast<float>(sprite3_x - 16),
-                                                 static_cast<float>(sprites_y - 16), 32, 32, 0, color);
+        pGegnerGrafix[DIAMANT]->RenderSprite(static_cast<float>(sprite2_x - 14), static_cast<float>(sprites_y - 14), 0,
+                                             color);
+        pGegnerGrafix[ONEUP]->RenderSpriteScaled(static_cast<float>(sprite3_x - 16), static_cast<float>(sprites_y - 16),
+                                                 32, 32, 0, color);
         pDefaultFont->DrawText(
             static_cast<float>(secrets_x - pDefaultFont->StringLength(TextArray[TEXT::SUMMARY_SECRETS]) / 2),
-            static_cast<float>(sprites_y - pDefaultFont->GetYCharSize() / 2), TextArray[TEXT::SUMMARY_SECRETS],
-            color);
+            static_cast<float>(sprites_y - pDefaultFont->GetYCharSize() / 2), TextArray[TEXT::SUMMARY_SECRETS], color);
 
         std::string buf;
-        buf = std::to_string(Player[0].BlocksThisLevel)
-            .append("/")
-            .append(std::to_string(TileEngine.MaxBlocks));
-        pDefaultFont->DrawText(static_cast<float>(sprite1_x - pDefaultFont->StringLength(buf.c_str()) / 2), 
+        buf = std::to_string(Player[0].BlocksThisLevel).append("/").append(std::to_string(TileEngine.MaxBlocks));
+        pDefaultFont->DrawText(static_cast<float>(sprite1_x - pDefaultFont->StringLength(buf.c_str()) / 2),
                                static_cast<float>(stats_txt_y), buf.c_str(), color);
 
-        buf = std::to_string(Player[0].DiamondsThisLevel)
-            .append("/")
-            .append(std::to_string(TileEngine.MaxDiamonds));
+        buf = std::to_string(Player[0].DiamondsThisLevel).append("/").append(std::to_string(TileEngine.MaxDiamonds));
         pDefaultFont->DrawText(static_cast<float>(sprite2_x - pDefaultFont->StringLength(buf.c_str()) / 2),
                                static_cast<float>(stats_txt_y), buf.c_str(), color);
 
-        buf = std::to_string(Player[0].LivesThisLevel)
-            .append("/")
-            .append(std::to_string(TileEngine.MaxOneUps));
+        buf = std::to_string(Player[0].LivesThisLevel).append("/").append(std::to_string(TileEngine.MaxOneUps));
         pDefaultFont->DrawText(static_cast<float>(sprite3_x - pDefaultFont->StringLength(buf.c_str()) / 2),
                                static_cast<float>(stats_txt_y), buf.c_str(), color);
 
-        buf = std::to_string(Player[0].SecretThisLevel)
-            .append("/")
-            .append(std::to_string(TileEngine.MaxSecrets));
+        buf = std::to_string(Player[0].SecretThisLevel).append("/").append(std::to_string(TileEngine.MaxSecrets));
         pDefaultFont->DrawText(static_cast<float>(secrets_x - pDefaultFont->StringLength(buf.c_str()) / 2),
                                static_cast<float>(stats_txt_y), buf.c_str(), color);
 
@@ -1123,12 +1105,9 @@ void SummaryScreen() {
             for (unsigned int p = 0; p < len; p++)
                 buf2[p] ^= 64;
 
-            buf = std::string(TextArray[TEXT::SUMMARY_CHEATUNLOCK])
-                .append(": ")
-                .append(buf2);
+            buf = std::string(TextArray[TEXT::SUMMARY_CHEATUNLOCK]).append(": ").append(buf2);
             pDefaultFont->DrawText(static_cast<float>(RENDERWIDTH / 2 - pDefaultFont->StringLength(buf.c_str(), 0) / 2),
-                                   static_cast<float>(cheat_txt_y), buf.c_str(), color,
-                                   0);
+                                   static_cast<float>(cheat_txt_y), buf.c_str(), color, 0);
         }
 
         // Darstellung beenden
@@ -1373,8 +1352,7 @@ void ShowPissText() {
         //        GUI.ShowBox(TextArray[TEXT::PISS_1 + TextNr],
         //                      static_cast<int>(Player[0].ypos - 70 - TileEngine.YOffset),
         //                      static_cast<int>(Player[0].xpos - TileEngine.XOffset) - 10);
-        GUI.ShowBox(TextArray[TEXT::PISS_1 + TextNr],
-                    static_cast<int>(Player[0].ypos - 70.0f - TileEngine.YOffset),
+        GUI.ShowBox(TextArray[TEXT::PISS_1 + TextNr], static_cast<int>(Player[0].ypos - 70.0f - TileEngine.YOffset),
                     static_cast<int>(Player[0].xpos - TileEngine.XOffset) + TILESIZE * 2);
 
         if (Player[0].BronsonCounter > 220.0f + 50.0f * 18.0f)
@@ -1387,7 +1365,6 @@ void ShowPissText() {
 // --------------------------------------------------------------------------------------
 
 PlayerClass *ChooseAim() {
-
     PlayerClass *pAim = &Player[rand() % NUMPLAYERS];
 
     if (pAim == &Player[0] && Player[0].Handlung == PlayerActionEnum::TOT)

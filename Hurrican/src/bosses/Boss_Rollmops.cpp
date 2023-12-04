@@ -43,7 +43,6 @@ GegnerRollmops::GegnerRollmops(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerRollmops::CalcGunWinkel() {
-
     float ydiv = (pAim->ypos + 40) - (yPos + 60.0f);
     if (ydiv == 0.0f)
         ydiv = 0.00001f;
@@ -86,7 +85,6 @@ void GegnerRollmops::DoDraw() {
     //
     switch (Handlung) {
         case GEGNER::AUSSPUCKEN: {
-
             float x = ((xPos + 65.0f - 9.0f) - HookX) / NUM_KETTENGLIEDER;
             float y = ((yPos + 65.0f) - HookY) / NUM_KETTENGLIEDER;
 
@@ -101,8 +99,7 @@ void GegnerRollmops::DoDraw() {
                 pKettenTeile[i]->AnimCount = 360.0f - RadToDeg(Schwung);
             }
 
-            Rollen.RenderSprite(xPos - TileEngine.XOffset,
-                                yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF, mirrored);
+            Rollen.RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF, mirrored);
 
         } break;
 
@@ -116,23 +113,21 @@ void GegnerRollmops::DoDraw() {
         case GEGNER::SPECIAL3:
         case GEGNER::WARTEN:
         case GEGNER::EXPLODIEREN: {
-            Rollen.RenderSprite(xPos - TileEngine.XOffset,
-                                yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF, mirrored);
+            Rollen.RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF, mirrored);
         } break;
 
         case GEGNER::INIT:
         case GEGNER::STEHEN: {
-            pGegnerGrafix[GegnerArt]->RenderSpriteScaled(xPos - TileEngine.XOffset + 16.0f,
-                                                         yPos - TileEngine.YOffset, 120, 120,
-                                                         AnimPhase, 0xFFFFFFFF);
+            pGegnerGrafix[GegnerArt]->RenderSpriteScaled(xPos - TileEngine.XOffset + 16.0f, yPos - TileEngine.YOffset,
+                                                         120, 120, AnimPhase, 0xFFFFFFFF);
         } break;
 
         case GEGNER::OEFFNEN:
         case GEGNER::SCHLIESSEN: {
             mirrored = (xPos < Value1 + 320.0f);
 
-            Aufklappen.RenderSprite(xPos - TileEngine.XOffset,
-                                    yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF, mirrored);
+            Aufklappen.RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF,
+                                    mirrored);
         } break;
 
         case GEGNER::VERFOLGEN: {
@@ -144,13 +139,11 @@ void GegnerRollmops::DoDraw() {
                 xoff = 65.0f;
 
             // Knarre rendern
-            Gun.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + 6.0f + xoff,
-                                          yPos - TileEngine.YOffset + 38.0f, GunWinkel, 53, 20,
-                                          0xFFFFFFFF, mirrored);
+            Gun.RenderSpriteRotatedOffset(xPos - TileEngine.XOffset + 6.0f + xoff, yPos - TileEngine.YOffset + 38.0f,
+                                          GunWinkel, 53, 20, 0xFFFFFFFF, mirrored);
 
             // Mops ohne Knarre rendern
-            Aufklappen.RenderSprite(xPos - TileEngine.XOffset,
-                                    yPos - TileEngine.YOffset, 8, 0xFFFFFFFF, mirrored);
+            Aufklappen.RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 8, 0xFFFFFFFF, mirrored);
         } break;
     }
 }
@@ -368,11 +361,11 @@ void GegnerRollmops::DoKI() {
                          (SchwungDir > TWO_PI - 0.2f && SchwungDir < TWO_PI + 0.2f)) &&
                         GetRandom(2) == 0) {
                         shot = false;
-                        PartikelSystem.PushPartikel(xPos + 60.0f + static_cast<float>(GetRandom(20)),
-                                                    yPos + 120.0f, LONGFUNKE);
+                        PartikelSystem.PushPartikel(xPos + 60.0f + static_cast<float>(GetRandom(20)), yPos + 120.0f,
+                                                    LONGFUNKE);
 
-                        PartikelSystem.PushPartikel(xPos + 60.0f + static_cast<float>(GetRandom(20)),
-                                                    yPos + 100.0f, FUNKE);
+                        PartikelSystem.PushPartikel(xPos + 60.0f + static_cast<float>(GetRandom(20)), yPos + 100.0f,
+                                                    FUNKE);
 
                         // DKS - Added function WaveIsPlaying() to SoundManagerClass:
                         if (!SoundManager.WaveIsPlaying(SOUND::KLONG))

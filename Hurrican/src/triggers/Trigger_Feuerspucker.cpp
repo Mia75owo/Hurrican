@@ -43,8 +43,8 @@ void GegnerFeuerspucker::DoKI() {
                 Handlung = GEGNER::SCHIESSEN;
 
                 // Sound abspielen, je nach Player Abstand lauter oder leiser
-                SoundManager.PlayWave3D(static_cast<int>(xPos) + 20,
-                                        static_cast<int>(yPos) + 20, 11025, SOUND::FEUERFALLE);
+                SoundManager.PlayWave3D(static_cast<int>(xPos) + 20, static_cast<int>(yPos) + 20, 11025,
+                                        SOUND::FEUERFALLE);
             }
         } break;
 

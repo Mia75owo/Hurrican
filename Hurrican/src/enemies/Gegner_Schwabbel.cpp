@@ -36,8 +36,8 @@ void GegnerSchwabbel::DoKI() {
     // Animieren
     if (Handlung == GEGNER::STEHEN)  // Soll überhaupt animiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;  // Dann wieder auf Null setzen
             AnimPhase++;    // Und nächste Animationsphase
@@ -99,8 +99,8 @@ void GegnerSchwabbel::GegnerExplode() {
                                     yPos - 10.0f + static_cast<float>(GetRandom(60)), MADEBLUT);
 
     for (int i = 0; i < 30; i++)
-        Gegner.PushGegner(xPos + static_cast<float>(GetRandom(40)),
-                          yPos - 10.0f + static_cast<float>(GetRandom(60)), MADE, 1, 0, false);
+        Gegner.PushGegner(xPos + static_cast<float>(GetRandom(40)), yPos - 10.0f + static_cast<float>(GetRandom(60)),
+                          MADE, 1, 0, false);
 
     Player[0].Score += 400;
 }

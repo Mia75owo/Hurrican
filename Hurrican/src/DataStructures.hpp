@@ -338,8 +338,8 @@ void GroupedForwardList<LIST_ITEM_TYPE, LIST_MAP_INDEX_INT_TYPE, MAX_LIST_GROUPS
     list_map[list_map_idx].cur_node_idx = next_unused_slot_idx;
     num_items++;
 }
-    // --------------------------------------------------------------------------------------
-    // END GroupedForwardList SECTION
-    // --------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+// END GroupedForwardList SECTION
+// --------------------------------------------------------------------------------------
 
 #endif  // _DATASTRUCTURES_HPP_

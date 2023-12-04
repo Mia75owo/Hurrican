@@ -52,8 +52,8 @@ void GegnerSchleimBoller::DoDraw() {
     // Je nach Größe anders gestrecht rendern
     //
     pGegnerGrafix[GegnerArt]->RenderSpriteScaled(xPos - TileEngine.XOffset + static_cast<float>(30 - Size / 2),
-                                                 yPos - TileEngine.YOffset + static_cast<float>(60 - Size), Size,
-                                                 Size, AnimPhase, 0xFFFFFFFF);
+                                                 yPos - TileEngine.YOffset + static_cast<float>(60 - Size), Size, Size,
+                                                 AnimPhase, 0xFFFFFFFF);
 
     // Leuchten noch dazurendern?
     //
@@ -83,8 +83,8 @@ void GegnerSchleimBoller::DoKI() {
     // nach Animation am Boden wieder abspringen
     //
     else {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;              // Dann wieder auf Null setzen
             AnimPhase++;                // Und nächste Animationsphase

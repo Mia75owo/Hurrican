@@ -36,7 +36,7 @@ void GegnerDeckenturm::DoKI() {
     // Je nach Handlung richtig verhalten
     switch (Handlung) {
         case GEGNER::UNVERWUNDBAR:  // Kanone hängt an der Decke und wartet
-                                   // bis der Spieler in seine Reichweite kommt
+                                    // bis der Spieler in seine Reichweite kommt
         {
             DamageTaken = 0.0f;               // Auch nicht rot leuchten
             Destroyable = false;              // Gegner wird unverwundbar
@@ -82,7 +82,7 @@ void GegnerDeckenturm::DoKI() {
 
             // Ankathete
             float d2 = (pAim->xpos + pAim->CollideRect.left + (pAim->CollideRect.right - pAim->CollideRect.left) / 2) -
-                 (xPos + GegnerRect[GegnerArt].right / 2);
+                       (xPos + GegnerRect[GegnerArt].right / 2);
 
             // DKS - Use new Rad/Deg macros:
             // Winkel = (d2/d1)*180/PI;

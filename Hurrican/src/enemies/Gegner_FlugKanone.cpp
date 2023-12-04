@@ -34,8 +34,8 @@ void GegnerFlugKanone::DoKI() {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;              // Dann wieder auf Null setzen
             AnimPhase++;                // Und nächste Animationsphase
@@ -107,8 +107,8 @@ void GegnerFlugKanone::GegnerExplode() {
         PartikelSystem.PushPartikel(xPos - 20.0f + static_cast<float>(GetRandom(45)),
                                     yPos - 20.0f + static_cast<float>(GetRandom(45)), EXPLOSION_MEDIUM2);
     for (int i = 0; i < 20; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(65)),
-                                    yPos + static_cast<float>(GetRandom(35)), LASERFUNKE2);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(65)), yPos + static_cast<float>(GetRandom(35)),
+                                    LASERFUNKE2);
 
     SoundManager.PlayWave(100, 128, -GetRandom(2000) + 11025, SOUND::EXPLOSION1);  // Sound ausgeben
 

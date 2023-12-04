@@ -169,9 +169,8 @@ void GegnerWalker::DoKI() {
 
     // Spieler kann dem Walker auf den Kopf springen
     for (int i = 0; i < NUMPLAYERS; i++)
-        if (Player[i].Handlung != PlayerActionEnum::RADELN &&
-                Player[i].Handlung != PlayerActionEnum::RADELN_FALL &&
-                Player[i].yspeed >= 0.0f) {
+        if (Player[i].Handlung != PlayerActionEnum::RADELN && Player[i].Handlung != PlayerActionEnum::RADELN_FALL &&
+            Player[i].yspeed >= 0.0f) {
             if (Player[i].AufPlattform == this) {
                 // Spieler springen lassen
                 Player[i].AufPlattform = nullptr;

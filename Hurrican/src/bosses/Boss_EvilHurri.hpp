@@ -7,8 +7,8 @@
 class GegnerEvilHurri : public GegnerClass {
   private:
     DirectionEnum BlinkDirection;  // Animationsphase der Beine
-    float BlinkWert;       // Y-Offset des Körpers
-    float ActionDelay;     // Warten
+    float BlinkWert;               // Y-Offset des Körpers
+    float ActionDelay;             // Warten
 
   public:
     GegnerEvilHurri(int Wert1,

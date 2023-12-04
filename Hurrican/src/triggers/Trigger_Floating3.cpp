@@ -39,15 +39,13 @@ void GegnerFloating3::DoDraw() {
     // Standfläche rendern
     //
     pGegnerGrafix[GegnerArt]->itsRect = pGegnerGrafix[GegnerArt]->itsPreCalcedRects[0];
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotatedOffset(xPos - TileEngine.XOffset,
-                                                        yPos - TileEngine.YOffset, winkel, 0.0f,
-                                                        -6.0f, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotatedOffset(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, winkel,
+                                                        0.0f, -6.0f, 0xFFFFFFFF);
 
     // Mittelteil rendern
     //
     pGegnerGrafix[GegnerArt]->itsRect = pGegnerGrafix[GegnerArt]->itsPreCalcedRects[1];
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, 1, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 1, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

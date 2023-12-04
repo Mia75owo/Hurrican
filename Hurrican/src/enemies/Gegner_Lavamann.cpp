@@ -32,13 +32,12 @@ GegnerLavamann::GegnerLavamann(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerLavamann::DoDraw() {
-    bool mirror =  (BlickRichtung == DirectionEnum::LINKS);
+    bool mirror = (BlickRichtung == DirectionEnum::LINKS);
 
     // gegner leuchtend rendern
     //
     DirectGraphics.SetAdditiveMode();
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF,
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF,
                                            mirror);
     DirectGraphics.SetColorKeyMode();
 }

@@ -38,8 +38,7 @@ GegnerReitFlugsack::GegnerReitFlugsack(int Wert1, int Wert2, bool Light) {
 void GegnerReitFlugsack::DoDraw() {
     bool mirror = BlickRichtung != DirectionEnum::LINKS;
 
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF,
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF,
                                            mirror);
 
     if (Handlung == GEGNER::SPECIAL) {
@@ -48,8 +47,8 @@ void GegnerReitFlugsack::DoDraw() {
             ArrowCount = 2.0f;
 
         if (static_cast<int>(ArrowCount) % 2 == 0)
-            HUD.Arrow.RenderMirroredSprite(xPos - TileEngine.XOffset + 35.0f,
-                                           yPos - TileEngine.YOffset - 40.0f, 0xFF00FF00, false, true);
+            HUD.Arrow.RenderMirroredSprite(xPos - TileEngine.XOffset + 35.0f, yPos - TileEngine.YOffset - 40.0f,
+                                           0xFF00FF00, false, true);
     }
 }
 
@@ -150,9 +149,8 @@ void GegnerReitFlugsack::DoKI() {
 
             // Spieler steht drauf ?
             for (int i = 0; i < NUMPLAYERS; i++)
-                if (Player[i].AufPlattform == this &&
-                        Player[i].Handlung != PlayerActionEnum::SACKREITEN &&
-                        Player[i].Handlung != PlayerActionEnum::DREHEN) {
+                if (Player[i].AufPlattform == this && Player[i].Handlung != PlayerActionEnum::SACKREITEN &&
+                    Player[i].Handlung != PlayerActionEnum::DREHEN) {
                     Player[i].Handlung = PlayerActionEnum::SACKREITEN;
                     Player[i].CollideRect.left = 15;  // Kollisionsrechteck anpassen
                     Player[i].CollideRect.right = 75;

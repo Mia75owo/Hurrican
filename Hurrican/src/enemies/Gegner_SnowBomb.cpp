@@ -36,8 +36,7 @@ void GegnerSnowBomb::DoDraw() {
     // Nur rendern, wenn die Kugel auch rollt
     //
     if (Handlung != GEGNER::INIT)
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, anim, 0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, anim, 0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------
@@ -129,8 +128,8 @@ void GegnerSnowBomb::DoKI() {
 
 void GegnerSnowBomb::GegnerExplode() {
     for (int i = 0; i < 8; i++)
-        Projectiles.PushProjectile(xPos + static_cast<float>(GetRandom(60)),
-                                   yPos + static_cast<float>(GetRandom(50)), SNOWBOMBSMALL);
+        Projectiles.PushProjectile(xPos + static_cast<float>(GetRandom(60)), yPos + static_cast<float>(GetRandom(50)),
+                                   SNOWBOMBSMALL);
 
     for (int i = 0; i < 20; i++)
         PartikelSystem.PushPartikel(xPos - 10.0f + static_cast<float>(GetRandom(70)),

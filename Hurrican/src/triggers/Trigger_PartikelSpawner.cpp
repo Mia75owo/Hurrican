@@ -193,7 +193,8 @@ void GegnerPartikelSpawner::DoKI() {
 
                     if (Value2 == 0) {
                         PartikelSystem.PushPartikel(TileEngine.XOffset + RENDERWIDTH,
-                                                    yPos - 240.0f + static_cast<float>(GetRandom(RENDERHEIGHT)), BLATT2);
+                                                    yPos - 240.0f + static_cast<float>(GetRandom(RENDERHEIGHT)),
+                                                    BLATT2);
                         AnimCount = (GetRandom(5) + 1) / 5.0f;
                     } else {
                         PartikelSystem.PushPartikel(TileEngine.XOffset + RENDERWIDTH,
@@ -246,7 +247,8 @@ void GegnerPartikelSpawner::DoKI() {
                     if (GetRandom(4) == 0) {
                         // mit Sound?
                         if (Value1 == 3)
-                            SoundManager.PlayWave3D(static_cast<int>(xPos), static_cast<int>(yPos), 11025 + GetRandom(1000), SOUND::FUNKE);
+                            SoundManager.PlayWave3D(static_cast<int>(xPos), static_cast<int>(yPos),
+                                                    11025 + GetRandom(1000), SOUND::FUNKE);
 
                         PartikelSystem.PushPartikel(xPos, yPos - 24.0f, LASERFLAME);
 
@@ -265,9 +267,8 @@ void GegnerPartikelSpawner::DoKI() {
 
                 // Maden
                 case 17: {
-                    Gegner.PushGegner(xPos + static_cast<float>(GetRandom(20) - 10),
-                                      yPos + 16.0f, MADE,
-                                      0, 0, false, false);
+                    Gegner.PushGegner(xPos + static_cast<float>(GetRandom(20) - 10), yPos + 16.0f, MADE, 0, 0, false,
+                                      false);
                 } break;
             }  // switch
         }

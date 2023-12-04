@@ -30,7 +30,6 @@ void GegnerLavaKrabbe::DoDraw() {
     // rotierend runterfallen?
     //
     if (Handlung == GEGNER::FALLEN) {
-
         // Farbe setzen (leichte orangetönung)
         int r = 60 + static_cast<int>(zPos);
         int g = 20 + static_cast<int>(zPos);
@@ -70,8 +69,7 @@ void GegnerLavaKrabbe::DoDraw() {
         bool mirrored = (BlickRichtung == DirectionEnum::RECHTS);
 
         D3DCOLOR Color = D3DCOLOR_RGBA(255, a, a, 255);
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, AnimPhase, Color,
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, Color,
                                                mirrored);
     }
 }
@@ -95,8 +93,8 @@ void GegnerLavaKrabbe::DoKI() {
 
         // Krabbe ist gelandet und dreht sich in Richtung Spieler
         case GEGNER::DREHEN: {
-            AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-            if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+            AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+            if (AnimCount > AnimSpeed)            // Grenze überschritten ?
             {
                 AnimCount = 0.0f;    // Dann wieder auf Null setzen
                 AnimPhase--;         // Und nächste Animationsphase
@@ -112,8 +110,8 @@ void GegnerLavaKrabbe::DoKI() {
 
         // Krabbe ist gelandet und dreht sich in Richtung Spieler
         case GEGNER::DREHEN2: {
-            AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-            if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+            AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+            if (AnimCount > AnimSpeed)            // Grenze überschritten ?
             {
                 AnimCount = 0.0f;    // Dann wieder auf Null setzen
                 AnimPhase++;         // Und nächste Animationsphase
@@ -130,8 +128,8 @@ void GegnerLavaKrabbe::DoKI() {
         case GEGNER::STEHEN: {
             xPos += Timer.sync(5.0f * static_cast<float>(Direction::asInt(Direction::invert(BlickRichtung))));
 
-            AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-            if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+            AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+            if (AnimCount > AnimSpeed)            // Grenze überschritten ?
             {
                 AnimCount = 0.0f;     // Dann wieder auf Null setzen
                 AnimPhase++;          // Und nächste Animationsphase

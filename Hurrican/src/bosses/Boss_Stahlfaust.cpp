@@ -39,7 +39,7 @@ void GegnerStahlfaust::DoKI() {
     if (Active == true && TileEngine.Zustand == TileStateEnum::SCROLLBAR) {
         TileEngine.ScrollLevel(static_cast<float>(Value1), static_cast<float>(Value2),
                                TileStateEnum::SCROLLTOLOCK);  // Level auf die Faust zentrieren
-        yPos -= 300;                                   // und Faust aus dem Screen setzen
+        yPos -= 300;                                          // und Faust aus dem Screen setzen
         Handlung = GEGNER::INIT;
 
         SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);  // Ausfaden und pausieren
@@ -89,7 +89,7 @@ void GegnerStahlfaust::DoKI() {
             Energy = 4000;
             DamageTaken = 0.0f;
 
-            yPos += Timer.sync(8.0f);           // Faust nach unten bewegen
+            yPos += Timer.sync(8.0f);          // Faust nach unten bewegen
             if (yPos >= TileEngine.ScrolltoY)  // Weit genug unten ?
             {
                 Handlung = GEGNER::LAUFEN;
@@ -99,7 +99,7 @@ void GegnerStahlfaust::DoKI() {
 
         case GEGNER::EINFLIEGEN:  // Gegner kommt in den Screen geflogen
         {
-            yPos += Timer.sync(8.0f);           // Faust nach unten bewegen
+            yPos += Timer.sync(8.0f);          // Faust nach unten bewegen
             if (yPos >= TileEngine.ScrolltoY)  // Weit genug unten ?
             {
                 Handlung = GEGNER::LAUFEN;
@@ -207,8 +207,7 @@ void GegnerStahlfaust::DoKI() {
                 // Rauch am Boden erzeugen
                 for (int i = 0; i < 25; i++)
                     PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(180) + 30),
-                                                yPos + static_cast<float>(GegnerRect[GegnerArt].bottom - 20),
-                                                SMOKE);
+                                                yPos + static_cast<float>(GegnerRect[GegnerArt].bottom - 20), SMOKE);
 
                 // Beschleunigung und Geschwindigkeit wieder richtig setzen um hochzufliegen
                 yAcc = -0.5f;

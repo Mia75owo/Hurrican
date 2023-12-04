@@ -13,19 +13,18 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerFahrstuhlBoss::GegnerFahrstuhlBoss(int Wert1, int Wert2, bool Light) :
-    ShotDelay(5.0f),
-    TempY(800.0f),
-    x1(140),
-    y1(160),
-    x2(25),
-    y2(80),
-    x3(340),
-    dx1(0.0f),
-    dx2(0.0f),
-    CanonAnim(0.0f),
-    Activated(false)
-{
+GegnerFahrstuhlBoss::GegnerFahrstuhlBoss(int Wert1, int Wert2, bool Light)
+    : ShotDelay(5.0f),
+      TempY(800.0f),
+      x1(140),
+      y1(160),
+      x2(25),
+      y2(80),
+      x3(340),
+      dx1(0.0f),
+      dx2(0.0f),
+      CanonAnim(0.0f),
+      Activated(false) {
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 6000;
@@ -47,16 +46,12 @@ GegnerFahrstuhlBoss::GegnerFahrstuhlBoss(int Wert1, int Wert2, bool Light) :
 void GegnerFahrstuhlBoss::DoDraw() {
     // Gegner mit Kopf und Kanonen rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0,
-                                           0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0, 0xFFFFFFFF);
 
-    Head.RenderSprite(xPos + x1 - TileEngine.XOffset,
-                      yPos + y1 - TileEngine.YOffset, 0xFFFFFFFF);
-    Canon.RenderSprite(xPos + x2 - TileEngine.XOffset,
-                       yPos + y2 - TileEngine.YOffset, static_cast<int>(CanonAnim),
+    Head.RenderSprite(xPos + x1 - TileEngine.XOffset, yPos + y1 - TileEngine.YOffset, 0xFFFFFFFF);
+    Canon.RenderSprite(xPos + x2 - TileEngine.XOffset, yPos + y2 - TileEngine.YOffset, static_cast<int>(CanonAnim),
                        0xFFFFFFFF);
-    Canon.RenderSprite(xPos + x3 - TileEngine.XOffset,
-                       yPos + y2 - TileEngine.YOffset, 5 - static_cast<int>(CanonAnim),
+    Canon.RenderSprite(xPos + x3 - TileEngine.XOffset, yPos + y2 - TileEngine.YOffset, 5 - static_cast<int>(CanonAnim),
                        0xFFFFFFFF);
 
     GegnerRect[FAHRSTUHLBOSS].left = static_cast<int>(x1 + 60.0f);
@@ -116,8 +111,8 @@ void GegnerFahrstuhlBoss::DoKI() {
     if (smokecount < 0.0f) {
         smokecount = 1.0f;
 
-        PartikelSystem.PushPartikel(xPos- 15.0f + static_cast<float>(GetRandom(10)), yPos, SMOKEBIG);
-        PartikelSystem.PushPartikel(xPos- 15.0f + static_cast<float>(GetRandom(10)), yPos + 210.0f, SMOKEBIG);
+        PartikelSystem.PushPartikel(xPos - 15.0f + static_cast<float>(GetRandom(10)), yPos, SMOKEBIG);
+        PartikelSystem.PushPartikel(xPos - 15.0f + static_cast<float>(GetRandom(10)), yPos + 210.0f, SMOKEBIG);
 
         PartikelSystem.PushPartikel(xPos + 375.0f + static_cast<float>(GetRandom(10)), yPos, SMOKEBIG);
         PartikelSystem.PushPartikel(xPos + 375.0f + static_cast<float>(GetRandom(10)), yPos + 210.0f, SMOKEBIG);
@@ -304,15 +299,11 @@ void GegnerFahrstuhlBoss::DoKI() {
 
                 SoundManager.PlayWave(100, 128, 44100, SOUND::LASERSHOT);
 
-                Projectiles.PushProjectile(xPos + x2 + 28.0f,
-                                           yPos + y2 + 95.0f, KRABBLERLASER1);
-                PartikelSystem.PushPartikel(xPos + x2 + 28.0f - 25.0f,
-                                            yPos + y2 + 95.0f - 4.0f, LASERFLAME);
+                Projectiles.PushProjectile(xPos + x2 + 28.0f, yPos + y2 + 95.0f, KRABBLERLASER1);
+                PartikelSystem.PushPartikel(xPos + x2 + 28.0f - 25.0f, yPos + y2 + 95.0f - 4.0f, LASERFLAME);
 
-                Projectiles.PushProjectile(xPos + x3 + 28.0f,
-                                           yPos + y2 + 95.0f, KRABBLERLASER1);
-                PartikelSystem.PushPartikel(xPos + x3 + 28.0f - 25.0f,
-                                            yPos + y2 + 95.0f - 4.0f, LASERFLAME);
+                Projectiles.PushProjectile(xPos + x3 + 28.0f, yPos + y2 + 95.0f, KRABBLERLASER1);
+                PartikelSystem.PushPartikel(xPos + x3 + 28.0f - 25.0f, yPos + y2 + 95.0f - 4.0f, LASERFLAME);
 
                 y2 = 75.0f;
 
@@ -332,8 +323,8 @@ void GegnerFahrstuhlBoss::DoKI() {
                 ShakeScreen(3);
                 dx1 *= -1.0f;
 
-                Gegner.PushGegner(xPos + 10.0f + static_cast<float>(GetRandom(360)),
-                                  yPos + RENDERHEIGHT, BOULDER, 40 + GetRandom(20), 0, false);
+                Gegner.PushGegner(xPos + 10.0f + static_cast<float>(GetRandom(360)), yPos + RENDERHEIGHT, BOULDER,
+                                  40 + GetRandom(20), 0, false);
 
                 // aufhören damit ?
                 Shots--;
@@ -360,15 +351,14 @@ void GegnerFahrstuhlBoss::DoKI() {
                 x1 += Timer.sync(8.0f);
 
             // Schiessen
-            if (pAim->xpos + 35.0f < xPos + x1 + 100.0f && pAim->xpos + 35.0f > xPos + x1 + 40.0f && ShotDelay <= 0.0f) {
+            if (pAim->xpos + 35.0f < xPos + x1 + 100.0f && pAim->xpos + 35.0f > xPos + x1 + 40.0f &&
+                ShotDelay <= 0.0f) {
                 ShotDelay = 8.0f;
 
                 SoundManager.PlayWave(100, 128, 10000 + GetRandom(2000), SOUND::LASERSHOT);
 
-                Projectiles.PushProjectile(xPos + x1 + 80.0f - 28.0f,
-                                           yPos + y1 + 155.0f, UFOLASER);
-                PartikelSystem.PushPartikel(xPos + x1 + 80.0f - 90.0f,
-                                            yPos + y1 + 110.0f, UFOLASERFLARE);
+                Projectiles.PushProjectile(xPos + x1 + 80.0f - 28.0f, yPos + y1 + 155.0f, UFOLASER);
+                PartikelSystem.PushPartikel(xPos + x1 + 80.0f - 90.0f, yPos + y1 + 110.0f, UFOLASERFLARE);
 
                 y1 = 155.0f;
 
@@ -392,8 +382,8 @@ void GegnerFahrstuhlBoss::DoKI() {
             if (ShotDelay < 0.0f) {
                 ShotDelay = 35.0f;
 
-                Gegner.PushGegner(xPos + 10.0f + static_cast<float>(GetRandom(360)),
-                                  yPos + RENDERHEIGHT, STELZSACK, 80, 0, false);
+                Gegner.PushGegner(xPos + 10.0f + static_cast<float>(GetRandom(360)), yPos + RENDERHEIGHT, STELZSACK, 80,
+                                  0, false);
 
                 // Genug losgelassen ?
                 Shots--;
@@ -422,15 +412,11 @@ void GegnerFahrstuhlBoss::DoKI() {
 
                 SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::CANON);
 
-                Projectiles.PushProjectile(xPos + x2 + 28.0f,
-                                           yPos + y2 + 95.0f + 5.0f, SUCHSCHUSS);
-                PartikelSystem.PushPartikel(xPos + x2 + 28.0f - 10.0f,
-                                            yPos + y2 + 95.0f, SMOKE);
+                Projectiles.PushProjectile(xPos + x2 + 28.0f, yPos + y2 + 95.0f + 5.0f, SUCHSCHUSS);
+                PartikelSystem.PushPartikel(xPos + x2 + 28.0f - 10.0f, yPos + y2 + 95.0f, SMOKE);
 
-                Projectiles.PushProjectile(xPos + x3 + 28.0f,
-                                           yPos + y2 + 95.0f + 5.0f, SUCHSCHUSS);
-                PartikelSystem.PushPartikel(xPos + x3 + 28.0f - 10.0f,
-                                            yPos + y2 + 95.0f, SMOKE);
+                Projectiles.PushProjectile(xPos + x3 + 28.0f, yPos + y2 + 95.0f + 5.0f, SUCHSCHUSS);
+                PartikelSystem.PushPartikel(xPos + x3 + 28.0f - 10.0f, yPos + y2 + 95.0f, SMOKE);
 
                 y2 = 77.0f;
 
@@ -517,7 +503,7 @@ void GegnerFahrstuhlBoss::DoKI() {
             Player[i].JumpStart += Timer.sync(40.0f);
         }
 
-    for (auto& particle: PartikelSystem.particles) {
+    for (auto &particle : PartikelSystem.particles) {
         if (particle->PartikelArt != FUNKE && particle->PartikelArt != BULLET && particle->PartikelArt != SMOKE) {
             particle->yPos += Timer.sync(40.0f);  // Nach unten bewegen
             particle->yPosOld += Timer.sync(40.0f);
@@ -525,7 +511,7 @@ void GegnerFahrstuhlBoss::DoKI() {
     }
 
     ProjectileClass *pTemp2 = Projectiles.pStart;  // Zeiger auf den ersten Schuss
-    while (pTemp2 != nullptr)                         // Ende der Liste erreicht ?
+    while (pTemp2 != nullptr)                      // Ende der Liste erreicht ?
     {
         if (pTemp2->ShotArt != STELZLASER) {
             pTemp2->yPos += Timer.sync(40.0f);  // Nach unten bewegen
@@ -542,8 +528,7 @@ void GegnerFahrstuhlBoss::DoKI() {
         for (int p = 0; p < NUMPLAYERS; p++)
             Player[p].ypos -= A;
 
-        for (auto& enemy: Gegner.enemies)
-        {
+        for (auto &enemy : Gegner.enemies) {
             if (enemy->GegnerArt >= SPITTER && enemy->GegnerArt <= FAHRSTUHL) {
                 enemy->yPos -= A;  // Nach oben bewegen
                 enemy->yPosOld -= A;
@@ -551,14 +536,14 @@ void GegnerFahrstuhlBoss::DoKI() {
         }
 
         ProjectileClass *pTemp4 = Projectiles.pStart;  // Zeiger auf den ersten Schuss
-        while (pTemp4 != nullptr)                         // Ende der Liste erreicht ?
+        while (pTemp4 != nullptr)                      // Ende der Liste erreicht ?
         {
             pTemp4->yPos -= A;  // Nach oben bewegen
             pTemp4->yPosOld -= A;
             pTemp4 = pTemp4->pNext;  // Zeiger auf das nächste Element
         }
 
-        for (auto& particle: PartikelSystem.particles) {
+        for (auto &particle : PartikelSystem.particles) {
             particle->yPos -= A;  // Nach oben bewegen
             particle->yPosOld -= A;
         }

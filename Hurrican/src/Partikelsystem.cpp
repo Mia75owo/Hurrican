@@ -30,10 +30,7 @@
 // Defines
 // --------------------------------------------------------------------------------------
 
-enum class DrawModeEnum {
-  NORMAL,
-  ROTATED
-};
+enum class DrawModeEnum { NORMAL, ROTATED };
 
 // --------------------------------------------------------------------------------------
 // externe Variablen
@@ -155,7 +152,7 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
                 // red	= 255; green = 255; blue = 255; alpha = 255;
 
                 xSpeed = (static_cast<float>(GetRandom(40) + 20) / 5) *
-                          static_cast<float>(Direction::asInt(Direction::invert(m_pParent->Blickrichtung)));
+                         static_cast<float>(Direction::asInt(Direction::invert(m_pParent->Blickrichtung)));
                 ySpeed = -static_cast<float>(GetRandom(40) + 20) / 5;
                 xAcc = 0.0f;
                 yAcc = 5.0f;
@@ -1198,8 +1195,8 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
                     absy = m_pParent->BeamY - yPos;  // und y Strecke
 
                     // DKS - converted to float:
-                    speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                    speed = speed * static_cast<float>(4 + AnimPhase * 2);           // Geschwindigkeit
+                    speed = 1.0f / sqrtf(absx * absx + absy * absy);        // Länge der Strecke berechnen
+                    speed = speed * static_cast<float>(4 + AnimPhase * 2);  // Geschwindigkeit
 
                     absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                     absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -1584,7 +1581,7 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * static_cast<float>(8 + AnimPhase);                  // Geschwindigkeit ist 4 fach
+                speed = speed * static_cast<float>(8 + AnimPhase);      // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -1611,7 +1608,7 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * static_cast<float>(8 + AnimPhase);                  // Geschwindigkeit ist 4 fach
+                speed = speed * static_cast<float>(8 + AnimPhase);      // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -1638,7 +1635,7 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * (8 + AnimPhase);                  // Geschwindigkeit ist 4 fach
+                speed = speed * (8 + AnimPhase);                        // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -1665,7 +1662,7 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * (8 + AnimPhase);                  // Geschwindigkeit ist 4 fach
+                speed = speed * (8 + AnimPhase);                        // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -1819,7 +1816,7 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * (8 + AnimPhase);                  // Geschwindigkeit ist 4 fach
+                speed = speed * (8 + AnimPhase);                        // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -2091,7 +2088,6 @@ void PartikelClass::CreatePartikel(float x, float y, int Art, PlayerClass *pPare
 // --------------------------------------------------------------------------------------
 
 void PartikelClass::Run() {
-
     // DKS - alpha color was getting set outside its range, so set
     //      a temp value and fix at the end:
     int tmp_alpha = alpha;
@@ -2099,8 +2095,10 @@ void PartikelClass::Run() {
     // Screen verlassen oder eh schon weg wegen der Lebensdauer ?
     //
     if (RemoveWhenOffScreen) {
-        if (yPos - TileEngine.YOffset > RENDERHEIGHT + 20 || yPos - TileEngine.YOffset + PartikelRect[PartikelArt].bottom < 20 ||
-            xPos - TileEngine.XOffset > RENDERWIDTH + 20 || xPos - TileEngine.XOffset + PartikelRect[PartikelArt].right < 20)
+        if (yPos - TileEngine.YOffset > RENDERHEIGHT + 20 ||
+            yPos - TileEngine.YOffset + PartikelRect[PartikelArt].bottom < 20 ||
+            xPos - TileEngine.XOffset > RENDERWIDTH + 20 ||
+            xPos - TileEngine.XOffset + PartikelRect[PartikelArt].right < 20)
             Lebensdauer = 0.0f;
     }
 
@@ -2161,8 +2159,8 @@ void PartikelClass::Run() {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;  // Dann wieder auf Null setzen
             AnimPhase++;    // Und nächste Animationsphase
@@ -2572,7 +2570,8 @@ void PartikelClass::Run() {
 
                 if (AnimCount < 0.0f) {
                     AnimCount = 0.5f;
-                    PartikelSystem.PushPartikel(xPos - 20 + GetRandom(40), yPos - 20 + GetRandom(40), EXPLOSION_MEDIUM2);
+                    PartikelSystem.PushPartikel(xPos - 20 + GetRandom(40), yPos - 20 + GetRandom(40),
+                                                EXPLOSION_MEDIUM2);
                 }
             } break;
 
@@ -2957,7 +2956,7 @@ void PartikelClass::Run() {
                 yPos = m_pParent->ypos + ySpeed + 57;
 
                 if (m_pParent->Handlung == PlayerActionEnum::RADELN ||
-                        m_pParent->Handlung == PlayerActionEnum::RADELN_FALL)
+                    m_pParent->Handlung == PlayerActionEnum::RADELN_FALL)
                     yPos += 30;
             } break;
 
@@ -2990,7 +2989,7 @@ void PartikelClass::Run() {
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * (8 + AnimPhase);                  // Geschwindigkeit ist 4 fach
+                speed = speed * (8 + AnimPhase);                        // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -3013,7 +3012,7 @@ void PartikelClass::Run() {
 
                 // DKS - converted to float:
                 float speed = 1.0f / sqrtf(absx * absx + absy * absy);  // Länge der Strecke berechnen
-                speed = speed * (15 + AnimPhase * 2);             // Geschwindigkeit ist 4 fach
+                speed = speed * (15 + AnimPhase * 2);                   // Geschwindigkeit ist 4 fach
 
                 absx = speed * absx;  // Und jeweilige Geschwindigkeit setzen
                 absy = speed * absy;  // (xSpeed*ySpeed ergibt 4)
@@ -3176,7 +3175,6 @@ void PartikelClass::Run() {
 // --------------------------------------------------------------------------------------
 
 bool PartikelClass::Render() {
-
     // Partikel rotieren?
     if (Rotate) {
         DrawMode = DrawModeEnum::ROTATED;
@@ -3189,7 +3187,8 @@ bool PartikelClass::Render() {
         int height = PartikelGrafix[PartikelArt].itsYFrameSize;
 
         // Rotationsmatrix
-        glm::mat4x4 matRot = glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(Rot)], glm::vec3(0.0f, 0.0f, 1.0f));
+        glm::mat4x4 matRot =
+            glm::rotate(glm::mat4x4(1.0f), DegreetoRad[static_cast<int>(Rot)], glm::vec3(0.0f, 0.0f, 1.0f));
 
         float x = static_cast<float>(xPos - TileEngine.XOffset);
         float y = static_cast<float>(yPos - TileEngine.YOffset);
@@ -3215,17 +3214,17 @@ bool PartikelClass::Render() {
 
         // Partikel nicht rotieren?
         if (!Rotate && DrawMode != DrawModeEnum::NORMAL) {
-        DrawMode = DrawModeEnum::NORMAL;
+            DrawMode = DrawModeEnum::NORMAL;
 
-        DirectGraphics.SetFilterMode(false);
+            DirectGraphics.SetFilterMode(false);
 
-        // Normale Projektions-Matrix wieder herstellen
-        matWorld = glm::mat4x4(1.0f);
-        g_matModelView = matWorld * g_matView;
+            // Normale Projektions-Matrix wieder herstellen
+            matWorld = glm::mat4x4(1.0f);
+            g_matModelView = matWorld * g_matView;
 #if defined(USE_GL1)
-        load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
+            load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
 #endif
-    }
+        }
 
     // Normaler Partikel (aus Grafik) zeichnen
     // DKS - Added a check to ensure we never draw without a valid animation phase, to ensure
@@ -3331,11 +3330,11 @@ bool PartikelClass::Render() {
             dir.x = pos.x - xSpeed * 0.5f;
             dir.y = pos.y - ySpeed * 0.5f;
 
-            RenderLine(dir, pos,
-                       D3DCOLOR_RGBA(TileEngine.ColR1, TileEngine.ColG1, TileEngine.ColB1,
-                                     static_cast<int>(Lebensdauer / 3.0f)),
-                       D3DCOLOR_RGBA(TileEngine.ColR2, TileEngine.ColG2, TileEngine.ColB2,
-                                     static_cast<int>(Lebensdauer)));
+            RenderLine(
+                dir, pos,
+                D3DCOLOR_RGBA(TileEngine.ColR1, TileEngine.ColG1, TileEngine.ColB1,
+                              static_cast<int>(Lebensdauer / 3.0f)),
+                D3DCOLOR_RGBA(TileEngine.ColR2, TileEngine.ColG2, TileEngine.ColB2, static_cast<int>(Lebensdauer)));
         }
 
         PartikelSystem.CurrentPartikelTexture = -1;
@@ -3399,7 +3398,6 @@ bool PartikelClass::Render() {
 
     // Langer Funke/Wasserspritzer
     else if (PartikelArt == WASSER_SPRITZER || PartikelArt == WASSER_SPRITZER2) {
-
         int h = 100;
         int b;
         if (PartikelArt == WASSER_SPRITZER)
@@ -4236,8 +4234,7 @@ bool PartikelsystemClass::PushPartikel(float x, float y, int Art, PlayerClass *p
         (Art == GRENADEFLARE || Art == SHOTFLARE || Art == SHOTFLARE2 || Art == EXPLOSIONFLARE))
         return false;
 
-
-    // Allocate a new particle
+        // Allocate a new particle
 #ifdef USE_NO_MEMPOOLING
     PartikelClass *pNew = new PartikelClass;
 #else
@@ -4252,7 +4249,7 @@ bool PartikelsystemClass::PushPartikel(float x, float y, int Art, PlayerClass *p
 #endif
 
     pNew->CreatePartikel(x, y, Art, pParent);  // neuen Partikel erzeugen
-    
+
     particles.push_front(pNew);
 
     return true;
@@ -4264,7 +4261,7 @@ bool PartikelsystemClass::PushPartikel(float x, float y, int Art, PlayerClass *p
 void PartikelsystemClass::ClearDeadParticles() {
     auto iter = particles.begin();
     while (iter != particles.end()) {
-        PartikelClass* particle = *iter;
+        PartikelClass *particle = *iter;
 
         if (particle->Lebensdauer > 0.0f) {
             ++iter;
@@ -4285,7 +4282,7 @@ void PartikelsystemClass::ClearDeadParticles() {
 // --------------------------------------------------------------------------------------
 void PartikelsystemClass::ClearAll() {
 #ifdef USE_NO_MEMPOOLING
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         delete particle;
     }
 #else
@@ -4309,11 +4306,11 @@ int PartikelsystemClass::GetNumPartikel() const {
 void PartikelsystemClass::DrawOnly() {
     //----- Partikel, die normal oder mit Alphablending gerendert werden, durchlaufen
 
-    CurrentPartikelTexture = -1;    // Aktuelle Textur gibt es noch keine
+    CurrentPartikelTexture = -1;  // Aktuelle Textur gibt es noch keine
     DrawMode = DrawModeEnum::NORMAL;
     DirectGraphics.SetColorKeyMode();
 
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         if (particle->PartikelArt < ADDITIV_GRENZE) {
             particle->Render();
         }
@@ -4324,7 +4321,7 @@ void PartikelsystemClass::DrawOnly() {
     CurrentPartikelTexture = -1;  // Aktuelle Textur gibt es noch keine
     DirectGraphics.SetAdditiveMode();
 
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         if (particle->PartikelArt >= ADDITIV_GRENZE) {
             particle->Render();
         }
@@ -4358,7 +4355,7 @@ void PartikelsystemClass::DoPartikelSpecial(bool ShowThem) {
 
     DirectGraphics.SetColorKeyMode();
 
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         if (!ShowThem && particle->PartikelArt < ADDITIV_GRENZE) {
             particle->Run();
             if (particle->Lebensdauer > 0.0f) {
@@ -4367,13 +4364,12 @@ void PartikelsystemClass::DoPartikelSpecial(bool ShowThem) {
         }
     }
 
-
     //----- Partikel, die mit additivem Alphablending gerendert werden, durchlaufen
 
     CurrentPartikelTexture = -1;  // Aktuelle Textur gibt es noch keine
     DirectGraphics.SetAdditiveMode();
 
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         if ((ShowThem && (particle->PartikelArt == SCHNEEFLOCKE_END || particle->PartikelArt == EXPLOSION_TRACE_END)) ||
             (!ShowThem && particle->PartikelArt >= ADDITIV_GRENZE)) {
             particle->Run();  // Partikel animieren/bewegen
@@ -4412,7 +4408,7 @@ void PartikelsystemClass::DoPartikel() {
 
     DirectGraphics.SetColorKeyMode();
 
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         if (particle->PartikelArt < ADDITIV_GRENZE) {
             particle->Run();  // Partikel animieren/bewegen
 
@@ -4425,7 +4421,7 @@ void PartikelsystemClass::DoPartikel() {
     CurrentPartikelTexture = -1;  // Aktuelle Textur gibt es noch keine
     DirectGraphics.SetAdditiveMode();
 
-    for (auto& particle: particles) {
+    for (auto &particle : particles) {
         if (particle->PartikelArt >= ADDITIV_GRENZE) {
             particle->Run();  // Partikel animieren/bewegen
 
@@ -4470,7 +4466,7 @@ void PartikelsystemClass::SetThunderColor(unsigned char r, unsigned char g, unsi
 void PartikelsystemClass::ClearPowerUpEffects() {
     auto iter = particles.begin();
     while (iter != particles.end()) {
-        PartikelClass* particle = *iter;
+        PartikelClass *particle = *iter;
 
         if (particle->PartikelArt != KRINGEL) {
             ++iter;

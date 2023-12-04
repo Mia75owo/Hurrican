@@ -132,7 +132,7 @@ void GegnerExtras::DoKI() {
             pCollector = &Player[i];
 
     if (pCollector != nullptr)  // &&
-                             // Handlung != GEGNER::SPRINGEN)
+                                // Handlung != GEGNER::SPRINGEN)
     {
         // Punkte fürs Extras sammeln gebe
         pCollector->Score += 10;

@@ -38,9 +38,8 @@ GegnerTutorialText::GegnerTutorialText(int Wert1, int Wert2, bool Light) {
 void GegnerTutorialText::DoKI() {
     // Spieler nahe genug? Dann einfaden
     if (PlayerAbstand() < 120 && Value1 != 9 &&
-            (GUI.GetFadeMode() == FadeMode::INVISIBLE || GUI.GetTextID() != Value1) &&
-            !(Value1 == 20 && Player[0].PowerLines == 5)) {
-
+        (GUI.GetFadeMode() == FadeMode::INVISIBLE || GUI.GetTextID() != Value1) &&
+        !(Value1 == 20 && Player[0].PowerLines == 5)) {
         // Bei Trigger 7 Anzahl der Diamanten auf fünf setzen (falls die ersten fünf nicht richtig
         // eingesammelt wurden)
         //
@@ -60,7 +59,7 @@ void GegnerTutorialText::DoKI() {
         //
 
         for (int i = 0; i < MAX_AKTIONEN * 2; i += 2) {
-            std::size_t pos; // Position, an der das zu ersetzende Wort steht
+            std::size_t pos;  // Position, an der das zu ersetzende Wort steht
             do {
                 pos = s_text.find(s_Replacers[i]);
                 if (pos != std::string::npos) {
@@ -77,7 +76,7 @@ void GegnerTutorialText::DoKI() {
 
         int i = 0;
         int const len = s_text.length();
-        char c_text[512];          // Neuer Text, nachdem alles ersetzt wurde
+        char c_text[512];  // Neuer Text, nachdem alles ersetzt wurde
         for (i = 0; i < len; i++)
             c_text[i] = s_text[i];
 
@@ -97,8 +96,7 @@ void GegnerTutorialText::DoKI() {
     }
 
     // Spieler weg und Trigger auf dem Screen? Dann ausfaden
-    if (GUI.GetTextID() == Value1 && IsOnScreen() &&
-            GUI.GetFadeMode() == FadeMode::VISIBLE && PlayerAbstand() > 120)
+    if (GUI.GetTextID() == Value1 && IsOnScreen() && GUI.GetFadeMode() == FadeMode::VISIBLE && PlayerAbstand() > 120)
         GUI.HideBox();
 
     bool stillAlive = false;
@@ -125,7 +123,7 @@ void GegnerTutorialText::DoKI() {
             // die ersten drei augen plattgemacht?
             //
             case 9: {
-                for (auto& pEnemy: Gegner.enemies) {
+                for (auto &pEnemy : Gegner.enemies) {
                     // noch mind. ein Auge am Leben=
                     //
                     if (pEnemy->GegnerArt == AUGE && pEnemy->Value2 == 99)
@@ -157,7 +155,7 @@ void GegnerTutorialText::DoKI() {
 
             // ersten Powerblock angeschoßen?
             case 16: {
-                for (auto& pEnemy: Gegner.enemies) {
+                for (auto &pEnemy : Gegner.enemies) {
                     if (pEnemy->GegnerArt == POWERBLOCK) {
                         // angeschoßenen PowerBlock suchen
                         //

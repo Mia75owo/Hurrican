@@ -33,8 +33,8 @@ constexpr int BLITZ_STAT_HEIGHT = 18;   // Höhe der Blitz-Status Grafik
 
 class HUDClass {
   private:
-    float xpos, ypos;       // Position  des HUDs
-    float BossHUDActive;    // Boss HUD wird angezeigt ?
+    float xpos, ypos;     // Position  des HUDs
+    float BossHUDActive;  // Boss HUD wird angezeigt ?
 
     DirectGraphicsSprite HUDGfx;          // Grafiken für das HUD
     DirectGraphicsSprite HUDBomb;         // Smartbomb eingesammelt ?
@@ -67,13 +67,13 @@ class HUDClass {
     //      to allow statically-allocated HUD global var (used to be dynamically allocated)
     void LoadSprites();
 
-    void UpdateValues();                 // Werte im HUD ändern
-    void ShowHUD();                      // HUD anzeigen
-    void RenderBossHUD();                // Boss HUD anzeigen
-    void DoHUD();                        // Alles machen, was da HUD betrifft =)
+    void UpdateValues();                     // Werte im HUD ändern
+    void ShowHUD();                          // HUD anzeigen
+    void RenderBossHUD();                    // Boss HUD anzeigen
+    void DoHUD();                            // Alles machen, was da HUD betrifft =)
     void ShowBossHUD(float max, float act);  // Boss Energie anzeigen
     void ShowArrow(float x, float y);        // Pfeil in diesem Frame anzeigen
-    void RenderArrow();                  // Pfeil rendern
+    void RenderArrow();                      // Pfeil rendern
 
     inline bool isBossHUDActive() const { return BossHUDActive != 0.0f; }
     inline void deactivateBossHUD() { BossHUDActive = 0.0f; }

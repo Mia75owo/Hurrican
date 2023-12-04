@@ -21,36 +21,36 @@
 // --------------------------------------------------------------------------------------
 
 enum {
-  DETAIL_LOW = 0,      // alles total billig
-  DETAIL_MEDIUM = 1,   // animiertes Wasser dazu
-  DETAIL_HIGH = 2,     // geiler Blitz, Leuchteffekte und Lightmaps
-  DETAIL_MAXIMUM = 3   // Schockwelle
+    DETAIL_LOW = 0,     // alles total billig
+    DETAIL_MEDIUM = 1,  // animiertes Wasser dazu
+    DETAIL_HIGH = 2,    // geiler Blitz, Leuchteffekte und Lightmaps
+    DETAIL_MAXIMUM = 3  // Schockwelle
 };
 
 // --------------------------------------------------------------------------------------
 // Prototypen von Funktionen
 // --------------------------------------------------------------------------------------
 
-void InitNewGame();                        // Neues Spiel initialisieren
-void InitNewGameLevel();                   // Alles für den Levelstart in Stage NR vorbereiten
-void GameLoop();                           // Haupt-Spielablauf
-void ScreenWackeln();                      // Screen wackeln lassen
+void InitNewGame();                            // Neues Spiel initialisieren
+void InitNewGameLevel();                       // Alles für den Levelstart in Stage NR vorbereiten
+void GameLoop();                               // Haupt-Spielablauf
+void ScreenWackeln();                          // Screen wackeln lassen
 void ShakeScreen(float staerke);               // Angeben wie stark der Screen wackeln soll
-void SetScreenShake();                     // Geshakten Screen setzen bzw Matrix dafür einstellen
+void SetScreenShake();                         // Geshakten Screen setzen bzw Matrix dafür einstellen
 void StageClear(bool PlaySong = true);         // Spieler aus dem Level abgehen lassen
-void SummaryScreen();                      // Zusammenfassung des Levels
-bool LoadConfig();                         // Konfigurationen laden
-void SaveConfig();                         // Konfigurationen speichern
+void SummaryScreen();                          // Zusammenfassung des Levels
+bool LoadConfig();                             // Konfigurationen laden
+void SaveConfig();                             // Konfigurationen speichern
 void CreateDefaultControlsConfig(int player);  // Load per-player default controls configuration
-void CreateDefaultConfig();                // DefaultKonfigurationen erstellen
+void CreateDefaultConfig();                    // DefaultKonfigurationen erstellen
 bool DisplayLoadInfo(const char Text[100]);    // Text beim Loading anzeigen
 bool NewDemo(const char Filename[]);           // Neues Demo aufzeichnen
-void RecordDemo();                         // Spielereingaben sichern
+void RecordDemo();                             // Spielereingaben sichern
 bool LoadDemo(const char Filename[]);          // Demo laden
-void PlayDemo();                           // Demo laufen lassen
-void EndDemo();                            // Demo anhalten
-void LeaveGameLoop();                      // Game Loop verlassen
-void ScrolltoPlayeAfterBoss();             // Der Name ist Programm
+void PlayDemo();                               // Demo laufen lassen
+void EndDemo();                                // Demo anhalten
+void LeaveGameLoop();                          // Game Loop verlassen
+void ScrolltoPlayeAfterBoss();                 // Der Name ist Programm
 void ShowPissText();
 void ShowGameOver();
 const char *convertText(const char *text);

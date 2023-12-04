@@ -20,10 +20,18 @@ GegnerEierMann::GegnerEierMann(int Wert1, int Wert2, bool Light) {
     AnimEnde = 10;
 
     switch (Skill) {
-        case SKILL_EASY:     AnimSpeed = 1.9f; break;
-        case SKILL_MEDIUM:   AnimSpeed = 1.6f; break;
-        case SKILL_HARD:     AnimSpeed = 1.3f; break;
-        case SKILL_HURRICAN: AnimSpeed = 1.0f; break;
+        case SKILL_EASY:
+            AnimSpeed = 1.9f;
+            break;
+        case SKILL_MEDIUM:
+            AnimSpeed = 1.6f;
+            break;
+        case SKILL_HARD:
+            AnimSpeed = 1.3f;
+            break;
+        case SKILL_HURRICAN:
+            AnimSpeed = 1.0f;
+            break;
     }
 
     ChangeLight = Light;
@@ -38,8 +46,8 @@ void GegnerEierMann::DoKI() {
     // Animieren
     if (AnimEnde > 0)  // Soll überhaupt anmiert werden ?
     {
-        AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-        if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+        AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+        if (AnimCount > AnimSpeed)            // Grenze überschritten ?
         {
             AnimCount = 0;              // Dann wieder auf Null setzen
             AnimPhase++;                // Und nächste Animationsphase
@@ -81,8 +89,8 @@ void GegnerEierMann::GegnerExplode() {
     }
 
     for (int i = 0; i < 4; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)),
-                                    yPos + static_cast<float>(GetRandom(80)), SPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)), yPos + static_cast<float>(GetRandom(80)),
+                                    SPLITTER);
 
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION4);
 

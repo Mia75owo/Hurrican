@@ -59,8 +59,8 @@ void GegnerKrabblerOben::DoKI() {
                 Handlung = GEGNER::SCHIESSEN;
                 Projectiles.PushProjectile(xPos + 24.0f, yPos + 48.0f, KRABBLERLASER1);
                 PartikelSystem.PushPartikel(xPos - 1.0f, yPos + 44.0f, LASERFLAME);
-                SoundManager.PlayWave3D(static_cast<int>(xPos + 25.0f),
-                                        static_cast<int>(yPos + 37.0f), 44100, SOUND::LASERSHOT);
+                SoundManager.PlayWave3D(static_cast<int>(xPos + 25.0f), static_cast<int>(yPos + 37.0f), 44100,
+                                        SOUND::LASERSHOT);
                 AnimPhase = 10;
                 AnimEnde = 14;
                 AnimStart = 0;

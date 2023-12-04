@@ -89,12 +89,14 @@ void GegnerNeuFisch::DoKI() {
         // In der Suppe rumdümpeln
         //
         case GEGNER::LAUFEN: {
+            bool onWall = (BlickRichtung == DirectionEnum::LINKS &&
+                           ((blockl & BLOCKWERT_WAND) || (blockl & BLOCKWERT_GEGNERWAND))) ||
+                          (BlickRichtung == DirectionEnum::RECHTS &&
+                           ((blockr & BLOCKWERT_WAND) || (blockr & BLOCKWERT_GEGNERWAND)));
 
-            bool onWall = (BlickRichtung == DirectionEnum::LINKS && ((blockl & BLOCKWERT_WAND) || (blockl & BLOCKWERT_GEGNERWAND))) ||
-                          (BlickRichtung == DirectionEnum::RECHTS && ((blockr & BLOCKWERT_WAND) || (blockr & BLOCKWERT_GEGNERWAND)));
-
-            if (onWall || (pAim->InLiquid == true && ((xPos + 30 < pAim->xpos + 35 && BlickRichtung == DirectionEnum::LINKS) ||
-                                                      (xPos + 30 > pAim->xpos + 35 && BlickRichtung == DirectionEnum::RECHTS)))) {
+            if (onWall ||
+                (pAim->InLiquid == true && ((xPos + 30 < pAim->xpos + 35 && BlickRichtung == DirectionEnum::LINKS) ||
+                                            (xPos + 30 > pAim->xpos + 35 && BlickRichtung == DirectionEnum::RECHTS)))) {
                 Handlung = GEGNER::DREHEN;
                 AnimPhase = 9;
                 AnimCount = 0.0f;
@@ -144,8 +146,7 @@ void GegnerNeuFisch::DoKI() {
             xPos = pFest->xpos - Value1;
             yPos = pFest->ypos - Value2;
 
-            if (pFest->Handlung == PlayerActionEnum::RADELN ||
-                    pFest->Handlung == PlayerActionEnum::RADELN_FALL) {
+            if (pFest->Handlung == PlayerActionEnum::RADELN || pFest->Handlung == PlayerActionEnum::RADELN_FALL) {
                 Handlung = GEGNER::LAUFEN;
                 ;
                 AnimEnde = 9;
@@ -180,8 +181,8 @@ void GegnerNeuFisch::GegnerExplode() {
     // Blutwolke dazu
     //
     for (int i = 0; i < 5; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(60)),
-                                    yPos + static_cast<float>(GetRandom(40)), PIRANHABLUT);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(60)), yPos + static_cast<float>(GetRandom(40)),
+                                    PIRANHABLUT);
 
     Player[0].Score += 250;
 }

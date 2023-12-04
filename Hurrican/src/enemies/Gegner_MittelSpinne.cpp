@@ -49,21 +49,17 @@ void GegnerMittelSpinne::DoDraw() {
         lightred = light;
 
     D3DCOLOR Color =
-        D3DCOLOR_RGBA(static_cast<int>(light),
-                      static_cast<int>(lightred),
-                      static_cast<int>(lightred),
-                      255);
+        D3DCOLOR_RGBA(static_cast<int>(light), static_cast<int>(lightred), static_cast<int>(lightred), 255);
 
     // Schatten rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset + 6.0f,
-                                                  yPos - TileEngine.YOffset + 6.0f, rot, AnimPhase,
-                                                  0x55000000);
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset + 6.0f, yPos - TileEngine.YOffset + 6.0f,
+                                                  rot, AnimPhase, 0x55000000);
 
     // Spinne rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                  yPos - TileEngine.YOffset, rot, AnimPhase, Color);
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, rot, AnimPhase,
+                                                  Color);
 }
 
 // --------------------------------------------------------------------------------------
@@ -164,12 +160,12 @@ void GegnerMittelSpinne::GegnerExplode() {
     PartikelSystem.PushPartikel(xPos + 5.0f, yPos, EXPLOSION_MEDIUM3);
 
     for (int i = 0; i < 10; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)),
-                                    yPos + static_cast<float>(GetRandom(50)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)), yPos + static_cast<float>(GetRandom(50)),
+                                    SPIDERSPLITTER);
 
     for (int i = 0; i < 30; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)),
-                                    yPos + static_cast<float>(GetRandom(50)), FUNKE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)), yPos + static_cast<float>(GetRandom(50)),
+                                    FUNKE);
 
     for (int i = 0; i < 7; i++)
         PartikelSystem.PushPartikel(xPos - 10.0f + static_cast<float>(GetRandom(60)),

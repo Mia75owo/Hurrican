@@ -33,8 +33,8 @@
 // sonstige Variablen
 // --------------------------------------------------------------------------------------
 
-glm::mat4x4 matProj;   // Projektionsmatrix
-glm::mat4x4 matWorld;  // Weltmatrix
+glm::mat4x4 matProj;     // Projektionsmatrix
+glm::mat4x4 matWorld;    // Weltmatrix
 float DegreetoRad[360];  // Tabelle mit Rotationswerten
 
 // --------------------------------------------------------------------------------------
@@ -78,10 +78,8 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
         ScreenHeight = LOWRES_SCREENHEIGHT;
     }
 
-    CrtEnabled = CommandLineParams.ScreenCurvature
-        || CommandLineParams.ColorBleed
-        || CommandLineParams.Scanlines
-        || CommandLineParams.ScreenNoise;
+    CrtEnabled = CommandLineParams.ScreenCurvature || CommandLineParams.ColorBleed || CommandLineParams.Scanlines ||
+                 CommandLineParams.ScreenNoise;
 
     int const ScreenDepth = CommandLineParams.ScreenDepth;
 #if SDL_VERSION_ATLEAST(2, 0, 0)
@@ -111,7 +109,7 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
     Protokoll << "SDL initialized." << std::endl;
 
 #if !defined(USE_EGL_SDL) && !defined(USE_EGL_RAW) && !defined(USE_EGL_RPI)
-    if (ScreenDepth > 16) {     // DKS - Screen depth is now default 16 under GLES, 32 others
+    if (ScreenDepth > 16) {                       // DKS - Screen depth is now default 16 under GLES, 32 others
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);  //      (Can now be changed via command line switch)
         SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
         SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
@@ -151,9 +149,9 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 #else
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-#endif /* defined(USE_GLES1) */
-#endif /* SDL_VERSION_ATLEAST(2,0,0) */
-#endif // !EGL
+#endif  /* defined(USE_GLES1) */
+#endif  /* SDL_VERSION_ATLEAST(2,0,0) */
+#endif  // !EGL
 
     // Setup SDL Screen
     if (isFullscreen) {
@@ -169,8 +167,8 @@ bool DirectGraphicsClass::Init(std::uint32_t dwBreite, std::uint32_t dwHoehe, st
     Window =
         SDL_CreateWindow("Hurrican", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, flags);
     if (Window == nullptr) {
-        Protokoll << "Failed to create " << ScreenWidth << "x" << ScreenHeight
-                  << " window: " << SDL_GetError() << std::endl;
+        Protokoll << "Failed to create " << ScreenWidth << "x" << ScreenHeight << " window: " << SDL_GetError()
+                  << std::endl;
         return false;
     }
 
@@ -345,9 +343,9 @@ bool DirectGraphicsClass::SetDeviceInfo() {
     std::string vert;
     std::string frag;
 #if defined(USE_GL3)
-    const char* glsl_version = "320";
+    const char *glsl_version = "320";
 #else /* USE_GL2 */
-    const char* glsl_version = "100";
+    const char *glsl_version = "100";
 #endif
 #endif
 
@@ -374,9 +372,9 @@ bool DirectGraphicsClass::SetDeviceInfo() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); /* Set the background black */
 
 #if defined(USE_GLES1) || defined(USE_GLES2) || defined(USE_GLES3)
-    glClearDepthf(1.0f);                   /* Depth buffer setup */
+    glClearDepthf(1.0f); /* Depth buffer setup */
 #else
-    glClearDepth(1.0);                     /* Depth buffer setup */
+    glClearDepth(1.0); /* Depth buffer setup */
 #endif
 
     glDisable(GL_DEPTH_TEST); /* No Depth Testing */
@@ -401,10 +399,10 @@ bool DirectGraphicsClass::SetDeviceInfo() {
 #if defined(USE_ETC1)
     if (SupportedETC1) {
         frag = g_storage_ext + "/data/shaders/" + glsl_version + "/shader_etc1_texture.frag";
-        CrtEnabled = false; // TODO add CRT simulation to etc1 fragment shader
+        CrtEnabled = false;  // TODO add CRT simulation to etc1 fragment shader
     } else {
 #endif
-    frag = g_storage_ext + "/data/shaders/" + glsl_version + "/shader_texture.frag";
+        frag = g_storage_ext + "/data/shaders/" + glsl_version + "/shader_texture.frag";
 #if defined(USE_ETC1)
     }
 #endif
@@ -418,7 +416,7 @@ bool DirectGraphicsClass::SetDeviceInfo() {
 
     Shaders[PROGRAM_RENDER].AddConstant("c_WindowWidth", RenderRect.w);
     Shaders[PROGRAM_RENDER].AddConstant("c_WindowHeight", RenderRect.h);
-    Shaders[PROGRAM_RENDER].AddConstant("c_curvature", CommandLineParams.ScreenCurvature ? 1 : 0); 
+    Shaders[PROGRAM_RENDER].AddConstant("c_curvature", CommandLineParams.ScreenCurvature ? 1 : 0);
     Shaders[PROGRAM_RENDER].AddConstant("c_color_bleed", CommandLineParams.ColorBleed ? 1 : 0);
     Shaders[PROGRAM_RENDER].AddConstant("c_scanlines", CommandLineParams.Scanlines ? 1 : 0);
     Shaders[PROGRAM_RENDER].AddConstant("c_noise", CommandLineParams.ScreenNoise ? 1 : 0);
@@ -447,15 +445,17 @@ bool DirectGraphicsClass::SetDeviceInfo() {
     Shaders[PROGRAM_RENDER].NameClr = Shaders[PROGRAM_RENDER].GetAttribute("a_Color");
     Shaders[PROGRAM_RENDER].NameTex = Shaders[PROGRAM_RENDER].GetAttribute("a_Texcoord0");
     Shaders[PROGRAM_RENDER].NameMvp = Shaders[PROGRAM_RENDER].GetUniform("u_MVPMatrix");
-    NameTime                        = Shaders[PROGRAM_RENDER].GetUniform("u_Time");
+    NameTime = Shaders[PROGRAM_RENDER].GetUniform("u_Time");
 #endif /* USE_GL2 || USE_GL3 */
 
     /* Matrices setup */
     g_matView = glm::mat4x4(1.0f);
     g_matModelView = glm::mat4x4(1.0f);
 
-    matProjWindow = glm::ortho(0.0f, static_cast<float>(WindowView.w), static_cast<float>(WindowView.h), 0.0f, 0.0f, 1.0f);
-    matProjRender = glm::ortho(0.0f, static_cast<float>(RenderView.w), static_cast<float>(RenderView.h), 0.0f, 0.0f, 1.0f);
+    matProjWindow =
+        glm::ortho(0.0f, static_cast<float>(WindowView.w), static_cast<float>(WindowView.h), 0.0f, 0.0f, 1.0f);
+    matProjRender =
+        glm::ortho(0.0f, static_cast<float>(RenderView.w), static_cast<float>(RenderView.h), 0.0f, 0.0f, 1.0f);
 
     matProj = matProjWindow;
 
@@ -477,9 +477,9 @@ bool DirectGraphicsClass::SetDeviceInfo() {
 // --------------------------------------------------------------------------------------
 
 bool DirectGraphicsClass::TakeScreenshot(const char Filename[100], int screenx, int screeny) {
-
 #if defined(PLATFORM_SDL) && SDL_VERSION_ATLEAST(2, 0, 0)
-    SDL_Surface *image = SDL_CreateRGBSurface(SDL_SWSURFACE, screenx, screeny, 24, 0x000000FF, 0x0000FF00, 0x00FF0000, 0);
+    SDL_Surface *image =
+        SDL_CreateRGBSurface(SDL_SWSURFACE, screenx, screeny, 24, 0x000000FF, 0x0000FF00, 0x00FF0000, 0);
     glReadPixels(0, 0, screenx, screeny, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
     FlipSurface(image);
     SDL_SaveBMP(image, Filename);
@@ -561,24 +561,24 @@ void DirectGraphicsClass::RendertoBuffer(GLenum PrimitiveType,
 
     // Determine the shader program to use
     switch (use_shader) {
-    case shader_t::TEXTURE:
-        program_next = PROGRAM_TEXTURE;
-        is_texture = true;
-        break;
-    case shader_t::RENDER:
-        program_next = PROGRAM_RENDER;
-        is_texture = true;
-        break;
-    default:
-        program_next = PROGRAM_COLOR;
-        is_texture = false;
+        case shader_t::TEXTURE:
+            program_next = PROGRAM_TEXTURE;
+            is_texture = true;
+            break;
+        case shader_t::RENDER:
+            program_next = PROGRAM_RENDER;
+            is_texture = true;
+            break;
+        default:
+            program_next = PROGRAM_COLOR;
+            is_texture = false;
     }
 
     // Check if the program is already in use
     if (ProgramCurrent != program_next) {
         Shaders[program_next].Use();
-        if (program_next==PROGRAM_RENDER) {
-            glUniform1i(NameTime, 50*SDL_GetTicks()/1000);
+        if (program_next == PROGRAM_RENDER) {
+            glUniform1i(NameTime, 50 * SDL_GetTicks() / 1000);
         }
         ProgramCurrent = program_next;
     }
@@ -610,28 +610,28 @@ void DirectGraphicsClass::RendertoBuffer(GLenum PrimitiveType,
     glEnableClientState(GL_COLOR_ARRAY);
     glColorPointer(4, GL_UNSIGNED_BYTE, STRIDE, reinterpret_cast<uint8_t *>(pVertexStreamZeroData) + CLR_OFFSET);
 #elif defined(USE_GL2) || defined(USE_GL3)
-        // Enable attributes and uniforms for transfer
-        if (is_texture) {
+    // Enable attributes and uniforms for transfer
+    if (is_texture) {
 #if defined(USE_ETC1)
-            if (SupportedETC1) {
-                glUniform1i(Shaders[ProgramCurrent].texUnit0, 0);
-                glUniform1i(Shaders[ProgramCurrent].texUnit1, 1);
-            }
-#endif
-            glEnableVertexAttribArray(Shaders[ProgramCurrent].NameTex);
-            glVertexAttribPointer(Shaders[ProgramCurrent].NameTex, 2, GL_FLOAT, GL_FALSE, STRIDE,
-                                  reinterpret_cast<uint8_t *>(pVertexStreamZeroData) + TEX_OFFSET);
+        if (SupportedETC1) {
+            glUniform1i(Shaders[ProgramCurrent].texUnit0, 0);
+            glUniform1i(Shaders[ProgramCurrent].texUnit1, 1);
         }
+#endif
+        glEnableVertexAttribArray(Shaders[ProgramCurrent].NameTex);
+        glVertexAttribPointer(Shaders[ProgramCurrent].NameTex, 2, GL_FLOAT, GL_FALSE, STRIDE,
+                              reinterpret_cast<uint8_t *>(pVertexStreamZeroData) + TEX_OFFSET);
+    }
 
-        glEnableVertexAttribArray(Shaders[ProgramCurrent].NamePos);
-        glVertexAttribPointer(Shaders[ProgramCurrent].NamePos, 2, GL_FLOAT, GL_FALSE, STRIDE, pVertexStreamZeroData);
+    glEnableVertexAttribArray(Shaders[ProgramCurrent].NamePos);
+    glVertexAttribPointer(Shaders[ProgramCurrent].NamePos, 2, GL_FLOAT, GL_FALSE, STRIDE, pVertexStreamZeroData);
 
-        glEnableVertexAttribArray(Shaders[ProgramCurrent].NameClr);
-        glVertexAttribPointer(Shaders[ProgramCurrent].NameClr, 4, GL_UNSIGNED_BYTE, GL_TRUE, STRIDE,
-                              reinterpret_cast<uint8_t *>(pVertexStreamZeroData) + CLR_OFFSET);
+    glEnableVertexAttribArray(Shaders[ProgramCurrent].NameClr);
+    glVertexAttribPointer(Shaders[ProgramCurrent].NameClr, 4, GL_UNSIGNED_BYTE, GL_TRUE, STRIDE,
+                          reinterpret_cast<uint8_t *>(pVertexStreamZeroData) + CLR_OFFSET);
 
-        glm::mat4x4 matMVP = matProj * g_matModelView;
-        glUniformMatrix4fv(Shaders[ProgramCurrent].NameMvp, 1, GL_FALSE, glm::value_ptr(matMVP));
+    glm::mat4x4 matMVP = matProj * g_matModelView;
+    glUniformMatrix4fv(Shaders[ProgramCurrent].NameMvp, 1, GL_FALSE, glm::value_ptr(matMVP));
 #endif
 
     glDrawArrays(PrimitiveType, 0, PrimitiveCount);
@@ -645,13 +645,13 @@ void DirectGraphicsClass::RendertoBuffer(GLenum PrimitiveType,
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     }
 #elif defined(USE_GL2) || defined(USE_GL3)
-        // Disable attributes and uniforms
-        glDisableVertexAttribArray(Shaders[ProgramCurrent].NamePos);
-        glDisableVertexAttribArray(Shaders[ProgramCurrent].NameClr);
+    // Disable attributes and uniforms
+    glDisableVertexAttribArray(Shaders[ProgramCurrent].NamePos);
+    glDisableVertexAttribArray(Shaders[ProgramCurrent].NameClr);
 
-        if (is_texture) {
-            glDisableVertexAttribArray(Shaders[ProgramCurrent].NameTex);
-        }
+    if (is_texture) {
+        glDisableVertexAttribArray(Shaders[ProgramCurrent].NameTex);
+    }
 #endif
 }
 
@@ -811,10 +811,10 @@ void DirectGraphicsClass::ShowBackBuffer() {
 //      glFlush() instead of SDL_GL_SwapWindow() when vsync is either
 //      disabled or unavailable.
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-        SDL_GL_SwapWindow(Window);
+    SDL_GL_SwapWindow(Window);
 #else  // SDL1.2:
-        glFlush();
-        SDL_GL_SwapBuffers();
+    glFlush();
+    SDL_GL_SwapBuffers();
 #endif
 #endif
 
@@ -1002,24 +1002,24 @@ void DirectGraphicsClass::DrawCircle(uint16_t x, uint16_t y, uint16_t radius) {
 // --------------------------------------------------------------------------------------
 
 #if defined(PLATFORM_SDL) && SDL_VERSION_ATLEAST(2, 0, 0)
-void DirectGraphicsClass::FlipSurface(SDL_Surface* surface) {
+void DirectGraphicsClass::FlipSurface(SDL_Surface *surface) {
     SDL_LockSurface(surface);
-    
-    int pitch = surface->pitch; // row size
-    char* temp = new char[pitch]; // intermediate buffer
-    char* pixels = static_cast<char*>(surface->pixels);
-    
-    for(int i = 0; i < surface->h / 2; ++i) {
+
+    int pitch = surface->pitch;    // row size
+    char *temp = new char[pitch];  // intermediate buffer
+    char *pixels = static_cast<char *>(surface->pixels);
+
+    for (int i = 0; i < surface->h / 2; ++i) {
         // get pointers to the two rows to swap
-        char* row1 = pixels + i * pitch;
-        char* row2 = pixels + (surface->h - i - 1) * pitch;
-        
+        char *row1 = pixels + i * pitch;
+        char *row2 = pixels + (surface->h - i - 1) * pitch;
+
         // swap rows
         memcpy(temp, row1, pitch);
         memcpy(row1, row2, pitch);
         memcpy(row2, temp, pitch);
     }
-    
+
     delete[] temp;
 
     SDL_UnlockSurface(surface);

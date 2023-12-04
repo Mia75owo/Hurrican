@@ -11,12 +11,9 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerMiniDragon::GegnerMiniDragon(int Wert1, int Wert2, bool Light) :
-    Segments(6),
-    ShotDelay(4.0f)
-{
+GegnerMiniDragon::GegnerMiniDragon(int Wert1, int Wert2, bool Light) : Segments(6), ShotDelay(4.0f) {
     Energy = 200;
-    //AnimSpeed = 0.5f;
+    // AnimSpeed = 0.5f;
     ChangeLight = Light;
     Destroyable = false;
     Value1 = Wert1;
@@ -47,7 +44,6 @@ GegnerMiniDragon::GegnerMiniDragon(int Wert1, int Wert2, bool Light) :
 // --------------------------------------------------------------------------------------
 
 void GegnerMiniDragon::DoDraw() {
-
     float muly = (OldY - yPos) / 6.0f;
     float mulx = (OldX - xPos) / 6.0f;
 
@@ -87,7 +83,7 @@ void GegnerMiniDragon::DoDraw() {
     if (Handlung == GEGNER::FALLEN) {
         a = AnimPhase;
         mirrored = xSpeed > 0.0f;
-        BlickRichtung = DirectionEnum::LINKS; // was = 0
+        BlickRichtung = DirectionEnum::LINKS;  // was = 0
     }
 
     if (Segments == 6) {
@@ -205,7 +201,8 @@ void GegnerMiniDragon::DoKI() {
                 SoundManager.PlayWave(100, 128, 11000 + GetRandom(2000), SOUND::FIREBALL);
 
                 WinkelUebergabe = static_cast<float>(90 * Direction::asInt(BlickRichtung));
-                Projectiles.PushProjectile(xPos + static_cast<float>(Direction::asInt(BlickRichtung) * 10), yPos, FIREBALL);
+                Projectiles.PushProjectile(xPos + static_cast<float>(Direction::asInt(BlickRichtung) * 10), yPos,
+                                           FIREBALL);
             }
 
             float xdiv = (pAim->xpos + 30.0f) - (OldX + 30.0f);
@@ -240,7 +237,6 @@ void GegnerMiniDragon::DoKI() {
 
             // Ein Segment explodieren lassen
             if (ShotDelay < 0.0f) {
-
                 float muly = (OldY - yPos) / 6.0f;
                 float mulx = (OldX - xPos) / 6.0f;
 
@@ -249,18 +245,15 @@ void GegnerMiniDragon::DoKI() {
                                             EXPLOSION_MEDIUM2);
 
                 for (int i = 0; i < 3; i++)
-                    PartikelSystem.PushPartikel(xPos + static_cast<float>(6 - Segments) * mulx +
-                                                    static_cast<float>(GetRandom(40)),
-                                                yPos + static_cast<float>(6 - Segments) * muly +
-                                                    static_cast<float>(GetRandom(30)),
-                                                SPIDERSPLITTER);
+                    PartikelSystem.PushPartikel(
+                        xPos + static_cast<float>(6 - Segments) * mulx + static_cast<float>(GetRandom(40)),
+                        yPos + static_cast<float>(6 - Segments) * muly + static_cast<float>(GetRandom(30)),
+                        SPIDERSPLITTER);
 
                 for (int i = 0; i < 10; i++)
-                    PartikelSystem.PushPartikel(xPos + static_cast<float>(6 - Segments) * mulx +
-                                                    static_cast<float>(GetRandom(40)),
-                                                yPos + static_cast<float>(6 - Segments) * muly +
-                                                    static_cast<float>(GetRandom(30)),
-                                                FUNKE);
+                    PartikelSystem.PushPartikel(
+                        xPos + static_cast<float>(6 - Segments) * mulx + static_cast<float>(GetRandom(40)),
+                        yPos + static_cast<float>(6 - Segments) * muly + static_cast<float>(GetRandom(30)), FUNKE);
 
                 ShotDelay = 2.0f;
                 Segments--;

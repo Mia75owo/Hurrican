@@ -30,8 +30,7 @@ GegnerDeckenKrabbe::GegnerDeckenKrabbe(int Wert1, int Wert2, bool Light) {
 void GegnerDeckenKrabbe::DoDraw() {
     bool mirror = (BlickRichtung != DirectionEnum::LINKS);
 
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                  yPos - TileEngine.YOffset, zRot, AnimPhase,
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, zRot, AnimPhase,
                                                   0xFFFFFFFF, mirror);
 
     // Testen, ob der Spieler die Krabbe berührt hat
@@ -84,13 +83,11 @@ void GegnerDeckenKrabbe::DoKI() {
                 //
                 int a = 0;
                 uint32_t b =
-                    TileEngine.TileAt(static_cast<int>(xPos / TILESIZE_X),
-                                      static_cast<int>(yPos / TILESIZE_Y) + a)
+                    TileEngine.TileAt(static_cast<int>(xPos / TILESIZE_X), static_cast<int>(yPos / TILESIZE_Y) + a)
                         .Block;
 
                 while (a < 20 && !(b & BLOCKWERT_WAND)) {
-                    b = TileEngine.TileAt(static_cast<int>(xPos / TILESIZE_X),
-                                          static_cast<int>(yPos / TILESIZE_Y) + a)
+                    b = TileEngine.TileAt(static_cast<int>(xPos / TILESIZE_X), static_cast<int>(yPos / TILESIZE_Y) + a)
                             .Block;
                     a++;
                 }
@@ -105,8 +102,8 @@ void GegnerDeckenKrabbe::DoKI() {
         // Krabbe ist gelandet und dreht sich in Richtung Spieler
         case GEGNER::DREHEN: {
             zRot = 0.0f;
-            AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-            if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+            AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+            if (AnimCount > AnimSpeed)            // Grenze überschritten ?
             {
                 AnimCount = 0.0f;    // Dann wieder auf Null setzen
                 AnimPhase--;         // Und nächste Animationsphase
@@ -123,8 +120,8 @@ void GegnerDeckenKrabbe::DoKI() {
         // Krabbe ist gelandet und dreht sich in Richtung Spieler
         case GEGNER::DREHEN2: {
             zRot = 0.0f;
-            AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-            if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+            AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+            if (AnimCount > AnimSpeed)            // Grenze überschritten ?
             {
                 AnimCount = 0.0f;    // Dann wieder auf Null setzen
                 AnimPhase++;         // Und nächste Animationsphase
@@ -174,8 +171,8 @@ void GegnerDeckenKrabbe::DoKI() {
 
             xPos += Timer.sync(7.0f * static_cast<float>(Direction::asInt(Direction::invert(BlickRichtung))));
 
-            AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-            if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+            AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+            if (AnimCount > AnimSpeed)            // Grenze überschritten ?
             {
                 AnimCount = 0.0f;     // Dann wieder auf Null setzen
                 AnimPhase++;          // Und nächste Animationsphase

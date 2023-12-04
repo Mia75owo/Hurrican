@@ -208,7 +208,6 @@ void IntroClass::DoIntro() {
 
                 int const num_entries = entries.size();
                 for (int t = 0; t <= num_entries; t++) {
-
                     int alpha = 255 - (scale_factor * (EntriesOff - t) * 25);
 
                     D3DCOLOR col = D3DCOLOR_RGBA(0, 255, 0, static_cast<uint8_t>(std::clamp(alpha, 0, 255)));

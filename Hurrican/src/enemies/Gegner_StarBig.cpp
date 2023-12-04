@@ -47,8 +47,8 @@ void GegnerStarBig::DoKI() {
         BlickRichtung = DirectionEnum::LINKS;
 
     // Animieren
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;              // Dann wieder auf Null setzen
         AnimPhase++;                // Und nächste Animationsphase
@@ -103,8 +103,8 @@ void GegnerStarBig::GegnerExplode() {
                                     yPos - 30.0f + static_cast<float>(GetRandom(80)), EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 15; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)),
-                                    yPos + static_cast<float>(GetRandom(80)), LONGFUNKE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(80)), yPos + static_cast<float>(GetRandom(80)),
+                                    LONGFUNKE);
 
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION3);
 

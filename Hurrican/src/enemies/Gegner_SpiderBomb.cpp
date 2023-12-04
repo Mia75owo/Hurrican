@@ -163,12 +163,10 @@ void GegnerSpiderBomb::GegnerExplode() {
         PartikelSystem.PushPartikel(xPos + 60.0f + static_cast<float>(GetRandom(80)),
                                     yPos + 40.0f + static_cast<float>(GetRandom(30)), EXPLOSION_MEDIUM2);
 
-    PartikelSystem.PushPartikel(xPos - 20.0f,
-                                yPos - 40.0f, EXPLOSION_BIG);
+    PartikelSystem.PushPartikel(xPos - 20.0f, yPos - 40.0f, EXPLOSION_BIG);
 
     for (int i = 0; i < 4; i++)
-        PartikelSystem.PushPartikel(xPos + 10.0f,
-                                    yPos + 10.0f, SPLITTER);
+        PartikelSystem.PushPartikel(xPos + 10.0f, yPos + 10.0f, SPLITTER);
 
     SoundManager.PlayWave(100, 128, -GetRandom(2000) + 11025, SOUND::EXPLOSION3);  // Sound ausgeben
 

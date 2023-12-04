@@ -10,12 +10,12 @@ class GegnerRiesenSpinne : public GegnerClass {
     DirectGraphicsSprite Legs[3];  // Grafiken der Beine
     int ShotCount;
     int ShotMode;
-    float LegsAnim[8];             // Animationsphasen der 8 Beine
-    float HeadWinkel;              // Winkel des Kopfes
-    float HeadXOffset;             // X-Offset des Kopfse
-    float WalkDir;                 // Laufrichtung
-    float WalkCount;               // Zähler fürs Laufen
-    float DamageWackel;            // Spinne wurde verletzt
+    float LegsAnim[8];   // Animationsphasen der 8 Beine
+    float HeadWinkel;    // Winkel des Kopfes
+    float HeadXOffset;   // X-Offset des Kopfse
+    float WalkDir;       // Laufrichtung
+    float WalkCount;     // Zähler fürs Laufen
+    float DamageWackel;  // Spinne wurde verletzt
     float LastEnergy;
     float ShotDelay;
     float yBody;

@@ -10,16 +10,15 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerRiesenSpinne::GegnerRiesenSpinne(int Wert1, int Wert2, bool Light) :
-    ShotCount(0),
-    ShotMode(0),
-    HeadWinkel(0.0f),
-    HeadXOffset(0.0f),
-    WalkDir(-5.0f),
-    WalkCount(0.0f),
-    DamageWackel(0.0f),
-    yBody(0.0f)
-{
+GegnerRiesenSpinne::GegnerRiesenSpinne(int Wert1, int Wert2, bool Light)
+    : ShotCount(0),
+      ShotMode(0),
+      HeadWinkel(0.0f),
+      HeadXOffset(0.0f),
+      WalkDir(-5.0f),
+      WalkCount(0.0f),
+      DamageWackel(0.0f),
+      yBody(0.0f) {
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::LINKS;
 
@@ -53,7 +52,6 @@ void GegnerRiesenSpinne::StopCurrentAction() {}
 // --------------------------------------------------------------------------------------
 
 void GegnerRiesenSpinne::DrawLeg(float x, float y, float winkel, int anim, int off, D3DCOLOR col) {
-
     x += 120;
 
     float xp, yp;
@@ -63,7 +61,8 @@ void GegnerRiesenSpinne::DrawLeg(float x, float y, float winkel, int anim, int o
         xp = x + (static_cast<float>(sin(winkel + HALF_PI) * 18.0f));
         yp = y + (static_cast<float>(cos(winkel + HALF_PI) * 30.0f));
     } else {
-        //		xp = x + (static_cast<float>(sin(winkel + PI / 2.0f) * 20.0f));  //DKS - Was already commented out in original source
+        //		xp = x + (static_cast<float>(sin(winkel + PI / 2.0f) * 20.0f));  //DKS - Was already commented out in
+        //original source
         xp = x + (winkel - PI) * 10.0f - 16;
         yp = y;
     }
@@ -247,8 +246,8 @@ void GegnerRiesenSpinne::DoDraw() {
         if (w > TWO_PI)
             w -= TWO_PI;
 
-        DrawLeg(xPos - TileEngine.XOffset - 70.0f + static_cast<float>(a * 110),
-                yPos - TileEngine.YOffset + 130.0f, w, a, 10, 0xFF888888);
+        DrawLeg(xPos - TileEngine.XOffset - 70.0f + static_cast<float>(a * 110), yPos - TileEngine.YOffset + 130.0f, w,
+                a, 10, 0xFF888888);
     }
 
     float tempdamage = sin(DamageWackel * TWO_PI) * 10.0f;
@@ -259,15 +258,13 @@ void GegnerRiesenSpinne::DoDraw() {
     // Rumpf
     pGegnerGrafix[GegnerArt]->RenderSprite(
         xPos - TileEngine.XOffset,
-        yPos - TileEngine.YOffset + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody,
-        0, Color);
+        yPos - TileEngine.YOffset + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody, 0, Color);
 
     // Kopf
     Head.RenderSpriteRotatedOffset(
         xPos - TileEngine.XOffset - 90.0f + 120.0f + static_cast<float>(sin(HeadXOffset) * 10.0f),
-        yPos - TileEngine.YOffset + 60.0f + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage +
-            yBody,
-        tempwinkel, 127, 0, Color);
+        yPos - TileEngine.YOffset + 60.0f + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody, tempwinkel,
+        127, 0, Color);
 
     // Beine vor dem Körper
     for (int i = 0; i < 4; i++) {
@@ -282,8 +279,8 @@ void GegnerRiesenSpinne::DoDraw() {
         if (i == 3)
             a = 2;
 
-        DrawLeg(xPos - TileEngine.XOffset - 70.0f + static_cast<float>(a * 110),
-                yPos - TileEngine.YOffset + 130.0f, LegsAnim[a], a, 0, 0xFFFFFFFF);
+        DrawLeg(xPos - TileEngine.XOffset - 70.0f + static_cast<float>(a * 110), yPos - TileEngine.YOffset + 130.0f,
+                LegsAnim[a], a, 0, 0xFFFFFFFF);
     }
 
     // Evtl. Lila Leuchten vor kopf
@@ -294,15 +291,13 @@ void GegnerRiesenSpinne::DoDraw() {
 
         Projectiles.LavaFlare.RenderSprite(
             xPos - TileEngine.XOffset - 10.0f + static_cast<float>(sin(HeadXOffset) * 10.0f),
-            yPos - TileEngine.YOffset + 50.0f + static_cast<float>(sin(WalkCount) * 2.0f) +
-                tempdamage + yBody,
+            yPos - TileEngine.YOffset + 50.0f + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody,
             D3DCOLOR_RGBA(255, 0, 255, a));
 
         Projectiles.LavaFlare.RenderSpriteScaled(
             xPos - TileEngine.XOffset + 30.0f + static_cast<float>(sin(HeadXOffset) * 10.0f),
-            yPos - TileEngine.YOffset + 90.0f + static_cast<float>(sin(WalkCount) * 2.0f) +
-                tempdamage + yBody,
-            40, 40, D3DCOLOR_RGBA(255, 255, 255, a));
+            yPos - TileEngine.YOffset + 90.0f + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody, 40, 40,
+            D3DCOLOR_RGBA(255, 255, 255, a));
     }
 
     // Evtl. Lila Leuchten vor kopf
@@ -313,15 +308,13 @@ void GegnerRiesenSpinne::DoDraw() {
 
         Projectiles.LavaFlare.RenderSpriteScaled(
             xPos - TileEngine.XOffset - 20.0f + static_cast<float>(sin(HeadXOffset) * 10.0f),
-            yPos - TileEngine.YOffset + 60.0f + static_cast<float>(sin(WalkCount) * 2.0f) +
-                tempdamage + yBody,
-            100, 100, D3DCOLOR_RGBA(255, 255, 255, a));
+            yPos - TileEngine.YOffset + 60.0f + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody, 100,
+            100, D3DCOLOR_RGBA(255, 255, 255, a));
 
         Projectiles.LavaFlare.RenderSpriteScaled(
             xPos - TileEngine.XOffset - 90.0f + static_cast<float>(sin(HeadXOffset) * 10.0f),
-            yPos - TileEngine.YOffset - 10.0f + static_cast<float>(sin(WalkCount) * 2.0f) +
-                tempdamage + yBody,
-            240, 240, D3DCOLOR_RGBA(255, 255, 255, a));
+            yPos - TileEngine.YOffset - 10.0f + static_cast<float>(sin(WalkCount) * 2.0f) + tempdamage + yBody, 240,
+            240, D3DCOLOR_RGBA(255, 255, 255, a));
     }
 
     DirectGraphics.SetFilterMode(false);

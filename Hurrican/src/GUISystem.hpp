@@ -14,10 +14,10 @@ constexpr int TILESIZE = 20;
 constexpr int BOXTEXTLENGTH = 2000;
 
 enum class FadeMode {
-  INVISIBLE,
-  VISIBLE,
-  FADEIN,
-  FADEOUT,
+    INVISIBLE,
+    VISIBLE,
+    FADEIN,
+    FADEOUT,
 };
 
 // --------------------------------------------------------------------------------------

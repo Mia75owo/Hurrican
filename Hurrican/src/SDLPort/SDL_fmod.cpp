@@ -26,7 +26,7 @@
 #include <cstring>
 #include <iostream>
 #if defined(USE_OPENMPT)
-#  include <cmath>
+#include <cmath>
 #endif
 
 static int g_allocated = 0;
@@ -38,13 +38,15 @@ static int g_mixrate = 0;
 static MUSIC_MODULE *g_music_current = nullptr;
 
 #if defined(USE_OPENMPT)
-    static void log_func( const char * message, void * userdata ) {}
-    static int error_func( int error, void * userdata ) {
-          (void)userdata;
-          (void)error;
-          return OPENMPT_ERROR_FUNC_RESULT_DEFAULT & ~OPENMPT_ERROR_FUNC_RESULT_LOG;
-        }
-    double getDeciBel(int volume) { return 20*log10(volume/100.); }
+static void log_func(const char *message, void *userdata) {}
+static int error_func(int error, void *userdata) {
+    (void)userdata;
+    (void)error;
+    return OPENMPT_ERROR_FUNC_RESULT_DEFAULT & ~OPENMPT_ERROR_FUNC_RESULT_LOG;
+}
+double getDeciBel(int volume) {
+    return 20 * log10(volume / 100.);
+}
 #endif
 
 signed char SOUND_Init(int mixrate, int maxsoftwarechannels, unsigned int flags) {
@@ -129,7 +131,8 @@ MUSIC_MODULE *MUSIC_LoadSong(const char *filename) {
         return nullptr;
     }
 
-    music = openmpt_module_create_from_memory2(buffer.data(), size_t(buffer.size() - 1), &log_func, NULL, &error_func, NULL, NULL, NULL, NULL);
+    music = openmpt_module_create_from_memory2(buffer.data(), size_t(buffer.size() - 1), &log_func, NULL, &error_func,
+                                               NULL, NULL, NULL, NULL);
 #else
     music = Mix_LoadMUS(filename);
 #endif
@@ -151,7 +154,8 @@ MUSIC_MODULE *MUSIC_LoadSongEx(const char *filename,
 signed char MUSIC_PlaySong(MUSIC_MODULE *music, bool loop /*=true*/) {
 // printf( "%8X MUSIC_PlaySong\n", music );
 #if defined(USE_OPENMPT)
-    openmpt_module_set_render_param(music, OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL, getDeciBel(DEFAULT_VOLUME)/100.);
+    openmpt_module_set_render_param(music, OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL,
+                                    getDeciBel(DEFAULT_VOLUME) / 100.);
     openmpt_module_set_position_seconds(music, 0.);
     Mix_HookMusic(&hookmusic, music);
 #else
@@ -229,7 +233,7 @@ signed char MUSIC_SetMasterVolume(MUSIC_MODULE *music, int volume) {
 #if defined(USE_OPENMPT)
     // DKS - Modplug supports setting volume for individual tracks
     if (music) {
-        openmpt_module_set_render_param(music, OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL, getDeciBel(volume)/100.);
+        openmpt_module_set_render_param(music, OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL, getDeciBel(volume) / 100.);
         // DKS - no need for this:
         // g_volume = volume;
     }
@@ -260,7 +264,8 @@ void hookmusic(void *ptr, uint8_t *buffer, int size) {
     int rsize;
     MUSIC_MODULE *music = reinterpret_cast<MUSIC_MODULE *>(ptr);
 
-    rsize = static_cast<int>(openmpt_module_read_interleaved_stereo(music, g_mixrate, frames, reinterpret_cast<int16_t *>(buffer)));
+    rsize = static_cast<int>(
+        openmpt_module_read_interleaved_stereo(music, g_mixrate, frames, reinterpret_cast<int16_t *>(buffer)));
 
     // DKS - Added support for non-looped music files (i.e. gameover.it shouldn't loop)
     //      NOTE: I don't see the reason for the volume check, setting the volume to 0
@@ -276,18 +281,18 @@ void hookmusic(void *ptr, uint8_t *buffer, int size) {
         if (g_music_loops) {
             // The song is over and it loops, so re-seek to beginning and fill rest of buffer
             openmpt_module_set_position_seconds(music, 0.);
-            openmpt_module_read_interleaved_stereo(music, g_mixrate, frames - rsize, reinterpret_cast<int16_t *>(buffer + rsize*4));
+            openmpt_module_read_interleaved_stereo(music, g_mixrate, frames - rsize,
+                                                   reinterpret_cast<int16_t *>(buffer + rsize * 4));
 
         } else {
             // The song is over and doesn't loop, so fill remaining part of the buffer with zeroes and stop it
-            std::memset(buffer + rsize*4, 0, size - rsize*4);
+            std::memset(buffer + rsize * 4, 0, size - rsize * 4);
             MUSIC_StopSong(music);
         }
     }
 }
 #else
 void hookmusicFinished() {
-
     if (g_music_loops) {
         // The song is over and it loops, so re-seek to beginning
         Mix_RewindMusic();

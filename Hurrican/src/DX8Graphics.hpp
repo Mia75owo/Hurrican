@@ -18,29 +18,25 @@
 // --------------------------------------------------------------------------------------
 
 #if defined(PLATFORM_SDL)
-#  include "SDL_port.hpp"
-#  if defined(USE_GL2) || defined(USE_GL3)
-#    include "cshader.hpp"
-#    if defined(USE_FBO)
-#      include "cfbo.hpp"
-#    endif /* USE_FBO */
-#  endif /* USE_GL2 || USE_GL3 */
+#include "SDL_port.hpp"
+#if defined(USE_GL2) || defined(USE_GL3)
+#include "cshader.hpp"
+#if defined(USE_FBO)
+#include "cfbo.hpp"
+#endif /* USE_FBO */
+#endif /* USE_GL2 || USE_GL3 */
 #else
-#  include <D3dx8math.h>
-#  include <d3d8.h>
-#  include <d3dx8.h>
-#  include <d3dx8tex.h>
+#include <D3dx8math.h>
+#include <d3d8.h>
+#include <d3dx8.h>
+#include <d3dx8tex.h>
 #endif
 
 // --------------------------------------------------------------------------------------
 // Defines
 // --------------------------------------------------------------------------------------
 
-enum class BlendModeEnum {
-  ADDITIV,
-  COLORKEY,
-  WHITE
-};
+enum class BlendModeEnum { ADDITIV, COLORKEY, WHITE };
 
 #if defined(USE_GL2) || defined(USE_GL3)
 enum { PROGRAM_COLOR = 0, PROGRAM_TEXTURE, PROGRAM_RENDER, PROGRAM_TOTAL, PROGRAM_NONE };
@@ -76,7 +72,7 @@ struct QUAD2D {
 
 class DirectGraphicsClass {
   private:
-    enum class shader_t {COLOR, TEXTURE, RENDER};
+    enum class shader_t { COLOR, TEXTURE, RENDER };
 
   private:
     bool VSyncEnabled;  // VSync ein/aus ?
@@ -121,9 +117,9 @@ class DirectGraphicsClass {
 
     bool TakeScreenshot(const char Filename[100], int screenx,
                         int screeny);   // Screenshot machen
-    void SetColorKeyMode();         // Alpha für Colorkey oder
-    void SetAdditiveMode();         // Additive-Blending nutzen
-    void SetWhiteMode();            // Komplett weiss rendern
+    void SetColorKeyMode();             // Alpha für Colorkey oder
+    void SetAdditiveMode();             // Additive-Blending nutzen
+    void SetWhiteMode();                // Komplett weiss rendern
     void SetFilterMode(bool filteron);  // Linearer Textur Filter ein/aus
 
     void RendertoBuffer(GLenum PrimitiveType,          // Rendert in den Buffer, der am Ende
@@ -151,23 +147,22 @@ class DirectGraphicsClass {
     inline bool IsPVRTCSupported() const { return SupportedPVRTC; }
 
 #if defined(ANDROID)
-    inline SDL_Rect GetWindowView() const {return WindowView); }
+    inline SDL_Rect GetWindowView() const {return WindowView);
+    }
 #endif
 
 #if defined(PLATFORM_SDL) && SDL_VERSION_ATLEAST(2, 0, 0)
-    void FlipSurface(SDL_Surface* surface);
+    void FlipSurface(SDL_Surface *surface);
 #endif
 };
-
-
 
 // --------------------------------------------------------------------------------------
 // Externals
 // --------------------------------------------------------------------------------------
 
 extern DirectGraphicsClass DirectGraphics;  // DirectGraphics Klasse
-extern glm::mat4x4 matProj;                  // Projektionsmatrix
-extern glm::mat4x4 matWorld;                 // Weltmatrix
+extern glm::mat4x4 matProj;                 // Projektionsmatrix
+extern glm::mat4x4 matWorld;                // Weltmatrix
 extern float DegreetoRad[360];              // Tabelle mit Rotationswerten
 
 #endif

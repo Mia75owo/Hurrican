@@ -39,8 +39,7 @@ void GegnerEiszapfen::DoKI() {
 
     switch (Handlung) {
         case GEGNER::STEHEN: {
-            if (pAim->ypos > yPos &&
-                pAim->xpos + 35.0f > xPos + 10.0f - 60.0f &&
+            if (pAim->ypos > yPos && pAim->xpos + 35.0f > xPos + 10.0f - 60.0f &&
                 pAim->xpos + 35.0f < xPos + 10.0f + 60.0f) {
                 Handlung = GEGNER::FALLEN;
                 ySpeed = 30.0f;

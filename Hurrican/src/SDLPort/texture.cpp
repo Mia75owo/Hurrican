@@ -38,10 +38,10 @@ constexpr int ETC1_HEADER_SIZE = 16;
 #endif
 
 #if defined(USE_PVRTC)
-#  define GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG 0x8C00
-#  define GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG 0x8C01
-#  define GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG 0x8C02
-#  define GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG 0x8C03
+#define GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG 0x8C00
+#define GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG 0x8C01
+#define GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG 0x8C02
+#define GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG 0x8C03
 
 constexpr int PVRTC_HEADER_SIZE = 52;
 
@@ -191,8 +191,9 @@ bool load_texture(image_t &image, GLuint &new_texture) {
         if (error != 0) {
             Protokoll << "GL load_texture Error " << error << std::endl;
             Protokoll << "Format " << std::hex << image.format << std::dec << " W " << image.w << " H " << image.h
-                      << " S " << image.data.size() << " Data " << std::hex << reinterpret_cast<std::uintptr_t>(image.data.data())
-                      << std::dec << " + " << image.offset << std::endl;
+                      << " S " << image.data.size() << " Data " << std::hex
+                      << reinterpret_cast<std::uintptr_t>(image.data.data()) << std::dec << " + " << image.offset
+                      << std::endl;
             return false;
         }
 #endif
@@ -410,7 +411,7 @@ bool loadImageSDL(image_t &image, const std::string &fullpath, void *buf, unsign
         // resulting graphics glitches
         if (fullpath.find("font") != std::string::npos
             //|| fullpath.find("lightmap")     != std::string::npos           // Lightmaps were never actually used in
-            //the game
+            // the game
             || fullpath.find("hurrican_rund") != std::string::npos  // Menu star/nebula background (ugly)
             || fullpath.find("roboraupe") != std::string::npos      // Flat spiky enemy worm-like thing (glitches)
             || fullpath.find("enemy-walker") != std::string::npos   // Frog-like robotic walker (glitches)
@@ -426,9 +427,7 @@ bool loadImageSDL(image_t &image, const std::string &fullpath, void *buf, unsign
         image.h = finSurf->h / factor;
 
         if (image.data.empty()) {
-            image.data.resize(
-                static_cast<size_t>(finSurf->w) * static_cast<size_t>(finSurf->h) * sizeof(uint32_t)
-            );
+            image.data.resize(static_cast<size_t>(finSurf->w) * static_cast<size_t>(finSurf->h) * sizeof(uint32_t));
             std::memcpy(image.data.data(), finSurf->pixels, image.data.size());
             image.type = GL_UNSIGNED_BYTE;
         }
@@ -456,9 +455,8 @@ std::vector<char> LowerResolution(SDL_Surface *surface, int factor) {
     }
 
     std::vector<char> dataout;
-    dataout.reserve(
-        static_cast<size_t>(surface->h / factor) * static_cast<size_t>(surface->w / factor) * sizeof(uint32_t)
-    );
+    dataout.reserve(static_cast<size_t>(surface->h / factor) * static_cast<size_t>(surface->w / factor) *
+                    sizeof(uint32_t));
 
     uint32_t *dataout32 = reinterpret_cast<uint32_t *>(dataout.data());
 

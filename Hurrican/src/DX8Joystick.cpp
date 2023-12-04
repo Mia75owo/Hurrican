@@ -14,20 +14,17 @@
 #include "Gameplay.hpp"
 #include "Logdatei.hpp"
 
-#if SDL_VERSION_ATLEAST(2,0,0)
-#  include <SDL_gamecontroller.h>
+#if SDL_VERSION_ATLEAST(2, 0, 0)
+#include <SDL_gamecontroller.h>
 #endif
 
-constexpr Uint16 rumble[4] = { 20000, 40000, 60000, 30000 };
+constexpr Uint16 rumble[4] = {20000, 40000, 60000, 30000};
 
 // --------------------------------------------------------------------------------------
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-DirectJoystickClass::DirectJoystickClass() :
-    lpDIJoystick(nullptr),
-    CanForceFeedback(false) {
-
+DirectJoystickClass::DirectJoystickClass() : lpDIJoystick(nullptr), CanForceFeedback(false) {
     Active = false;
     JoystickX = 0;
     JoystickY = 0;
@@ -61,7 +58,7 @@ DirectJoystickClass::~DirectJoystickClass() {}
 void DirectJoystickClass::ForceFeedbackEffect(int nr) {
     if (UseForceFeedback == false || CanForceFeedback == false)
         return;
-#if SDL_VERSION_ATLEAST(2,0,9)
+#if SDL_VERSION_ATLEAST(2, 0, 9)
     SDL_JoystickRumble(lpDIJoystick, rumble[nr], rumble[nr], 100 * nr);
 #endif
 }
@@ -73,20 +70,20 @@ void DirectJoystickClass::ForceFeedbackEffect(int nr) {
 void DirectJoystickClass::StopForceFeedbackEffect(int nr) {
     if (UseForceFeedback == false || CanForceFeedback == false)
         return;
-#if SDL_VERSION_ATLEAST(2,0,9)
+#if SDL_VERSION_ATLEAST(2, 0, 9)
     SDL_JoystickRumble(lpDIJoystick, 0, 0, 0);
 #endif
 }
 
-#if SDL_VERSION_ATLEAST(2,0,0)
-#  define SDLJOYINDEX lpDIJoystick
+#if SDL_VERSION_ATLEAST(2, 0, 0)
+#define SDLJOYINDEX lpDIJoystick
 #else
-#  define SDLJOYINDEX joy
+#define SDLJOYINDEX joy
 #endif
 
-    // --------------------------------------------------------------------------------------
-    // Joystick initialisieren
-    // --------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+// Joystick initialisieren
+// --------------------------------------------------------------------------------------
 
 bool DirectJoystickClass::Init(int joy) {
     lpDIJoystick = SDL_JoystickOpen(joy);
@@ -107,15 +104,12 @@ bool DirectJoystickClass::Init(int joy) {
     JoystickName = SDL_JoystickName(SDLJOYINDEX);
 
     Protokoll << "Joystick " << joy << ": Acquire successful!"
-        << " \nName: " << JoystickName
-        << " \nAxis: " << NumAxis
-        << " \nHats: " << NumHats
-        << " \nButtons: " << NumButtons
-        << std::endl;
+              << " \nName: " << JoystickName << " \nAxis: " << NumAxis << " \nHats: " << NumHats
+              << " \nButtons: " << NumButtons << std::endl;
 
-#if SDL_VERSION_ATLEAST(2,0,18)
+#if SDL_VERSION_ATLEAST(2, 0, 18)
     CanForceFeedback = (SDL_JoystickHasRumble(lpDIJoystick) == SDL_TRUE);
-#elif SDL_VERSION_ATLEAST(2,0,9)
+#elif SDL_VERSION_ATLEAST(2, 0, 9)
     CanForceFeedback = (SDL_JoystickRumble(lpDIJoystick, 32768, 32768, 100) == 0);
     if (CanForceFeedback)
         SDL_JoystickRumble(lpDIJoystick, 0, 0, 0);
@@ -124,11 +118,11 @@ bool DirectJoystickClass::Init(int joy) {
 
     TotalButtons = NumButtons;
 
-#if SDL_VERSION_ATLEAST(2,0,0)
+#if SDL_VERSION_ATLEAST(2, 0, 0)
     if (SDL_IsGameController(joy)) {
         Protokoll << "It's a Game Controller, mapping standard buttons..." << std::endl;
 
-        SDL_GameController* controller = SDL_GameControllerOpen(joy);
+        SDL_GameController *controller = SDL_GameControllerOpen(joy);
         SDL_GameControllerButtonBind bind;
 
         // try mapping START button
@@ -200,19 +194,19 @@ bool DirectJoystickClass::Init(int joy) {
 
 void DirectJoystickClass::Exit(int joy) {
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-        if (lpDIJoystick != nullptr)
+    if (lpDIJoystick != nullptr)
 #else
-        if (SDL_JoystickOpened(joy))
+    if (SDL_JoystickOpened(joy))
 #endif
-        {
-            SDL_JoystickClose(lpDIJoystick);
-            lpDIJoystick = nullptr;
-        }
+    {
+        SDL_JoystickClose(lpDIJoystick);
+        lpDIJoystick = nullptr;
+    }
 }
 
-    // --------------------------------------------------------------------------------------
-    // Joystick updaten
-    // --------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+// Joystick updaten
+// --------------------------------------------------------------------------------------
 bool DirectJoystickClass::Update() {
     if (lpDIJoystick != nullptr) {
         SDL_JoystickUpdate();

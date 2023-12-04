@@ -123,10 +123,18 @@ void GegnerDrone::DoKI() {
                 Handlung = GEGNER::SCHIESSEN;
 
                 switch (Skill) {
-                    case SKILL_EASY:     ShotCount =  4; break;
-                    case SKILL_MEDIUM:   ShotCount =  6; break;
-                    case SKILL_HARD:     ShotCount =  8; break;
-                    case SKILL_HURRICAN: ShotCount = 10; break;
+                    case SKILL_EASY:
+                        ShotCount = 4;
+                        break;
+                    case SKILL_MEDIUM:
+                        ShotCount = 6;
+                        break;
+                    case SKILL_HARD:
+                        ShotCount = 8;
+                        break;
+                    case SKILL_HURRICAN:
+                        ShotCount = 10;
+                        break;
                 }
 
                 ShotDelay = 20.0f;
@@ -188,9 +196,9 @@ void GegnerDrone::DoKI() {
                 else
                     anim = 1;
 
-                Gegner.DroneFlame.RenderSprite(xPos - TileEngine.XOffset - 5.0f +
-                                                   static_cast<float>(Direction::asInt(BlickRichtung) * 56),
-                                               yPos - TileEngine.YOffset + 60.0f, anim, 0xFFFFFFFF);
+                Gegner.DroneFlame.RenderSprite(
+                    xPos - TileEngine.XOffset - 5.0f + static_cast<float>(Direction::asInt(BlickRichtung) * 56),
+                    yPos - TileEngine.YOffset + 60.0f, anim, 0xFFFFFFFF);
                 DirectGraphics.SetColorKeyMode();
             }
             break;

@@ -30,8 +30,8 @@ GegnerPflanze::GegnerPflanze(int Wert1, int Wert2, bool Light) {
 void GegnerPflanze::DoKI() {
     // Animieren
     //
-    AnimCount += Timer.getSpeedFactor();   // Animationscounter weiterzählen
-    if (AnimCount > AnimSpeed)  // Grenze überschritten ?
+    AnimCount += Timer.getSpeedFactor();  // Animationscounter weiterzählen
+    if (AnimCount > AnimSpeed)            // Grenze überschritten ?
     {
         AnimCount = 0;  // Dann wieder auf Null setzen
         AnimPhase++;    // Und nächste Animationsphase
@@ -93,8 +93,8 @@ void GegnerPflanze::GegnerExplode() {
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION1);
 
     for (int i = 0; i < 5; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(50)),
-                                    yPos + static_cast<float>(GetRandom(40)), EXPLOSION_GREEN);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(50)), yPos + static_cast<float>(GetRandom(40)),
+                                    EXPLOSION_GREEN);
 
     for (int i = 0; i < 30; i++)
         // Blätter erzeugen

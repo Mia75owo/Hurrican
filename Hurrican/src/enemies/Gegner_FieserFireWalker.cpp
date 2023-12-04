@@ -34,8 +34,8 @@ void GegnerFieserFireWalker::DoDraw() {
     bool mirror = (BlickRichtung != DirectionEnum::LINKS);
 
     D3DCOLOR Color = D3DCOLOR_RGBA(255, Wert, Wert, 255);
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, Color, mirror);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, Color,
+                                           mirror);
 
     if (AlreadyDrawn)
         return;
@@ -44,9 +44,9 @@ void GegnerFieserFireWalker::DoDraw() {
         // Leuchten beim Schiessen rendern
         //
         DirectGraphics.SetAdditiveMode();
-        Projectiles.LavaFlare.RenderSprite(xPos - TileEngine.XOffset - 30.0f +
-                                               static_cast<float>(6 + Direction::asInt(BlickRichtung) * 36),
-                                           yPos - TileEngine.YOffset - 30.0f, 0, 0xFFFF8822);
+        Projectiles.LavaFlare.RenderSprite(
+            xPos - TileEngine.XOffset - 30.0f + static_cast<float>(6 + Direction::asInt(BlickRichtung) * 36),
+            yPos - TileEngine.YOffset - 30.0f, 0, 0xFFFF8822);
         DirectGraphics.SetColorKeyMode();
     }
 
@@ -157,8 +157,8 @@ void GegnerFieserFireWalker::GegnerExplode() {
         PartikelSystem.PushPartikel(xPos - 30.0f + static_cast<float>(GetRandom(60)),
                                     yPos - 30.0f + static_cast<float>(GetRandom(60)), EXPLOSION_MEDIUM2);
     for (int i = 0; i < 12; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(50)),
-                                    yPos + static_cast<float>(GetRandom(50)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(50)), yPos + static_cast<float>(GetRandom(50)),
+                                    SPIDERSPLITTER);
 
     SoundManager.PlayWave(100, 128, 8000 + GetRandom(4000), SOUND::EXPLOSION4);  // Sound ausgeben
 

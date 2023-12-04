@@ -78,8 +78,8 @@ void CDragonHack::Run() {
         case DragonState::FLY: {
             bool mirrored = m_xSpeed > 0.0f;
 
-            m_GFX.RenderSprite(m_xPos - TileEngine.XOffset,
-                               m_yPos - TileEngine.YOffset, m_AnimCount, 0xDDFFFFFF, mirrored);
+            m_GFX.RenderSprite(m_xPos - TileEngine.XOffset, m_yPos - TileEngine.YOffset, m_AnimCount, 0xDDFFFFFF,
+                               mirrored);
 
             m_xPos += Timer.sync(m_xSpeed);
             m_yPos += Timer.sync(m_ySpeed);

@@ -30,7 +30,6 @@ GegnerColumn2::GegnerColumn2(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerColumn2::DoDraw() {
-
     // Rotationswinkel
     int Winkel = static_cast<int>(AnimCount);
 
@@ -42,12 +41,9 @@ void GegnerColumn2::DoDraw() {
 
     glm::mat4x4 matTrans, matTrans2;  // Rotations und Translations Matrizen
 
-    D3DXMatrixTranslation(&matTrans,
-                          -(xPos - TileEngine.XOffset + 40.0f),
-                          -(yPos - TileEngine.YOffset + 100.0f), 0.0f);  // Transformation zum Ursprung
-    D3DXMatrixTranslation(&matTrans2,
-                          xPos - TileEngine.XOffset + 40.0f,
-                          yPos - TileEngine.YOffset + 100.0f,
+    D3DXMatrixTranslation(&matTrans, -(xPos - TileEngine.XOffset + 40.0f), -(yPos - TileEngine.YOffset + 100.0f),
+                          0.0f);  // Transformation zum Ursprung
+    D3DXMatrixTranslation(&matTrans2, xPos - TileEngine.XOffset + 40.0f, yPos - TileEngine.YOffset + 100.0f,
                           0.0f);  // Transformation wieder zurück
 
     glm::mat4x4 matWorldLocal = glm::mat4x4(1.0f);
@@ -61,8 +57,7 @@ void GegnerColumn2::DoDraw() {
     load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
 #endif
 
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, 0, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0, 0xFFFFFFFF);
 
     // Normale Projektions-Matrix wieder herstellen
     matWorldLocal = glm::mat4x4(1.0f);

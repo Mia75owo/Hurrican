@@ -27,12 +27,10 @@ GegnerBrockelRock::GegnerBrockelRock(int Wert1, int Wert2, bool Light) {
 // --------------------------------------------------------------------------------------
 
 void GegnerBrockelRock::DoDraw() {
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, 0,
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0,
                                            D3DCOLOR_RGBA(255, 255, 255, static_cast<int>(AnimCount)));
 
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, 1,
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 1,
                                            D3DCOLOR_RGBA(255, 255, 255, 255 - static_cast<int>(AnimCount)));
 }
 
@@ -65,10 +63,9 @@ void GegnerBrockelRock::DoKI() {
                 // Partikel erzeugen
                 //
                 for (int i = 0; i < 5; i++) {
-                    PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(60)),
-                                                yPos + 20.0f, ROCKSPLITTERSMALL);
-                    PartikelSystem.PushPartikel(xPos - 10.0f + static_cast<float>(i * 10),
-                                                yPos, SMOKEBIG);
+                    PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(60)), yPos + 20.0f,
+                                                ROCKSPLITTERSMALL);
+                    PartikelSystem.PushPartikel(xPos - 10.0f + static_cast<float>(i * 10), yPos, SMOKEBIG);
                 }
 
                 // Sound ausgeben

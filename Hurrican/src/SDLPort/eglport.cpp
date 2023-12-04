@@ -68,10 +68,10 @@ enum EGL_SETTINGS_T {
 NativeDisplayType nativeDisplay = 0; /** Reference to the systems native display */
 NativeWindowType nativeWindow = 0;   /** Reference to the systems native window */
 EGLint eglSettings[CFG_TOTAL];       /** Stores setting values. */
-EGLDisplay eglDisplay = nullptr;        /** Reference to the EGL display */
-EGLConfig eglConfig = nullptr;          /** Reference to the EGL config */
-EGLContext eglContext = nullptr;        /** Reference to the EGL context */
-EGLSurface eglSurface = nullptr;        /** Reference to the EGL surface */
+EGLDisplay eglDisplay = nullptr;     /** Reference to the EGL display */
+EGLConfig eglConfig = nullptr;       /** Reference to the EGL config */
+EGLContext eglContext = nullptr;     /** Reference to the EGL context */
+EGLSurface eglSurface = nullptr;     /** Reference to the EGL surface */
 
 #define totalConfigsIn 5              /** Total number of configurations to request */
 EGLint totalConfigsFound = 0;         /** Total number of configurations matching attributes */
@@ -306,11 +306,9 @@ void OpenCfg(const char *file, uint16_t depth, bool vsync) {
     strncpy(eglStrings[CFG_STENCIL_SIZE], "size_stencil=", MAX_STRING);
 
     /* Write in a default name for unused configs */
-    for (i=0; i<CFG_TOTAL; i++)
-    {
-	if ( strlen(eglStrings[i]) <= 0)
-        {
-    	    strncpy( eglStrings[i], "default", MAX_STRING );
+    for (i = 0; i < CFG_TOTAL; i++) {
+        if (strlen(eglStrings[i]) <= 0) {
+            strncpy(eglStrings[i], "default", MAX_STRING);
         }
     }
 
@@ -354,7 +352,7 @@ void OpenCfg(const char *file, uint16_t depth, bool vsync) {
             for (i = 0; i < CFG_TOTAL; i++) {
                 location = strstr(buffer, eglStrings[i]);
                 if (location != nullptr) {
-                    eglSettings[i] = atol( location+strlen(eglStrings[i]) );
+                    eglSettings[i] = atol(location + strlen(eglStrings[i]));
                     printf("EGLport: %s set to %d.\n", eglStrings[i], eglSettings[i]);
                     break;
                 }
@@ -394,7 +392,7 @@ int8_t FindEGLConfigs() {
 #if defined(EGL_VERSION_1_2)
     ConfigAttribs[attrib++] = EGL_RENDERABLE_TYPE; /* 17 */
 #if defined(USE_GLES1)
-    ConfigAttribs[attrib++] = EGL_OPENGL_ES_BIT;  /* 18 */
+    ConfigAttribs[attrib++] = EGL_OPENGL_ES_BIT; /* 18 */
 #elif defined(USE_GLES2)
     ConfigAttribs[attrib++] = EGL_OPENGL_ES2_BIT; /* 18 */
 #elif defined(USE_GLES3)

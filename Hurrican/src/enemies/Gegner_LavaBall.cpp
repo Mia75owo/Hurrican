@@ -36,8 +36,7 @@ GegnerLavaBall::GegnerLavaBall(int Wert1, int Wert2, bool Light) {
 
 void GegnerLavaBall::DoDraw() {
     // Render
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                           yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
 
     // Flare rendern
     DirectGraphics.SetAdditiveMode();
@@ -71,8 +70,7 @@ void GegnerLavaBall::DoKI() {
                                             yPos + 8.0f + static_cast<float>(GegnerRect[GegnerArt].bottom),
                                             LAVA_SPRITZER2);
 
-            SoundManager.PlayWave3D(static_cast<int>(xPos) + 30,
-                                    static_cast<int>(yPos) + 30, 10000 + GetRandom(2050),
+            SoundManager.PlayWave3D(static_cast<int>(xPos) + 30, static_cast<int>(yPos) + 30, 10000 + GetRandom(2050),
                                     SOUND::WATERIN);
         }
 
@@ -86,8 +84,7 @@ void GegnerLavaBall::DoKI() {
                                             yPos + 8.0f + static_cast<float>(GegnerRect[GegnerArt].bottom),
                                             LAVA_SPRITZER);
 
-            SoundManager.PlayWave3D(static_cast<int>(xPos) + 30,
-                                    static_cast<int>(yPos) + 30, 10000 + GetRandom(2050),
+            SoundManager.PlayWave3D(static_cast<int>(xPos) + 30, static_cast<int>(yPos) + 30, 10000 + GetRandom(2050),
                                     SOUND::WATEROUT);
         }
 

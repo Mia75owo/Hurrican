@@ -27,12 +27,7 @@
 
 #if defined(USE_FBO)
 
-CFbo::CFbo()
-    : Enabled(false),
-      texture(GL_INVALID_VALUE),
-      framebuffer(GL_INVALID_VALUE),
-      width(0),
-      height(0) {}
+CFbo::CFbo() : Enabled(false), texture(GL_INVALID_VALUE), framebuffer(GL_INVALID_VALUE), width(0), height(0) {}
 
 bool CFbo::Open(uint16_t w, uint16_t h) {
     Enabled = false;

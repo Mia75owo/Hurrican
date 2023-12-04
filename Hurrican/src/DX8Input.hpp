@@ -32,23 +32,18 @@ constexpr int DINPUT_BUFFERSIZE = 32;
 constexpr int MAX_KEYS = 256;
 
 #if defined(PLATFORM_SDL)
-#  if SDL_VERSION_ATLEAST(2, 0, 0)
-#    define KeyDown(Taste) (TastaturPuffer[SDL_GetScancodeFromKey(Taste)] > 0)
-#    define KeyCode(Taste) (SDL_GetKeyFromScancode(static_cast<SDL_Scancode >(i)))
-#  else
-#    define KeyDown(Taste) (TastaturPuffer[Taste] > 0)
-#    define KeyCode(Taste) (Taste)
-#  endif
+#if SDL_VERSION_ATLEAST(2, 0, 0)
+#define KeyDown(Taste) (TastaturPuffer[SDL_GetScancodeFromKey(Taste)] > 0)
+#define KeyCode(Taste) (SDL_GetKeyFromScancode(static_cast<SDL_Scancode>(i)))
+#else
+#define KeyDown(Taste) (TastaturPuffer[Taste] > 0)
+#define KeyCode(Taste) (Taste)
+#endif
 #endif
 
 // ForceFeedback Effekte
 //
-enum {
-  FFE_SMALLRUMBLE = 0,
-  FFE_MEDIUMRUMBLE = 1,
-  FFE_BIGRUMBLE = 2,
-  FFE_BLITZ = 3
-};
+enum { FFE_SMALLRUMBLE = 0, FFE_MEDIUMRUMBLE = 1, FFE_BIGRUMBLE = 2, FFE_BLITZ = 3 };
 
 constexpr int MAX_JOYSTICKS = 4;
 // DKS - Fixed ambiguity: The game had ControlType and JoystickMode both using this define, but
@@ -87,9 +82,9 @@ class DirectInputClass {
     DirectInputClass();   // Konstruktor
     ~DirectInputClass();  // Desktruktor
 
-    bool Init();                      // DirectInput initialisieren
-    void Exit();                      // DirectInput beenden
-    bool UpdateTastatur();            // Tasten abfragen und im Puffer speichern
+    bool Init();            // DirectInput initialisieren
+    void Exit();            // DirectInput beenden
+    bool UpdateTastatur();  // Tasten abfragen und im Puffer speichern
 #if 0
     bool UpdateMaus(bool gepuffert);  // Maus abfragen gepuffert/ungepuffert
     void AcquireKeyboard();           // Keyboard akquirierens

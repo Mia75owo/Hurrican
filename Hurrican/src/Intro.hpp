@@ -26,12 +26,7 @@
 
 //----- Zustände
 
-enum class IntroStateEnum {
-  FADEIN,
-  RUN,
-  FADEOUT,
-  DONE
-};
+enum class IntroStateEnum { FADEIN, RUN, FADEOUT, DONE };
 
 // --------------------------------------------------------------------------------------
 // Klassen Deklaration für das Intro

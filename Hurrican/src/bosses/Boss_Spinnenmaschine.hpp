@@ -9,25 +9,20 @@ constexpr float TIME_TILL_CLOSE = 40.0f;
 
 constexpr float TIME_TILL_HOCH = 30.0f;
 
-enum class DeckelStateEnum {
-  ZU,
-  OFFEN,
-  OEFFNEN,
-  SCHLIESSEN
-};
+enum class DeckelStateEnum { ZU, OFFEN, OEFFNEN, SCHLIESSEN };
 
 class GegnerSpinnenmaschine : public GegnerClass {
   private:
     int DisplayState;     // Was ist auf dem Monitor zu sehen?
     int OldDisplayState;  // Was ist auf dem Monitor zu sehen?
     int DeckelPhase;      // AnimPhase des Deckels
-    int AnimUnten;  // Aktuelle Animphase für das Unterteil
+    int AnimUnten;        // Aktuelle Animphase für das Unterteil
 
-    DeckelStateEnum DeckelStatus;     // Aktueller Status (siehe #defines)
-    DeckelStateEnum HochStatus;     // Status des Kopfs (siehe #defines)
+    DeckelStateEnum DeckelStatus;  // Aktueller Status (siehe #defines)
+    DeckelStateEnum HochStatus;    // Status des Kopfs (siehe #defines)
 
-    float DeckelCount;    // Counter für Sinusbewegung des Hochgehenden Deckels
-    float DeckelOffset;   // Tatsächlicher Offset (=sin(DeckelCount) * X)
+    float DeckelCount;   // Counter für Sinusbewegung des Hochgehenden Deckels
+    float DeckelOffset;  // Tatsächlicher Offset (=sin(DeckelCount) * X)
     float SizeCount;
     float OpenCounter;  // Cunter wann der Deckel aufgeht
     float HochCounter;  // Conter wann der Kopf hochfährt

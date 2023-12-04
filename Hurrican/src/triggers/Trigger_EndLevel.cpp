@@ -28,9 +28,9 @@ GegnerEndLevel::GegnerEndLevel(int Wert1, int Wert2, bool Light) {
 
 void GegnerEndLevel::DoKI() {
     // Ist der Trigger im Bild ?
-    if (Energy > 0.0f && (NewStage != Value1 || RunningTutorial) &&
-        xPos + 120 > TileEngine.XOffset && xPos < TileEngine.XOffset + RENDERWIDTH &&
-        yPos + 120 > TileEngine.YOffset && yPos < TileEngine.YOffset + RENDERHEIGHT) {
+    if (Energy > 0.0f && (NewStage != Value1 || RunningTutorial) && xPos + 120 > TileEngine.XOffset &&
+        xPos < TileEngine.XOffset + RENDERWIDTH && yPos + 120 > TileEngine.YOffset &&
+        yPos < TileEngine.YOffset + RENDERHEIGHT) {
         // Ausgang berührt ? Dann Nächsten Level laden
         for (int p = 0; p < NUMPLAYERS; p++)
             if (SpriteCollision(xPos, yPos, GegnerRect[GegnerArt], Player[p].xpos, Player[p].ypos,
@@ -39,7 +39,8 @@ void GegnerEndLevel::DoKI() {
             {
                 // Spieler zentrieren
                 if (NUMPLAYERS == 0)
-                    TileEngine.ScrollLevel(Player[0].xpos - 300.0f, Player[0].ypos - 280.0f, TileStateEnum::SCROLLTOLOCK);
+                    TileEngine.ScrollLevel(Player[0].xpos - 300.0f, Player[0].ypos - 280.0f,
+                                           TileStateEnum::SCROLLTOLOCK);
                 else
                     TileEngine.ScrollLevel(TileEngine.XOffset, TileEngine.YOffset, TileStateEnum::SCROLLTOLOCK);
 

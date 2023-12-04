@@ -41,9 +41,8 @@ GegnerFetteRakete::GegnerFetteRakete(int Wert1, int Wert2, bool Light) {
 void GegnerFetteRakete::DoDraw() {
     // Rakete rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                  yPos - TileEngine.YOffset,
-                                                  rot, AnimPhase, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, rot, AnimPhase,
+                                                  0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------

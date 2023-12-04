@@ -11,8 +11,8 @@ class GegnerShootButton : public GegnerClass {
 
   public:
     GegnerShootButton(GegnerClass *Plattform);  // Konstruktor
-    void GegnerExplode() override;                   // Gegner explodiert
-    void DoKI() override;                            // Gegner individuell mit seiner
+    void GegnerExplode() override;              // Gegner explodiert
+    void DoKI() override;                       // Gegner individuell mit seiner
     // eigenen kleinen KI bewegen
     void DoDraw() override;
 };

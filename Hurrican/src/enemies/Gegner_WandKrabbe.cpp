@@ -11,10 +11,8 @@
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerWandKrabbe::GegnerWandKrabbe(int Wert1, int Wert2, bool Light) :
-    lastPlayerAction(DirectionEnum::LINKS),
-    rot(0.0f)
-{
+GegnerWandKrabbe::GegnerWandKrabbe(int Wert1, int Wert2, bool Light)
+    : lastPlayerAction(DirectionEnum::LINKS), rot(0.0f) {
     Handlung = GEGNER::LAUFEN;
     Energy = 100;
     ChangeLight = Light;
@@ -26,7 +24,6 @@ GegnerWandKrabbe::GegnerWandKrabbe(int Wert1, int Wert2, bool Light) :
     AnimStart = 1;
     AnimSpeed = 0.75f;
     ySpeed = 3.0f;
-
 }
 
 // --------------------------------------------------------------------------------------
@@ -38,14 +35,12 @@ void GegnerWandKrabbe::DoDraw() {
 
     // gerade im Flug? Dann rotiert rendern
     if (Handlung == GEGNER::DREHEN || Handlung == GEGNER::FALLEN || Handlung == GEGNER::EXPLODIEREN)
-        pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                      yPos - TileEngine.YOffset, rot, AnimPhase,
-                                                      0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, rot,
+                                                      AnimPhase, 0xFFFFFFFF);
     // andernfalls normal an der Wand entlang rendern
     else {
         pGegnerGrafix[GegnerArt]->itsRect = pGegnerGrafix[GegnerArt]->itsPreCalcedRects[AnimPhase];
-        pGegnerGrafix[GegnerArt]->RenderMirroredSprite(xPos - TileEngine.XOffset,
-                                                       yPos - TileEngine.YOffset, 0xFFFFFFFF,
+        pGegnerGrafix[GegnerArt]->RenderMirroredSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, 0xFFFFFFFF,
                                                        mirrored, ySpeed < 0.0f);
     }
 }
@@ -224,7 +219,8 @@ void GegnerWandKrabbe::DoKI() {
 
     // Keine Energie mehr, aber noch nicht am "abschmieren"? Dann abschmieren lassen ;)
     //
-    if (Handlung != GEGNER::EXPLODIEREN && (Energy <= 0.0f || (blocku & BLOCKWERT_WAND && Handlung != GEGNER::LAUFEN))) {
+    if (Handlung != GEGNER::EXPLODIEREN &&
+        (Energy <= 0.0f || (blocku & BLOCKWERT_WAND && Handlung != GEGNER::LAUFEN))) {
         Energy = 100.0f;
 
         AnimEnde = 0;
@@ -263,10 +259,10 @@ void GegnerWandKrabbe::GegnerExplode() {
                                     yPos + static_cast<float>(GetRandom(30)), EXPLOSION_MEDIUM2);
 
     for (int i = 0; i < 20; i++) {
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(30)),
-                                    yPos + static_cast<float>(GetRandom(64)), FUNKE);
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(25)),
-                                    yPos + static_cast<float>(GetRandom(50)), SPIDERSPLITTER);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(30)), yPos + static_cast<float>(GetRandom(64)),
+                                    FUNKE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(25)), yPos + static_cast<float>(GetRandom(50)),
+                                    SPIDERSPLITTER);
     }
 
     Player[0].Score += 100;

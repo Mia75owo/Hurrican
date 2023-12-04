@@ -163,8 +163,7 @@ void GegnerSmallWespe::DoKI() {
         xAcc = 0.0f;
         yAcc = 2.0f;
 
-        PartikelSystem.PushPartikel(xPos + 2.0f,
-                                    yPos - 10.0f, EXPLOSION_MEDIUM);
+        PartikelSystem.PushPartikel(xPos + 2.0f, yPos - 10.0f, EXPLOSION_MEDIUM);
 
         for (int i = 0; i < 5; i++)
             PartikelSystem.PushPartikel(xPos + 2.0f + static_cast<float>(GetRandom(20)),

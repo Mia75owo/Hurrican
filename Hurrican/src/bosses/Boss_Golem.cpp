@@ -22,14 +22,8 @@ constexpr int ARMSIZEY = 179;
 // Konstruktor
 // --------------------------------------------------------------------------------------
 
-GegnerGolem::GegnerGolem(int Wert1, int Wert2, bool Light) :
-    last(0),
-    Wackel(0.0f),
-    WackelDir(1.0f),
-    rotarm1(0.0f),
-    rotarm2(0.0f),
-    yoff(0.0f)
-{
+GegnerGolem::GegnerGolem(int Wert1, int Wert2, bool Light)
+    : last(0), Wackel(0.0f), WackelDir(1.0f), rotarm1(0.0f), rotarm2(0.0f), yoff(0.0f) {
     Handlung = GEGNER::NOTVISIBLE;
     BlickRichtung = DirectionEnum::LINKS;
     Energy = 8000;
@@ -51,7 +45,6 @@ GegnerGolem::GegnerGolem(int Wert1, int Wert2, bool Light) :
 // --------------------------------------------------------------------------------------
 
 float GegnerGolem::WinkelToPlayer() {
-
     float ydiv = (pAim->ypos + 40) - (yPos + yoff + 50);
     if (ydiv == 0.0f)
         ydiv = 0.00001f;
@@ -92,7 +85,6 @@ void GegnerGolem::Wackeln() {
 // --------------------------------------------------------------------------------------
 
 void GegnerGolem::DoDraw() {
-
     float wackel = 0.0f;
 
     if (Handlung == GEGNER::EXPLODIEREN)
@@ -150,8 +142,7 @@ void GegnerGolem::DoDraw() {
 #endif
 
     // Arm hinten zeichnen
-    arm[0].RenderSprite(xPos - TileEngine.XOffset + wackel,
-                        yPos - TileEngine.YOffset + yoff, Color);
+    arm[0].RenderSprite(xPos - TileEngine.XOffset + wackel, yPos - TileEngine.YOffset + yoff, Color);
 
     // Körper zeichnen
     matWorld = glm::mat4x4(1.0f);
@@ -163,8 +154,7 @@ void GegnerGolem::DoDraw() {
     load_matrix(GL_MODELVIEW, glm::value_ptr(g_matModelView));
 #endif
 
-    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset + wackel,
-                                           yPos - TileEngine.YOffset + yoff, Color);
+    pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset + wackel, yPos - TileEngine.YOffset + yoff, Color);
 
     // Arm
     offx = 0;
@@ -198,8 +188,7 @@ void GegnerGolem::DoDraw() {
 #endif
 
     // Arm zeichnen
-    arm[1].RenderSprite(xPos - TileEngine.XOffset + wackel,
-                        yPos - TileEngine.YOffset + yoff, Color);
+    arm[1].RenderSprite(xPos - TileEngine.XOffset + wackel, yPos - TileEngine.YOffset + yoff, Color);
 
     // Normale Projektions-Matrix wieder herstellen
     matWorld = glm::mat4x4(1.0f);
@@ -256,8 +245,7 @@ void GegnerGolem::DoKI() {
         xPos += 400;
 
         // hinscrollen
-        TileEngine.ScrollLevel(static_cast<float>(Value1),
-                               static_cast<float>(Value2), TileStateEnum::SCROLLTOLOCK);
+        TileEngine.ScrollLevel(static_cast<float>(Value1), static_cast<float>(Value2), TileStateEnum::SCROLLTOLOCK);
 
         // Ausfaden und pausieren
         SoundManager.FadeSong(MUSIC::STAGEMUSIC, -2.0f, 0, true);
@@ -394,8 +382,7 @@ void GegnerGolem::DoKI() {
                         SoundManager.PlayWave(75, 128, 15000 + GetRandom(2000), SOUND::DOORSTOP);
 
                         Gegner.PushGegner(TileEngine.XOffset + 100.0f + static_cast<float>(GetRandom(540)),
-                                          TileEngine.YOffset + RENDERHEIGHT, LAVABALL, 50 + GetRandom(10), 0,
-                                          false);
+                                          TileEngine.YOffset + RENDERHEIGHT, LAVABALL, 50 + GetRandom(10), 0, false);
                     }
                 } break;
 
@@ -414,8 +401,7 @@ void GegnerGolem::DoKI() {
                         SoundManager.PlayWave(75, 128, 15000 + GetRandom(2000), SOUND::DOORSTOP);
 
                         Gegner.PushGegner(pAim->xpos - 20.0f + static_cast<float>(GetRandom(70)),
-                                          TileEngine.YOffset + RENDERHEIGHT, LAVABALL, 50 + GetRandom(10), 0,
-                                          false);
+                                          TileEngine.YOffset + RENDERHEIGHT, LAVABALL, 50 + GetRandom(10), 0, false);
 
                         StoneCount--;
 
@@ -431,7 +417,6 @@ void GegnerGolem::DoKI() {
 
         // Ausgangsposition für Aktionen herstellen
         case GEGNER::SPECIAL: {
-
             // zuende wackeln
             Wackeln();
 
@@ -586,10 +571,10 @@ void GegnerGolem::DoKI() {
                     rotarm1 -= Timer.sync(0.6f);
 
                     if (rotarm1 <= 2.0f) {
-                        Gegner.PushGegner(xPos - 40.0f, yPos + 30.0f, BOULDER, -(GetRandom(80) + 10), -(GetRandom(20) + 10),
-                                          true);
-                        Gegner.PushGegner(xPos - 40.0f, yPos + 30.0f, BOULDER, -(GetRandom(40) + 10), -(GetRandom(10) + 10),
-                                          true);
+                        Gegner.PushGegner(xPos - 40.0f, yPos + 30.0f, BOULDER, -(GetRandom(80) + 10),
+                                          -(GetRandom(20) + 10), true);
+                        Gegner.PushGegner(xPos - 40.0f, yPos + 30.0f, BOULDER, -(GetRandom(40) + 10),
+                                          -(GetRandom(10) + 10), true);
                         SoundManager.PlayWave(100, 128, 14000 + GetRandom(4000), SOUND::STONEFALL);
                         state2 = ArmState::SENKEN2;
                     }
@@ -597,7 +582,6 @@ void GegnerGolem::DoKI() {
 
                 // wieder in wurf ausgangsposition
                 case ArmState::SENKEN2: {
-
                     // zuende wackeln
                     Wackeln();
 
@@ -674,8 +658,8 @@ void GegnerGolem::DoKI() {
 
                         // Spritzer
                         for (int i = 0; i < 48; i++)
-                            PartikelSystem.PushPartikel(xPos - 80.0f + static_cast<float>(GetRandom(50)),
-                                                        yPos + 245.0f, LAVA_SPRITZER2);
+                            PartikelSystem.PushPartikel(xPos - 80.0f + static_cast<float>(GetRandom(50)), yPos + 245.0f,
+                                                        LAVA_SPRITZER2);
 
                         SoundManager.PlayWave3D(static_cast<int>(xPos) + 30, static_cast<int>(yPos) + 30,
                                                 10000 + GetRandom(2050), SOUND::WATERIN);

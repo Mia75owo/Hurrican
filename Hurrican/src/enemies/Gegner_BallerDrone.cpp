@@ -28,18 +28,17 @@ GegnerBallerdrone::GegnerBallerdrone(int Wert1, int Wert2, bool Light) {
 
 void GegnerBallerdrone::DoDraw() {
     if (Handlung == GEGNER::FALLEN)
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, AnimPhase, 0xFFFF0000);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase,
+                                               0xFFFF0000);
     else
-        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset,
-                                               yPos - TileEngine.YOffset, AnimPhase, 0xFFFFFFFF);
+        pGegnerGrafix[GegnerArt]->RenderSprite(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, AnimPhase,
+                                               0xFFFFFFFF);
 
     // Flare rendern
     if (AlreadyDrawn == false) {
         DirectGraphics.SetAdditiveMode();
-        Projectiles.LavaFlare.RenderSprite(xPos - TileEngine.XOffset - 15.0f,
-                                           yPos - TileEngine.YOffset - 45.0f,
-                                           0, 0xFFFF0000);
+        Projectiles.LavaFlare.RenderSprite(xPos - TileEngine.XOffset - 15.0f, yPos - TileEngine.YOffset - 45.0f, 0,
+                                           0xFFFF0000);
         DirectGraphics.SetColorKeyMode();
     }
 
@@ -57,8 +56,7 @@ void GegnerBallerdrone::DoKI() {
     if (AnimCount < 0.0f) {
         AnimCount += 0.2f;
 
-        PartikelSystem.PushPartikel(xPos + 37.0f + static_cast<float>(GetRandom(3)),
-                                    yPos + 35.0f, ROBOMANSMOKE);
+        PartikelSystem.PushPartikel(xPos + 37.0f + static_cast<float>(GetRandom(3)), yPos + 35.0f, ROBOMANSMOKE);
     }
 
     xSpeed = std::clamp(xSpeed, -20.0f, 20.0f);
@@ -164,8 +162,8 @@ void GegnerBallerdrone::GegnerExplode() {
                                     yPos - 30.0f + static_cast<float>(GetRandom(60)), SMOKEBIG);
 
     for (int i = 0; i < 40; i++)
-        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(90)),
-                                    yPos + static_cast<float>(GetRandom(60)), FUNKE);
+        PartikelSystem.PushPartikel(xPos + static_cast<float>(GetRandom(90)), yPos + static_cast<float>(GetRandom(60)),
+                                    FUNKE);
 
     Player[0].Score += 300;
 }

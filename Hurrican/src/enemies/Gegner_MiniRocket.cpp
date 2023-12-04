@@ -55,9 +55,8 @@ void GegnerMiniRocket::DoDraw() {
 
     // Rakete rendern
     //
-    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset,
-                                                  yPos - TileEngine.YOffset,
-                                                  rot, 0, 0xFFFFFFFF);
+    pGegnerGrafix[GegnerArt]->RenderSpriteRotated(xPos - TileEngine.XOffset, yPos - TileEngine.YOffset, rot, 0,
+                                                  0xFFFFFFFF);
 }
 
 // --------------------------------------------------------------------------------------
