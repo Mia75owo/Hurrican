@@ -44,8 +44,7 @@ jobs:
         cd Hurrican/build
         cmake -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" \
-            -DOPENMPT=OFF \
+            -DOPENMPT=ON \
             ..
         cmake --build .
     - name: package
