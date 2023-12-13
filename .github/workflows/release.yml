@@ -29,8 +29,6 @@ jobs:
           mingw-w64-x86_64-SDL2_mixer
           mingw-w64-x86_64-libepoxy
           mingw-w64-x86_64-libopenmpt
-          mingw-w64-x86_64-mesa
-          mingw-w64-x86_64-angleproject
     - uses: actions/checkout@v3
       with:
         submodules: true
@@ -44,7 +42,7 @@ jobs:
         cd Hurrican/build
         cmake -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" \
+            -DCMAKE_EXE_LINKER_FLAGS="" \
             -DOPENMPT=ON \
             ..
         cmake --build .
@@ -52,7 +50,7 @@ jobs:
       run: |
         export PACKAGE_NAME=hurrican-${{ steps.get_tag_name.outputs.tagname }}-w64
         cd Hurrican
-        mkdir -p ${PACKAGE_NAME}
+        mkdir ${PACKAGE_NAME}
         cp ../README.md ${PACKAGE_NAME}
         cp ../LICENSE ${PACKAGE_NAME}
         cp build/hurrican.exe ${PACKAGE_NAME}
@@ -61,8 +59,6 @@ jobs:
         strip ${PACKAGE_NAME}/hurrican.exe
         upx ${PACKAGE_NAME}/hurrican.exe || true
         ldd ${PACKAGE_NAME}/hurrican.exe |grep -vi Windows|awk '{ print $3 }' | while read file ; do cp "$file" ${PACKAGE_NAME} ; done
-        cp `which libEGL.dll` ${PACKAGE_NAME}
-        cp `which libGLESv2.dll` ${PACKAGE_NAME}
         strip ${PACKAGE_NAME}/*.dll
         zip -r ${PACKAGE_NAME}.zip ${PACKAGE_NAME}/*
     - uses: svenstaro/upload-release-action@v2
